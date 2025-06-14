@@ -40,8 +40,14 @@ function Articles() {
 
 
                 <div className="tags-container">
-                    tags: 
-                    {article?.tags}
+                    <p>categories:</p>
+                    
+                    <div className="tags-div">
+                        {article?.tags.map((tag) => (
+                            <p className="article-tag">{tag}</p>
+                        ))}
+                    </div>
+                    
                 </div>
                 
                 <div className="comments-div">
