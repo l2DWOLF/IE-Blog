@@ -12,21 +12,51 @@
 
 .articles-container {
     display: flex;
+    flex-direction:column;
+    align-items: center;
     flex-wrap: wrap;
-    width: 80%;
-    padding: .5em;
-    gap: .5em;
+    width: 90%;
+    padding: 3em 0;
+    gap: 3em;
     
     margin-bottom: 1em;
+
+    background:yellow;
 }
 
 .article-card{
-    max-width: 48%;
+    width: 80%;
     display: flex;
     flex-direction: column;
+    align-items: center;
     text-align: center;
-    padding: .5em;
+    text-transform:capitalize;
+    padding: 1em .5em;
     gap: 1em;
 
     background:grey;
+}
+
+.comments-div{
+
+    background:slateblue;
+    width: 80%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1em .3em;
+}
+
+.comments-container{
+    width: 95%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .5em;
+    
+}
+
+.comment{
+    background:purple;
+    width:50%;
 }

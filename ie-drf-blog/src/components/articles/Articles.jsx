@@ -13,6 +13,8 @@ function Articles() {
             try{
                 let serverArticles = await getAllArticles();
                 setArticles(serverArticles.results)
+                console.log(serverArticles.results[1].tags);
+                
             } catch(e) {
                 console.error(e)
             }
@@ -35,8 +37,29 @@ function Articles() {
                 <p>{article?.content}</p>
                 <p>Created at: {article?.created_at}</p>
                 <p>last update: {article?.updated_at}</p>
-                <p>tags: {article?.tags}</p>
-            
+
+
+                <div className="tags-container">
+                    tags: 
+                    {article?.tags}
+                </div>
+                
+                <div className="comments-div">
+                    <h3>Comments:</h3>
+
+                <div className="comments-container">
+                    <div className="comment">
+                        <p>Great article, very useful thanks! </p>
+                        <p>by: comment author</p>
+                    </div>
+                    <div className="comment">
+                        <p>Incredible! Thank you!!! </p>
+                        <p>by: comment 2 author 2</p>
+                    </div>
+                </div>
+                    
+
+                </div>
             </div>   
             ))
         }
