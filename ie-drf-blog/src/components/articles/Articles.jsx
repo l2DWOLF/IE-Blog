@@ -1,25 +1,28 @@
 import './css/articles.css'
 import { useState, useEffect } from "react"
 import { getAllArticles } from "../../../services/articleServices";
+import { getAllComments } from '../../../services/commentServices';
 
 
 
 function Articles() {
-    let [articles, setArticles] = useState([]);
-
+    const [articles, setArticles] = useState([]);
+    const [comments, setComments] = useState([]);
 
     useEffect(() => {
-        const fetchArticles = async () => {
+        const fetchData = async () => {
             try{
-                let serverArticles = await getAllArticles();
+                const serverArticles = await getAllArticles();
+                const serverComments = await getAllComments();
+            
                 setArticles(serverArticles.results)
-                console.log(serverArticles.results[1].tags);
+                setComments(serverComments)
                 
             } catch(e) {
                 console.error(e)
             }
         };
-        fetchArticles();
+        fetchData();
     }, [])
 
 
@@ -43,8 +46,8 @@ function Articles() {
                     <p>categories:</p>
                     
                     <div className="tags-div">
-                        {article?.tags.map((tag) => (
-                            <p className="article-tag">{tag}</p>
+                        {article?.tags.map((tag, id) => (
+                            <p className="article-tag" key={id}>{tag}</p>
                         ))}
                     </div>
                     
@@ -62,6 +65,10 @@ function Articles() {
                         <p>Incredible! Thank you!!! </p>
                         <p>by: comment 2 author 2</p>
                     </div>
+
+                    {
+                        
+                    }
                 </div>
                     
 
@@ -71,6 +78,5 @@ function Articles() {
         }
         </div>
 
-</section>)
-}
+</section>)}
 export default Articles

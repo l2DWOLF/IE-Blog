@@ -1,12 +1,11 @@
 header{
-    position: fixed;
-    width:100%;
+    background: black;
+    width: 100%;
     max-width: 100%;
+    position: fixed;
     height:65px;
     top: 0;
     bottom: 0;
-
-    border: 1px solid red;
 }
 
 .navbar{
