@@ -1,7 +1,6 @@
 
 
 .home-div{
-    background: rgba(0, 255, 0, 0.079);
     min-height: calc(100vh - 70px);
 
     display:flex;
@@ -9,4 +8,8 @@
     align-items: center;
     gap: 1em;
     padding: 1em;
+}
+
+.home-div h1{
+    margin: .5em 0;
 }
