@@ -16,7 +16,7 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: whitesmoke;
   text-decoration: inherit;
 }
 a:hover {
@@ -24,7 +24,7 @@ a:hover {
 }
 
 body {
-  background-image: url('/bg1.jpg');
+  background-image: url('/bg3.jpg');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;

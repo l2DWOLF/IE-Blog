@@ -1,5 +1,5 @@
 header{
-    background-image: url('/bg1.jpg');
+    background-image: url('/bg3.jpg');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -13,7 +13,8 @@ header{
     bottom: 0;
     z-index: 1000;
 
-    box-shadow: 0px 0px 25px 1px rgba(255, 255, 255, 0.325);
+    border-bottom: 2px solid green;
+    box-shadow: 0px 0px 25px 1px rgba(0, 255, 38, 0.325);
 }
 
 header::before {
@@ -48,19 +49,22 @@ header::before {
 .logo{
     width:100px;
     text-align: center;
-    border: 2px inset green;
+    border-radius: 25%;
+    box-shadow: 0px 0px 5px 1px rgba(0, 128, 0, 0.34);
     padding:5px;
 
 }
+
 ul{
     display: flex;
     justify-content: space-between;
     min-width:150px;
     max-width: 300px;
-    padding: 5px;
+    padding: 5px 10px;
     
     list-style-type: none;
-    border: 1px solid orange;
+    border-radius: 25%;
+    border: 1px solid rgba(1, 255, 47, 0.23);
 }
 
 .site-nav{

@@ -1,5 +1,6 @@
 import './css/articles.css'
 import { useState, useEffect } from "react"
+import { ThumbsUp, ThumbsDown, Edit3, Trash2} from "lucide-react";
 import { getAllArticles } from "../../../services/articleServices";
 import { getAllComments } from '../../../services/commentServices';
 
@@ -56,22 +57,44 @@ function Articles() {
                 <div className="comments-div">
                     <h3>Comments:</h3>
 
-                <div className="comments-container">
-                    <div className="comment">
-                        <p>Great article, very useful thanks! </p>
-                        <p>by: comment author</p>
+                    <div className="comments-container">
+                        <div className="comment">
+                            <p>Great article, very useful thanks! </p>
+                            <p>by: comment author</p>
+                        </div>
+                        <div className="comment">
+                            <p>Incredible! Thank you!!! </p>
+                            <p>by: comment 2 author 2</p>
+                        </div>
                     </div>
-                    <div className="comment">
-                        <p>Incredible! Thank you!!! </p>
-                        <p>by: comment 2 author 2</p>
-                    </div>
-
-                    {
-                        
-                    }
-                </div>
                     
+                </div>
 
+                <div className="card-btns">
+                    {(article?.id) && (
+                        <button title="Like this Article">
+                            <ThumbsUp className="card-icons"/>
+                        </button>
+                    )}
+                    {(article?.id) && (
+                        <button title="Dislike this Article">
+                            <ThumbsDown className="card-icons"/>
+                        </button>
+                    )}
+                    {(article?.id) && (
+                        <>
+                            <button title="Edit this Article">
+                                <Edit3 className="card-icons" />
+                            </button>
+                        </>
+                    )}
+                    {(article?.id) && (
+                        <>
+                            <button title="Delete this Article">
+                                <Trash2 className="card-icons" />
+                            </button>
+                        </>
+                    )}
                 </div>
             </div>   
             ))

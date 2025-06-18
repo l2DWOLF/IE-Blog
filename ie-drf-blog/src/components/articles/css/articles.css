@@ -9,7 +9,7 @@
     box-shadow: 0px 0px 20px 5px rgba(0, 7, 0, 0.505);
     border-radius: 10px;
     
-    background-color: rgba(4, 255, 0, 0.04)
+    background-color: rgba(255, 255, 255, 0.048)
     /* -webkit-backdrop-filter: blur(1px);
     backdrop-filter: blur(2px); */
 }
@@ -89,7 +89,17 @@
 
 .article-tag{
     border: 1px solid black;
-
     padding: .3em;
+}
 
+.card-btns{
+    width: 400px;
+
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+button:hover{
+    background:rgb(64, 64, 106);
 }
