@@ -1,17 +1,20 @@
 .articles-section{
-    width: 90%;
+    width: 93%;
     display:flex;
     flex-direction:column;
     align-items: center;
     padding: 2em 1em;
-    margin-bottom: 1em;
+    margin-bottom: 5em;
     gap: 1em;
     box-shadow: 0px 0px 20px 5px rgba(0, 7, 0, 0.505);
     border-radius: 10px;
     
-    background-color: rgba(255, 255, 255, 0.048)
-    /* -webkit-backdrop-filter: blur(1px);
-    backdrop-filter: blur(2px); */
+    background-color: rgba(255, 255, 255, 0.048);
+    transition: .8s;
+}
+
+.articles-section:hover{
+    width: 95%;
 }
 
 .articles-section h2{
@@ -25,27 +28,54 @@
     flex-wrap: wrap;
     width: 90%;
     padding: 3em 0;
-    gap: 3em;
+    gap: 5em;
     
     margin-bottom: 1em;
 }
 
 .article-card{
-    width: 80%;
+    width: 90%;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     text-transform:capitalize;
-    padding: 1em .5em;
+    padding: 2em .5em 1em;
     gap: 1em;
 
     background-color: rgba(3, 63, 3, 0.118);
     box-shadow: 0px 0px 15px 1px rgb(0, 0, 0);
     border-radius: 10px;
 
-    -webkit-backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
+
+    transition: .8s;
+}
+
+.article-card:hover{
+    background-color: rgba(3, 42, 3, 0.289);
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
+    transform:scale(1.02)
+}
+
+.article-card p{
+    transition: 1s;
+    width: 80%;
+}
+
+.article-content{
+    max-width: 85%;
+    background: rgba(0, 0, 0, 0.282);
+    font-weight: 600;
+    padding: 1.4em;
+    border-radius: 15px;
+    transition: .8s;
+}
+.article-card:hover .article-content{
+    background:rgba(0, 0, 0, 0.682);
+    font-weight: 600;
 }
 
 .comments-div{
@@ -90,6 +120,7 @@
 .article-tag{
     border: 1px solid black;
     padding: .3em;
+    width:1000px;
 }
 
 .card-btns{

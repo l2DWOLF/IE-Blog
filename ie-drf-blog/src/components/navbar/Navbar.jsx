@@ -22,7 +22,7 @@ function Navbar() {
                 <div className="site-nav">
                     <ul>
                         <li>
-                            <NavLink to="/">Homepage</NavLink>
+                            <NavLink to="/">Home</NavLink>
 
                         </li>
                         <li>

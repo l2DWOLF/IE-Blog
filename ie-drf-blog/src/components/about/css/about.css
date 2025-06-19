@@ -1,0 +1,33 @@
+
+
+.about-section{
+    min-height: calc(100vh - 70px);
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+    padding: 1em;
+    margin-bottom: 2em;
+}
+
+.about-section h1{
+    margin: 1em 0;
+}
+
+.about-p{
+    text-align: center;
+    width: 50%;
+    padding: 2em;
+    background: rgba(0, 0, 0, 0.732);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    transition: 1s;
+}
+
+.about-p:hover{
+    background: rgba(0, 0, 0, 0.815);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}

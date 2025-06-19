@@ -35,13 +35,11 @@ function Articles() {
             articles.map((article) => (
             <div className="article-card" key={article?.id}>
 
-                <p>Author: {article.author_name}</p>
-                
-                <p>{article?.title}</p>
-                <p>{article?.content}</p>
+                <h3>{article?.title}</h3>
+                <h4>Article By: {article?.author_name}</h4>
+                <p className="article-content">{article?.content}</p>
                 <p>Created at: {article?.created_at}</p>
                 <p>last update: {article?.updated_at}</p>
-
 
                 <div className="tags-container">
                     <p>categories:</p>
