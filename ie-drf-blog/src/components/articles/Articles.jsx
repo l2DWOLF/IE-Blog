@@ -3,8 +3,7 @@ import { useState, useEffect } from "react"
 import { ThumbsUp, ThumbsDown, Edit3, Trash2} from "lucide-react";
 import { getAllArticles } from "../../../services/articleServices";
 import { getAllComments } from '../../../services/commentServices';
-
-
+import Comment from '../comments/Comment'
 
 function Articles() {
     const [articles, setArticles] = useState([]);
@@ -18,6 +17,7 @@ function Articles() {
             
                 setArticles(serverArticles.results)
                 setComments(serverComments)
+                console.log(serverComments);
                 
             } catch(e) {
                 console.error(e)
@@ -32,7 +32,11 @@ function Articles() {
 
         <div className="articles-container">
         {
-            articles.map((article) => (
+            articles.map((article) => {
+            
+            const nestedComments = comments.filter((c) => c.article === article.id);
+            
+            return (
             <div className="article-card" key={article?.id}>
 
                 <h3>{article?.title}</h3>
@@ -43,40 +47,37 @@ function Articles() {
 
                 <div className="tags-container">
                     <p>categories:</p>
-                    
+
                     <div className="tags-div">
                         {article?.tags.map((tag, id) => (
                             <p className="article-tag" key={id}>{tag}</p>
                         ))}
                     </div>
-                    
+
                 </div>
-                
+
                 <div className="comments-div">
                     <h3>Comments:</h3>
 
                     <div className="comments-container">
-                        <div className="comment">
-                            <p>Great article, very useful thanks! </p>
-                            <p>by: comment author</p>
-                        </div>
-                        <div className="comment">
-                            <p>Incredible! Thank you!!! </p>
-                            <p>by: comment 2 author 2</p>
-                        </div>
+                        {nestedComments.length > 0 ? nestedComments.map(comment => (
+                            <Comment key={comment.id} comment={comment} />
+                        )) : (
+                            <p>No comments yet.</p>
+                        )}
                     </div>
-                    
+
                 </div>
 
                 <div className="card-btns">
                     {(article?.id) && (
                         <button title="Like this Article">
-                            <ThumbsUp className="card-icons"/>
+                            <ThumbsUp className="card-icons" />
                         </button>
                     )}
                     {(article?.id) && (
                         <button title="Dislike this Article">
-                            <ThumbsDown className="card-icons"/>
+                            <ThumbsDown className="card-icons" />
                         </button>
                     )}
                     {(article?.id) && (
@@ -95,7 +96,9 @@ function Articles() {
                     )}
                 </div>
             </div>   
-            ))
+            )
+            
+            })
         }
         </div>
 

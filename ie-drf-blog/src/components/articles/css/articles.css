@@ -44,6 +44,7 @@
     gap: 1em;
 
     background-color: rgba(3, 63, 3, 0.118);
+    border: 1px solid rgba(255, 255, 255, 0.359);
     box-shadow: 0px 0px 15px 1px rgb(0, 0, 0);
     border-radius: 10px;
 
@@ -55,6 +56,7 @@
 
 .article-card:hover{
     background-color: rgba(3, 42, 3, 0.289);
+    border: 1px solid snow;
     -webkit-backdrop-filter: blur(15px);
     backdrop-filter: blur(15px);
     transform:scale(1.02)
@@ -62,7 +64,6 @@
 
 .article-card p{
     transition: 1s;
-    width: 80%;
 }
 
 .article-content{
@@ -72,34 +73,14 @@
     padding: 1.4em;
     border-radius: 15px;
     transition: .8s;
+
+
+    white-space: pre-wrap;
+    line-height: 1.6;     
 }
 .article-card:hover .article-content{
     background:rgba(0, 0, 0, 0.682);
     font-weight: 600;
-}
-
-.comments-div{
-
-    border: 1px solid slateblue;
-    width: 80%;
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 1em .3em;
-}
-
-.comments-container{
-    width: 95%;
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    gap: .5em;
-    
-}
-
-.comment{
-    border: 1px solid purple;
-    width:50%;
 }
 
 .tags-container{
@@ -107,20 +88,24 @@
 }
 
 .tags-div{
-    border: 2px solid black;
     border: 1px solid darkgreen;
-
     display: flex;
+    
     padding: .5em;
     gap: .3em;
-
     border-radius: 20px;
 }
 
 .article-tag{
+    width: auto;
+    padding: 0.3em 0.8em;
     border: 1px solid black;
-    padding: .3em;
-    width:1000px;
+    border-radius: 12px;
+    white-space: nowrap;
+    max-width: 100%;
+    background-color: #22222273;
+    color: #eee;
+    font-size: 0.9rem;
 }
 
 .card-btns{
@@ -128,7 +113,6 @@
 
     display: flex;
     justify-content: space-between;
-    
 }
 
 button:hover{
