@@ -1,17 +1,20 @@
-import "./css/login.css"
+import "./css/login.css";
 import { useFormik } from "formik";
-import * as yup from "yup"
-import { emailField, pwField } from "../../utils/validations/yupValidations";
+import * as yup from "yup";
+import {useDispatch} from "react-redux";
+import { emailField, pwField, usernameField } from "../../utils/validations/yupValidations";
+import { loginHandler } from "../utils/authService";
 
 function Login(){
+    const dispatch = useDispatch();
 
     const formik = useFormik({
         initialValues: {
-            email: "",
+            username: "",
             password: "",
         },
         validationSchema: yup.object({
-            email: emailField,
+            username: usernameField,
             password: pwField
         }),
         onSubmit: async (values) => {
@@ -34,10 +37,10 @@ function Login(){
             <h3>Login Form</h3>
             <form className="login-form" onSubmit={formik.handleSubmit}>
                 <div className="input-field">
-                    <label htmlFor="email">*Email:</label>
-                    <input type="email" name="email" id="email" autoComplete="on" placeholder="Enter Email" value={formik.values.email} onBlur={formik.handleBlur} onChange={formik.handleChange} />
-                    {formik.touched.email && formik.errors.email && (<p className="input-error-msg">
-                        {formik.errors.email}
+                    <label htmlFor="username">*Username:</label>
+                    <input type="username" name="username" id="username" autoComplete="on" placeholder="Enter Username" value={formik.values.username} onBlur={formik.handleBlur} onChange={formik.handleChange} />
+                    {formik.touched.username && formik.errors.username && (<p className="input-error-msg">
+                        {formik.errors.username}
                     </p>)}
                 </div>
 
