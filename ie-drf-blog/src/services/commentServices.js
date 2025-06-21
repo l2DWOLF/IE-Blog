@@ -1,9 +1,9 @@
-import axios from 'axios'
+import axios from './AxiosInstance'
 import { handleResponse } from './utils/handleResponse'
 
 export async function getAllComments(){
     let allComments = [];
-    let nextUrl = "http://127.0.0.1:8000/api/comments/"
+    let nextUrl = "comments/"
 
     while (nextUrl) {
         const response = await axios.get(nextUrl);

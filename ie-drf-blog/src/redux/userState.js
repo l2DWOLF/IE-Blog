@@ -8,9 +8,9 @@ export class UserState{
             is_mod: false,
         }
 
-        this.token = sessionStorage.getItem("token") || "";
-        this.jwt = sessionStorage.getItem("jwt") || "";
-
+        this.token = sessionStorage.getItem("access_token") || "";
+        this.user = sessionStorage.getItem("user") ? JSON.parse(sessionStorage.getItem("user")) : defaultUser;
+        
     }
 }
 
@@ -23,7 +23,7 @@ export const ActionType = {
 
 // Action creators
 export function SetToken(token) {
-    sessionStorage.setItem("x-auth-token", token);
+    sessionStorage.setItem("access_token", token);
     return { type: ActionType.SetToken, payload: token };
 }
 
@@ -32,15 +32,10 @@ export function SetUser(user) {
     return { type: ActionType.SetUser, payload: user };
 }
 
-export function SetMyCardIds(myCardIds) {
-    sessionStorage.setItem("myCardIds", JSON.stringify(myCardIds));
-    return { type: ActionType.SetMyCardIds, payload: myCardIds };
-}
 
 export function Signoff() {
-    sessionStorage.removeItem("x-auth-token");
+    sessionStorage.removeItem("access_token");
     sessionStorage.removeItem("user");
-    sessionStorage.removeItem("myCardIds");
     return { type: ActionType.Signoff };
 }
 
@@ -56,18 +51,13 @@ export function userReducer(currentState = new UserState(), action) {
             newState.user = action.payload;
             break;
 
-        case ActionType.SetMyCardIds:
-            newState.myCardIds = action.payload;
-            break;
-
         case ActionType.Signoff:
             newState.token = "";
             newState.user = {
-                _id: "",
-                isBusiness: false,
-                isAdmin: false,
+                id: "",
+                is_mod: false,
+                is_admin: false,
             };
-            newState.myCardIds = [];
             break;
 
         default:

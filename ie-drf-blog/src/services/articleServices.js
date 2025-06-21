@@ -1,7 +1,7 @@
-import axios from "axios"
+import axios from "./AxiosInstance"
 import { handleResponse } from "./utils/handleResponse";
 
 
 export function getAllArticles(){
-    return axios.get('http://127.0.0.1:8000/api/articles').then(handleResponse);
+    return axios.get('articles/').then(handleResponse);
 }
