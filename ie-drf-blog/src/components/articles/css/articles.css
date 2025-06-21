@@ -71,13 +71,43 @@
     background: rgba(0, 0, 0, 0.282);
     font-weight: 600;
     padding: 1.4em;
+    padding-bottom: 3em;
     border-radius: 15px;
     transition: .8s;
 
-
+    overflow: hidden;
     white-space: pre-wrap;
-    line-height: 1.6;     
+    line-height: 1.6;
+    max-height: 500px;
+    position: relative;   
 }
+
+.article-content.expanded {
+    max-height: none;
+    overflow: visible;
+}
+
+.read-more-btn {
+    background-color: none;
+    border: none;
+    color: #00ff66;
+    border-radius: 6px;
+    padding: 0.4em 2em;
+    margin-top: 0em;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: .85rem;
+    transition: background-color 0.3s ease;
+
+    transform: translateY(-50px);
+}
+
+.read-more-btn:hover {
+    border:none;
+    background-color: #00ff66;
+    color: black; 
+}
+
 .article-card:hover .article-content{
     background:rgba(0, 0, 0, 0.682);
     font-weight: 600;
