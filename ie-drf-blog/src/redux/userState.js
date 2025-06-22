@@ -1,16 +1,16 @@
-export class UserState{
-    constructor(){
 
-        const defaultUser = {
-            id: "",
-            username: "",
-            is_admin: false,
-            is_mod: false,
-        }
+const defaultUser = {
+    id: "",
+    username: "",
+    is_admin: false,
+    is_mod: false,
+};
 
-        this.token = sessionStorage.getItem("access_token") || "";
+export class UserState {
+    constructor() {
+        this.accessToken = sessionStorage.getItem("access_token") || "";
+        this.refreshToken = sessionStorage.getItem("refresh_token") || "";
         this.user = sessionStorage.getItem("user") ? JSON.parse(sessionStorage.getItem("user")) : defaultUser;
-        
     }
 }
 
@@ -21,10 +21,10 @@ export const ActionType = {
     Signoff: "Signoff",
 };
 
-// Action creators
-export function SetToken(token) {
-    sessionStorage.setItem("access_token", token);
-    return { type: ActionType.SetToken, payload: token };
+export function SetToken(accessToken, refreshToken) {
+    sessionStorage.setItem("access_token", accessToken);
+    sessionStorage.setItem("refresh_token", refreshToken);
+    return { type: ActionType.SetToken, payload: { accessToken, refreshToken } };
 }
 
 export function SetUser(user) {
@@ -32,9 +32,9 @@ export function SetUser(user) {
     return { type: ActionType.SetUser, payload: user };
 }
 
-
 export function Signoff() {
     sessionStorage.removeItem("access_token");
+    sessionStorage.removeItem("refresh_token");
     sessionStorage.removeItem("user");
     return { type: ActionType.Signoff };
 }
@@ -44,7 +44,8 @@ export function userReducer(currentState = new UserState(), action) {
 
     switch (action.type) {
         case ActionType.SetToken:
-            newState.token = action.payload;
+            newState.accessToken = action.payload.accessToken;
+            newState.refreshToken = action.payload.refreshToken;
             break;
 
         case ActionType.SetUser:
@@ -52,17 +53,13 @@ export function userReducer(currentState = new UserState(), action) {
             break;
 
         case ActionType.Signoff:
-            newState.token = "";
-            newState.user = {
-                id: "",
-                is_mod: false,
-                is_admin: false,
-            };
+            newState.accessToken = "";
+            newState.refreshToken = "";
+            newState.user = defaultUser;
             break;
 
         default:
             break;
     }
-
     return newState;
 }

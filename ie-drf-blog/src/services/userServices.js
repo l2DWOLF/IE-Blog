@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from "./AxiosInstance"
 import { handleResponse } from "./utils/handleResponse"
 
 export function userLogin(credentials){

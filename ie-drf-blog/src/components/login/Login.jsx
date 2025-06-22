@@ -2,7 +2,7 @@ import "./css/login.css";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import {useDispatch} from "react-redux";
-import { emailField, pwField, usernameField } from "../../utils/validations/yupValidations";
+import { pwField, usernameField } from "../../utils/validations/yupValidations";
 import { loginHandler } from "../utils/authService";
 
 function Login(){
@@ -21,7 +21,7 @@ function Login(){
             try{
                 const token = await loginHandler(values, dispatch);
                 if(token){
-                    console.log("token here: ", token);
+                    console.log("token received, login works, redirect to homepage please:)");
                 }
             } catch (err) {
                 console.error(err);
