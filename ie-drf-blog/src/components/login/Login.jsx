@@ -1,12 +1,14 @@
 import "./css/login.css";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { pwField, usernameField } from "../../utils/validations/yupValidations";
 import { loginHandler } from "../utils/authService";
+import { successMsg } from "../../utils/toastify/toast";
 
 function Login(){
     const dispatch = useDispatch();
+
 
     const formik = useFormik({
         initialValues: {
@@ -21,7 +23,7 @@ function Login(){
             try{
                 const token = await loginHandler(values, dispatch);
                 if(token){
-                    console.log("token received, login works, redirect to homepage please:)");
+                    successMsg(`Logged in Successfully!\n Welcome back ${values.username}`);
                 }
             } catch (err) {
                 console.error(err);
