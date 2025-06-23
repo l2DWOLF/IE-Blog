@@ -6,7 +6,7 @@ function Comment({comment}) {
             <div className="comment-card">
 
                 <div className="comment-content">
-                    {comment.author_name}: 
+                    <h4 className="author">{comment.author_name}: </h4>
                     <p className="root-comment">
                         {comment.content}
                     </p>
@@ -15,9 +15,12 @@ function Comment({comment}) {
 
                 {comment.replies && comment.replies.length > 0 && (
                     <div className="comment-replies">
-                        <p>Replies:</p>
+                        <h5>Replies:</h5>
                         {comment.replies.map(reply => (
-                            <Comment key={reply.id} comment={reply} />
+                            <div className="reply" key={reply.id}>
+                                <p className="reply-author">{reply.author_name}:</p>
+                                <p>{reply.content}</p>
+                            </div>
                         ))}
                     </div>
                 )}

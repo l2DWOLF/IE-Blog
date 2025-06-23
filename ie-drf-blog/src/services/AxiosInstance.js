@@ -31,22 +31,20 @@ axiosInstance.interceptors.request.use(
                                     },
                                 }
                             ).then(response => {
-                                    const newAccessToken = response.data.access;
-                                    const newRefreshToken = response.data.refresh;
-                                    const decodedUser = jwtDecode(newAccessToken);
+                                const newAccessToken = response.data.access;
+                                const newRefreshToken = response.data.refresh;
+                                const decodedUser = jwtDecode(newAccessToken);
 
-                                    store.dispatch(SetToken(newAccessToken, newRefreshToken));
-                                    store.dispatch(SetUser(decodedUser));
-                                    return newAccessToken;
-                                }).catch(err => {
-                                    console.error("[AxiosInstance] Token Refresh Failed:", err);
-                                    console.error("Refresh token used:", refreshToken);
-                                    console.error("Access token at time of failure:", accessToken);
-                                    store.dispatch(Signoff());
-                                    throw err;
-                                }).finally(() => {
-                                    refreshPromise = null;
-                                });
+                                store.dispatch(SetToken(newAccessToken, newRefreshToken));
+                                store.dispatch(SetUser(decodedUser));
+                                return newAccessToken;
+                            }).catch(err => {
+                                console.error("[AxiosInstance] Token Refresh Failed:", err);
+                                store.dispatch(Signoff());
+                                throw err;
+                            }).finally(() => {
+                                refreshPromise = null;
+                            });
                         }
                         const newAccessToken = await refreshPromise;
                         config.headers["Authorization"] = `Bearer ${newAccessToken}`;
