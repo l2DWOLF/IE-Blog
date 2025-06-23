@@ -6,7 +6,7 @@ function Comment({comment}) {
             <div className="comment-card">
 
                 <div className="comment-content">
-                    <h4 className="author">{comment.author_name}: </h4>
+                    <h4 className="comment-author">{comment.author_name}: </h4>
                     <p className="root-comment">
                         {comment.content}
                     </p>
