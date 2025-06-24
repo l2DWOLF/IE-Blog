@@ -57,81 +57,84 @@ function Articles() {
             <div className="article-card" key={article?.id}>
 
                 <h3>{article?.title}</h3>
-                <div className="article-info">
-                    <div className="article-metadata">
-                        <div className="author-info">
-                            <User size={20} /><h4>  {article?.author_name}</h4>
+
+                <div className="article-inner">
+                        <div className="article-info">
+                            <div className="article-metadata">
+                                <div className="author-info">
+                                    <User size={20} /><h4>  {article?.author_name}</h4>
+                                </div>
+                            </div>
+                            <div className="tags-container">
+                                <h5>Categories</h5>
+                                <div className="tags-div">
+                                    {article?.tags.map((tag, id) => (
+                                        <p className="article-tag" key={id}>{tag}</p>
+                                    ))}
+                                </div>
+                            </div>
+                            <div className="timestamps">
+                                <p>Created at: {article?.created_at}</p>
+                                <p>last update: {article?.updated_at}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div className="tags-container">
-                        <h5>Categories</h5>
-                        <div className="tags-div">
-                            {article?.tags.map((tag, id) => (
-                                <p className="article-tag" key={id}>{tag}</p>
-                            ))}
+
+                        <div className={`article-content ${isExpanded ? "expanded" : ""}`}>
+                            <p>{article?.content}</p>
+                            {maxContent && (
+                                <button className="read-more-btn" onClick={() => toggleExpanded(article.id)} aria-expanded={isExpanded}>
+                                    {isExpanded ? "Read Less.." : "Read More.."}
+                                </button>
+                            )}
                         </div>
-                    </div>
-                    <div className="timestamps">
-                        <p>Created at: {article?.created_at}</p>
-                        <p>last update: {article?.updated_at}</p>
-                    </div>
+
+
+                        <div className="card-btns">
+                            {canLikeDislike(user, article) &&
+                                (<>
+                                    {(article?.id) && (
+                                        <button title="Like Article">
+                                            <ThumbsUp className="card-icons" />
+                                        </button>
+                                    )}
+                                    {(article?.id) && (
+                                        <button title="Dislike Article">
+                                            <ThumbsDown className="card-icons" />
+                                        </button>
+                                    )}
+                                </>)}
+                            {canEditDelete(user, article) &&
+                                (<>
+                                    {(article?.id) && (
+                                        <>
+                                            <button title="Edit Article">
+                                                <Edit3 className="card-icons" />
+                                            </button>
+                                        </>
+                                    )}
+                                    {(article?.id) && (
+                                        <>
+                                            <button title="Delete Article">
+                                                <Trash2 className="card-icons" />
+                                            </button>
+                                        </>
+                                    )}
+                                </>)}
+                        </div>
+
+                        <div className="comments-div">
+                            <h3>Comments:</h3>
+
+                            <div className="comments-container">
+                                {nestedComments.length > 0 ? nestedComments.map(comment => (
+                                    <Comment key={comment.id} comment={comment} />
+                                )) : (
+                                    <p>No comments yet.</p>
+                                )}
+                            </div>
+                        </div>
                 </div>
                 
-                <div className={`article-content ${isExpanded ? "expanded" : ""}`}>
-                    <p>{article?.content}</p>
-                    {maxContent && (
-                        <button className="read-more-btn" onClick={() => toggleExpanded(article.id)} aria-expanded={isExpanded}>
-                            {isExpanded ? "Read Less.." : "Read More.."}
-                        </button>
-                    )}
-                </div>
-                
-                
-                <div className="card-btns">
-                    {canLikeDislike(user, article) && 
-                    (<>
-                        {(article?.id) && (
-                            <button title="Like Article">
-                                <ThumbsUp className="card-icons" />
-                            </button>
-                        )}
-                        {(article?.id) && (
-                            <button title="Dislike Article">
-                                <ThumbsDown className="card-icons" />
-                            </button>
-                        )}
-                    </>)}
-                    {canEditDelete(user, article) && 
-                    (<>
-                        {(article?.id) && (
-                            <>
-                                <button title="Edit Article">
-                                <Edit3 className="card-icons" />
-                                </button>
-                            </>
-                        )}
-                        {(article?.id) && (
-                            <>
-                                <button title="Delete Article">
-                                <Trash2 className="card-icons" />
-                                </button>
-                            </>
-                        )}
-                    </>)}
-                </div>
-
-                <div className="comments-div">
-                    <h3>Comments:</h3>
-
-                    <div className="comments-container">
-                        {nestedComments.length > 0 ? nestedComments.map(comment => (
-                            <Comment key={comment.id} comment={comment} />
-                        )) : (
-                            <p>No comments yet.</p>
-                        )}
-                    </div>
-
-                </div>
             </div>   
             )
             

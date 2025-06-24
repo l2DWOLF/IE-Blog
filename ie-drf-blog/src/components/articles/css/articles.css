@@ -48,7 +48,7 @@
 }
 .article-card:hover {
     background-color: rgba(3, 42, 3, 0.289);
-    border: 1px solid snow;
+    border: 1px solid rgba(255, 250, 250, 0.308);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     transform: scale(1.02);
@@ -63,6 +63,18 @@
     margin-bottom: 0.5rem;
     font-style: italic;
     text-shadow: none;
+}
+.article-inner {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2em 0em;
+    border-radius: 12px;
+    border-left: 1px solid rgba(0, 0, 0, 0.58);
+    border-right: 1px solid rgba(0, 0, 0, 0.58);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.58);
+    transition: 0.3s ease;
 }
 
 .article-info {
@@ -112,8 +124,8 @@
 }
 
 .article-content {
-    position: absolute;
-    max-width: 85%;
+    position: relative;
+    width: 85%;
     background: rgba(0, 0, 0, 0.282);
     font-weight: 500;
     padding: 0.5em;
@@ -126,7 +138,6 @@
     line-height: 1.6;
     text-align: left;
     max-height: 500px;
-    position: relative;
     transition: 0.3s;
 }
 .article-content:hover {
@@ -143,25 +154,29 @@
 }
 
 .read-more-btn {
-    width: 150px;
+    width: 200px;
     position: absolute;
     bottom: 0.5em;
-    background-color: none;
-    border: none;
-    color: #00ff66;
-    border-radius: 6px;
-    padding: 0.4em 1.4em;
-    font-weight: 600;
-    font-size: .85rem;
-    background-color: rgba(0, 255, 102, 0.1);
-    transition: background-color 0.3s ease;
     left: 50%;
     transform: translateX(-50%);
+    padding: 0.4em 1.4em;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #00ff66;
+    border: 1px solid rgba(0, 255, 102, 0.3);
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    box-shadow: 0 0 8px rgba(0, 255, 102, 0.1);
+    transition: all 0.3s ease;
 }
 
 .read-more-btn:hover {
     background-color: #00ff66;
-    color: black; 
+    color: black;
+    border: 1px solid #00ff66;
+    box-shadow: 0 0 10px rgba(0, 255, 102, 0.4);
 }
 
 .tags-container {
@@ -216,10 +231,11 @@
 
 .card-btns {
     display: flex;
+    width: fit-content;
     justify-content: center;
     flex-wrap: wrap;
     gap: 1.2em;
-    margin-top: 1em;
+    margin: 1em auto 0 auto;
     padding: 0.5em 1em;
     border-radius: 10px;
     background: rgba(0, 0, 0, 0.25);
