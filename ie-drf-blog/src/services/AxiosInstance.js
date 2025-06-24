@@ -1,6 +1,6 @@
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
-import { SetToken, SetUser, Signoff } from "../redux/UserState";
+import { SetToken, SetUser, Signoff, SetAuthLoading } from "../redux/UserState";
 import store from "../redux/store";
 
 const axiosInstance = axios.create({
@@ -22,6 +22,7 @@ axiosInstance.interceptors.request.use(
                 if (decoded.exp < currentTime) {
                     if (refreshToken) {
                         if (!refreshPromise) {
+                            store.dispatch(SetAuthLoading(true));
                             refreshPromise = axios.post(
                                 "http://127.0.0.1:8000/api/token/refresh/",
                                 { refresh: refreshToken },
@@ -44,6 +45,7 @@ axiosInstance.interceptors.request.use(
                                 throw err;
                             }).finally(() => {
                                 refreshPromise = null;
+                                store.dispatch(SetAuthLoading(false));
                             });
                         }
                         const newAccessToken = await refreshPromise;

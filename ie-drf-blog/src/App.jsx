@@ -1,14 +1,30 @@
 import './App.css'
 import { HashRouter as Router, Routes, Route } from 'react-router-dom'
+import { GuestRoute } from './auth/guards/RouteGuards' 
+import { useDispatch, useSelector} from 'react-redux'
 import { ToastContainer } from "react-toastify"
 import Home from './components/home/Home'
 import About from './components/about/About'
 import Navbar from './components/navbar/Navbar'
 import Login from './components/login/Login'
 import Register from './components/register/Register'
+import { useEffect } from 'react'
+import { SetAuthLoading } from './redux/UserState'
 
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const access = sessionStorage.getItem("access_token");
+    const refresh = sessionStorage.getItem("refresh_token");
+
+    if(!access & !refresh){
+      dispatch(SetAuthLoading(false));
+    };
+
+  },[dispatch])
+
   return (<div className="wrapper">
 
     <Router>
@@ -24,8 +40,17 @@ function App() {
           <Route path="/about" element={<About />} />
         </Route>
 
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={
+          <GuestRoute>
+            <Login />
+          </GuestRoute>
+          } />
+
+        <Route path="/register" element={
+          <GuestRoute>
+            <Register />
+          </GuestRoute>
+          } />
       </Routes>
 
     </Router>

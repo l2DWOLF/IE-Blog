@@ -1,13 +1,17 @@
 import "./css/login.css";
+import { useState } from "react";
 import {useNavigate} from 'react-router-dom';
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { pwField, usernameField } from "../../utils/validations/yupValidations";
-import { loginHandler } from "../utils/authService";
+import { loginHandler } from "../../auth/services/authService";
 import { successMsg } from "../../utils/toastify/toast";
+import LoadingScreen from "../common/loadscreen/LoadingScreen";
+
 
 function Login() {
+    const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -21,6 +25,7 @@ function Login() {
             password: pwField
         }),
         onSubmit: async (values) => {
+            setIsLoading(true);
             try {
                 const token = await loginHandler(values, dispatch);
                 if (token) {
@@ -29,16 +34,23 @@ function Login() {
                 }
             } catch (err) {
                 console.error(err);
+            } finally {
+                setIsLoading(false);
             };
-        }
+        } 
     });
 
     return (
         <div className="login-section">
             <h1>Login</h1>
-
+            
             <div className="form-container">
                 <h3>Login Form</h3>
+
+                {isLoading ? (
+                    <LoadingScreen />
+                ) : (
+
                 <form className="login-form" onSubmit={formik.handleSubmit}>
                     <div className="input-field">
                         <label htmlFor="username">*Username:</label>
@@ -56,8 +68,7 @@ function Login() {
                         </p>)}
                     </div>
                     <button className="submit-btn" type="submit" disabled={!formik.dirty || !formik.isValid}>Login</button>
-                </form>
+                    </form>)}
             </div>
-        </div>)
-}
+        </div>)}
 export default Login;

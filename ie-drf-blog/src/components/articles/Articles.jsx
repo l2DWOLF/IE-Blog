@@ -4,14 +4,17 @@ import { ThumbsUp, ThumbsDown, Edit3, Trash2} from "lucide-react";
 import { getAllArticles } from "../../services/articleServices";
 import { getAllComments } from '../../services/commentServices';
 import Comment from '../comments/Comment'
+import LoadingScreen from '../common/loadscreen/LoadingScreen';
 
 function Articles() {
+    const [isLoading, setIsLoading] = useState(true);
     const [articles, setArticles] = useState([]);
     const [comments, setComments] = useState([]);
     const [expandedArticles, setExpandedArticles] = useState({});
 
     useEffect(() => {
         const fetchData = async () => {
+            setIsLoading(true);
             try{
                 const serverArticles = await getAllArticles();
                 const serverComments = await getAllComments();
@@ -20,6 +23,8 @@ function Articles() {
                 setComments(serverComments)
             } catch(e) {
                 console.error(e)
+            } finally {
+                setIsLoading(false);
             }
         };
         fetchData();
@@ -35,6 +40,9 @@ function Articles() {
     return( <section className="articles-section">
         <h2>Articles</h2>
 
+        { isLoading ? (
+            <LoadingScreen />
+        ) : (
         <div className="articles-container">
         {
             articles.map((article) => {
@@ -86,7 +94,7 @@ function Articles() {
                 </div>
 
                 <div className="tags-container">
-                    <p>Categories</p>
+                    <h5>Categories</h5>
                     <div className="tags-div">
                         {article?.tags.map((tag, id) => (
                             <p className="article-tag" key={id}>{tag}</p>
@@ -111,7 +119,7 @@ function Articles() {
             
             })
         }
-        </div>
+        </div>)}
 
 </section>)}
 export default Articles

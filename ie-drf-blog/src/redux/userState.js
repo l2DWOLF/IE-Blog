@@ -11,6 +11,7 @@ export class UserState {
         this.accessToken = sessionStorage.getItem("access_token") || "";
         this.refreshToken = sessionStorage.getItem("refresh_token") || "";
         this.user = sessionStorage.getItem("user") ? JSON.parse(sessionStorage.getItem("user")) : defaultUser;
+        this.isAuthLoading = true;
     }
 }
 
@@ -19,7 +20,12 @@ export const ActionType = {
     SetUser: "SetUser",
     SetMyCardIds: "SetMyCardIds",
     Signoff: "Signoff",
+    SetAuthLoading: "SetAuthLoading",
 };
+
+export function SetAuthLoading(status){
+    return {type: ActionType.SetAuthLoading, payload: status};
+}
 
 export function SetToken(accessToken, refreshToken) {
     sessionStorage.setItem("access_token", accessToken);
@@ -57,7 +63,11 @@ export function userReducer(currentState = new UserState(), action) {
             newState.refreshToken = "";
             newState.user = defaultUser;
             break;
-
+        
+        case ActionType.SetAuthLoading:
+            newState.isAuthLoading = action.payload;
+            break;
+            
         default:
             break;
     }
