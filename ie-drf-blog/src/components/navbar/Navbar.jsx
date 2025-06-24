@@ -1,15 +1,9 @@
-import {NavLink, useNavigate} from 'react-router-dom'
 import "./css/navbar.css"
-
+import {NavLink} from 'react-router-dom'
+import useAuth from '../../auth/hooks/useAuth';
 
 function Navbar() {
-    let nav = useNavigate();
-
-    let x = 9;
-    if(x !== 9){
-        nav("/");
-    };
-
+const {user, isLoggedIn} = useAuth();
 
     return(
     <header>
@@ -23,7 +17,6 @@ function Navbar() {
                     <ul>
                         <li>
                             <NavLink to="/">Home</NavLink>
-
                         </li>
                         <li>
                             <NavLink to="/about">About</NavLink>
@@ -32,15 +25,27 @@ function Navbar() {
                 </div>
 
                 <div className="user-nav">
-                    <ul>
-                        <li>
-                            <NavLink to="/login">Login</NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="register">Register</NavLink>
-                        </li>
-                    </ul>
+                <ul>
+                {isLoggedIn ? ( <>
+                
+                    <li>
+                        <NavLink to="/Profile">Profile</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/logout">logout</NavLink>
+                    </li>
+                </> ) : ( <>
+                    <li>
+                        <NavLink to="/login">Login</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="register">Register</NavLink>
+                    </li>
+                </> )}
+                    
+                </ul>
                 </div>
+
             </div>
 
         </div>

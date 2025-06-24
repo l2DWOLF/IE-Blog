@@ -1,12 +1,15 @@
 import './css/articles.css'
 import { useState, useEffect } from "react"
-import { ThumbsUp, ThumbsDown, Edit3, Trash2} from "lucide-react";
+import { User, ThumbsUp, ThumbsDown, Edit3, Trash2} from "lucide-react";
 import { getAllArticles } from "../../services/articleServices";
 import { getAllComments } from '../../services/commentServices';
 import Comment from '../comments/Comment'
 import LoadingScreen from '../common/loadscreen/LoadingScreen';
+import { canEditDelete, canLikeDislike } from '../../auth/utils/permissions';
+import useAuth from '../../auth/hooks/useAuth';
 
 function Articles() {
+    const {user} = useAuth();
     const [isLoading, setIsLoading] = useState(true);
     const [articles, setArticles] = useState([]);
     const [comments, setComments] = useState([]);
@@ -54,52 +57,67 @@ function Articles() {
             <div className="article-card" key={article?.id}>
 
                 <h3>{article?.title}</h3>
-                <h4>Article By: {article?.author_name}</h4>
-                <p>Created at: {article?.created_at}</p>
-                <p>last update: {article?.updated_at}</p>
-                <div className={`article-content ${isExpanded ? "expanded" : ""}`}>
-                        <p>{article?.content}</p>
+                <div className="article-info">
+                    <div className="article-metadata">
+                        <div className="author-info">
+                            <User size={20} /><h4>  {article?.author_name}</h4>
+                        </div>
+                    </div>
+                    <div className="tags-container">
+                        <h5>Categories</h5>
+                        <div className="tags-div">
+                            {article?.tags.map((tag, id) => (
+                                <p className="article-tag" key={id}>{tag}</p>
+                            ))}
+                        </div>
+                    </div>
+                    <div className="timestamps">
+                        <p>Created at: {article?.created_at}</p>
+                        <p>last update: {article?.updated_at}</p>
+                    </div>
                 </div>
+                
+                <div className={`article-content ${isExpanded ? "expanded" : ""}`}>
+                    <p>{article?.content}</p>
                     {maxContent && (
                         <button className="read-more-btn" onClick={() => toggleExpanded(article.id)} aria-expanded={isExpanded}>
                             {isExpanded ? "Read Less.." : "Read More.."}
                         </button>
                     )}
+                </div>
+                
                 
                 <div className="card-btns">
-                    {(article?.id) && (
-                        <button title="Like this Article">
-                            <ThumbsUp className="card-icons" />
-                        </button>
-                    )}
-                    {(article?.id) && (
-                        <button title="Dislike this Article">
-                            <ThumbsDown className="card-icons" />
-                        </button>
-                    )}
-                    {(article?.id) && (
-                        <>
-                            <button title="Edit this Article">
+                    {canLikeDislike(user, article) && 
+                    (<>
+                        {(article?.id) && (
+                            <button title="Like Article">
+                                <ThumbsUp className="card-icons" />
+                            </button>
+                        )}
+                        {(article?.id) && (
+                            <button title="Dislike Article">
+                                <ThumbsDown className="card-icons" />
+                            </button>
+                        )}
+                    </>)}
+                    {canEditDelete(user, article) && 
+                    (<>
+                        {(article?.id) && (
+                            <>
+                                <button title="Edit Article">
                                 <Edit3 className="card-icons" />
-                            </button>
-                        </>
-                    )}
-                    {(article?.id) && (
-                        <>
-                            <button title="Delete this Article">
+                                </button>
+                            </>
+                        )}
+                        {(article?.id) && (
+                            <>
+                                <button title="Delete Article">
                                 <Trash2 className="card-icons" />
-                            </button>
-                        </>
-                    )}
-                </div>
-
-                <div className="tags-container">
-                    <h5>Categories</h5>
-                    <div className="tags-div">
-                        {article?.tags.map((tag, id) => (
-                            <p className="article-tag" key={id}>{tag}</p>
-                        ))}
-                    </div>
+                                </button>
+                            </>
+                        )}
+                    </>)}
                 </div>
 
                 <div className="comments-div">

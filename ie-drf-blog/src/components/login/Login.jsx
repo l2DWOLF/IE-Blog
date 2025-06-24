@@ -3,7 +3,7 @@ import { useState } from "react";
 import {useNavigate} from 'react-router-dom';
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { pwField, usernameField } from "../../utils/validations/yupValidations";
 import { loginHandler } from "../../auth/services/authService";
 import { successMsg } from "../../utils/toastify/toast";
@@ -30,7 +30,7 @@ function Login() {
                 const token = await loginHandler(values, dispatch);
                 if (token) {
                     successMsg(`Logged in Successfully!\n Welcome back ${values.username}`);
-                    navigate(-1);
+                    navigate("/", {state: {fromLogin: true}});
                 }
             } catch (err) {
                 console.error(err);
@@ -50,7 +50,6 @@ function Login() {
                 {isLoading ? (
                     <LoadingScreen />
                 ) : (
-
                 <form className="login-form" onSubmit={formik.handleSubmit}>
                     <div className="input-field">
                         <label htmlFor="username">*Username:</label>
