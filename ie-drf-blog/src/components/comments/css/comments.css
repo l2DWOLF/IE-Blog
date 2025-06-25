@@ -2,8 +2,8 @@
 .comments-div {
     background: rgba(0, 0, 0, 0.35);
     width: 80%;
-    max-height: 300px;
-    overflow-y: auto;
+    max-height: 350px;
+    overflow: hidden;
     padding: 1.5em 2em;
     margin: 2em auto 1em;
     border: 1px solid #00ff66;
@@ -28,6 +28,8 @@
 
 /* Main comment container */
 .comments-container {
+    max-height: 250px;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 1.2em;
