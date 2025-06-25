@@ -40,7 +40,6 @@ function Comment({ comment, depth = 0, onReplyClick }) {
                 {comment.replies && comment.replies.length > 0 && (
                     <div className="comment-replies">
                         {depth === 0 && <h6> Replies:</h6>}
-                        {depth === 1 && <h6> Nested Replies:</h6>}
                         {comment.replies.map(reply => (
                             <Comment key={reply.id} comment={reply} depth={depth + 1} onReplyClick={onReplyClick} />
                         ))}

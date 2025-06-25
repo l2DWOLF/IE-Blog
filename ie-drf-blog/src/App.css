@@ -6,6 +6,7 @@
   font-size: .8rem;
   text-decoration: none;
   scroll-behavior: smooth;
+  scrollbar-color: #00ffc8 transparent;
 }
 
 h1{
