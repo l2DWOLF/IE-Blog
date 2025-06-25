@@ -46,142 +46,138 @@ function Articles() {
         }));
     };
 
-    return (<section className="articles-section">
+    return (
+        <section className="articles-section">
         <h2>Articles</h2>
 
         {isLoading ? (
             <LoadingScreen />
         ) : (
-            <div className="articles-container">
-                {
-                    articles.map((article) => {
-                        const isExpanded = !!expandedArticles[article.id];
-                        const maxContent = article.content.length > 1028;
-                        const nestedComments = articlesComments[article.id] || [];
-                        if (!contentRefs.current[article.id]) {
-                            contentRefs.current[article.id] = React.createRef();
+        <div className="articles-container">
+            {articles && articles.length > 0 ? 
+                (articles.map((article) => {
+                    const isExpanded = !!expandedArticles[article.id];
+                    const maxContent = article.content.length > 1028;
+                    const nestedComments = articlesComments[article.id] || [];
+                    if (!contentRefs.current[article.id]) {
+                        contentRefs.current[article.id] = React.createRef();
+                    }
+                    const contentRef = contentRefs.current[article.id];
+
+                    const handleToggle = () => {
+                        if (isExpanded && contentRef.current) {
+                            const offset = 100;
+                            const elementTop = contentRef.current.getBoundingClientRect().top;
+                            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                            window.scrollTo({
+                                top: elementTop + scrollTop - offset,
+                                behavior: 'smooth'
+                            });
                         }
-                        const contentRef = contentRefs.current[article.id];
+                        toggleExpanded(article.id);
+                    };
 
-                        const handleToggle = () => {
-                            if (isExpanded && contentRef.current) {
-                                const offset = 100;
-                                const elementTop = contentRef.current.getBoundingClientRect().top;
-                                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    return (
+                        <div className="article-card" key={article?.id}>
 
-                                window.scrollTo({
-                                    top: elementTop + scrollTop - offset,
-                                    behavior: 'smooth'
-                                });
-                            }
-                            toggleExpanded(article.id);
-                        };
-
-                        return (
-                            <div className="article-card" key={article?.id}>
-
-                                <h3>{article?.title}</h3>
-
-                                <div className="article-inner">
-                                    <div className="article-content-wrapper" ref={contentRef}>
-                                        <div className="sticky-title">
-                                            <div className="text-size-btns">
-                                                <button onClick={() => setTextScale(prev => Math.min(prev + 0.1, 2))}>text+</button>
-                                                <button onClick={() => setTextScale(prev => Math.max(prev - 0.1, 0.6))}>text-</button>
-                                                <button onClick={() => setTextScale(1)}>reset</button>
+                            <h3>{article?.title}</h3>
+                            <div className="article-inner">
+                                <div className="article-content-wrapper">
+                                    <div className="sticky-title">
+                                        <div className="text-size-btns">
+                                            <button onClick={() => setTextScale(prev => Math.min(prev + 0.1, 2))}>text+</button>
+                                            <button onClick={() => setTextScale(prev => Math.max(prev - 0.1, 0.6))}>text-</button>
+                                            <button onClick={() => setTextScale(1)}>reset</button>
+                                        </div>
+                                        <div className="article-metadata">
+                                            <div className="author-info">
+                                                <User size={18} className="author-icon" />
+                                                <span className="author-label">Author:
+                                                </span>
+                                                <h4 className="author-name">{article?.author_name}</h4>
                                             </div>
-                                            <div className="article-metadata">
-                                                <div className="author-info">
-                                                    <User size={18} className="author-icon" />
-                                                    <span className="author-label">Author:
-                                                    </span>
-                                                    <h4 className="author-name">{article?.author_name}</h4>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <p style={{ fontSize: `${1 * textScale}rem` }} className={`article-content ${isExpanded ? "expanded" : ""}`} >
-                                            {article?.content}
-                                        </p>
-                                        {maxContent && (
-                                            <button className="read-more-btn" onClick={() => handleToggle(article.id)} aria-expanded={isExpanded}>
-                                                {isExpanded ? "Read Less.." : "Read More.."}
-                                            </button>)}
-
-                                    </div>
-
-                                    <div className="article-info">
-                                        
-                                        <div className="card-btns">
-                                            {canLikeDislike(user, article) &&
-                                                (<>
-                                                    {(article?.id) && (
-                                                        <button title="Like Article">
-                                                            <ThumbsUp className="card-icons" />
-                                                        </button>
-                                                    )}
-                                                    {(article?.id) && (
-                                                        <button title="Dislike Article">
-                                                            <ThumbsDown className="card-icons" />
-                                                        </button>
-                                                    )}
-                                                </>)}
-                                            {canEditDelete(user, article) &&
-                                                (<>
-                                                    {(article?.id) && (
-                                                        <>
-                                                            <button title="Edit Article">
-                                                                <Edit3 className="card-icons" />
-                                                            </button>
-                                                        </>
-                                                    )}
-                                                    {(article?.id) && (
-                                                        <>
-                                                            <button title="Delete Article">
-                                                                <Trash2 className="card-icons" />
-                                                            </button>
-                                                        </>
-                                                    )}
-                                                </>)}
-                                        </div>
-                                        <div className="article-stats"><br/>
-                                            likes: 40 | dislikes: 5 | comments: {nestedComments.length || 0} | stars: 95 users
-                                        </div>
-                                        <div className="tags-container">
-                                            <div className="tags-div">
-                                                <h5>Categories:</h5>
-                                                {article?.tags.map((tag, id) => (
-                                                    <div className="article-tag" key={id}>
-                                                        <p>{tag}</p>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </div>
-                                        <div className="timestamps" ref={contentRef}>
-                                            <p>Created at: {article?.created_at}</p>
-                                            <p>last update: {article?.updated_at}</p>
                                         </div>
                                     </div>
 
-                                    <div className="article-engagement">
-                                        <div className="comments-div">
-                                            <h3>Comments:</h3>
-                                            <div className="comments-container">
-                                                {nestedComments.length > 0 ? nestedComments.map(comment => (
-                                                    <Comment key={comment.id} comment={comment} />
-                                                )) : (
-                                                    <p>No comments yet.</p>
+                                    <p style={{ fontSize: `${1 * textScale}rem` }} ref={contentRef} className={`article-content ${isExpanded ? "expanded" : ""}`} >
+                                        {article?.content}
+                                    </p>
+                                    {maxContent && (
+                                        <button className="read-more-btn" onClick={() => handleToggle(article.id)} aria-expanded={isExpanded}>
+                                            {isExpanded ? "Read Less.." : "Read More.."}
+                                        </button>)}
+                                </div>
+
+                                <div className="article-info">
+                                    <div className="card-btns">
+                                        {canLikeDislike(user, article) &&
+                                            (<>
+                                                {(article?.id) && (
+                                                    <button title="Like Article">
+                                                        <ThumbsUp className="card-icons" />
+                                                    </button>
                                                 )}
-                                            </div>
+                                                {(article?.id) && (
+                                                    <button title="Dislike Article">
+                                                        <ThumbsDown className="card-icons" />
+                                                    </button>
+                                                )}
+                                            </>)}
+                                        {canEditDelete(user, article) &&
+                                            (<>
+                                                {(article?.id) && (
+                                                    <>
+                                                        <button title="Edit Article">
+                                                            <Edit3 className="card-icons" />
+                                                        </button>
+                                                    </>
+                                                )}
+                                                {(article?.id) && (
+                                                    <>
+                                                        <button title="Delete Article">
+                                                            <Trash2 className="card-icons" />
+                                                        </button>
+                                                    </>
+                                                )}
+                                            </>)}
+                                    </div>
+                                    <div className="article-stats"><br />
+                                        likes: 40 | dislikes: 5 | comments: {nestedComments.length || 0} | stars: 95 users
+                                    </div>
+                                    <div className="tags-container">
+                                        <div className="tags-div">
+                                            <h5>Categories:</h5>
+                                            {article?.tags.map((tag, id) => (
+                                                <div className="article-tag" key={id}>
+                                                    <p>{tag}</p>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div className="timestamps">
+                                        <p>Created at: {article?.created_at}</p>
+                                        <p>last update: {article?.updated_at}</p>
+                                    </div>
+                                </div>
+
+                                <div className="article-engagement">
+                                    <div className="comments-div">
+                                        <h3>Comments:</h3>
+                                        <div className="comments-container">
+                                            {nestedComments.length > 0 ? nestedComments.map(comment => (
+                                                <Comment key={comment.id} comment={comment} />
+                                            )) : (
+                                                <p>No comments yet.</p>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        )
-
-                    })
-                }
-            </div>)}
+                        </div>)
+                })) : (<p className="no-content-msg">No Articles Loaded..</p>)   
+            }
+        </div>)}
     </section>)
 }
 export default Articles

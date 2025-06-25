@@ -42,6 +42,7 @@ export function Signoff() {
     sessionStorage.removeItem("access_token");
     sessionStorage.removeItem("refresh_token");
     sessionStorage.removeItem("user");
+    sessionStorage.removeItem("SetAuthLoading")
     return { type: ActionType.Signoff };
 }
 
@@ -62,6 +63,7 @@ export function userReducer(currentState = new UserState(), action) {
             newState.accessToken = "";
             newState.refreshToken = "";
             newState.user = defaultUser;
+            newState.isAuthLoading = "";
             break;
         
         case ActionType.SetAuthLoading:

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 export default function useAuth(){
     const { user, accessToken, refreshToken, isAuthLoading } = useSelector(state => state.user);
-    const isLoggedIn = !!user?.id;
+    const isLoggedIn = !!user?.id && !!accessToken && !!refreshToken;
     const isAdmin = user?.is_admin;
     const isMod = user?.is_mod;
 

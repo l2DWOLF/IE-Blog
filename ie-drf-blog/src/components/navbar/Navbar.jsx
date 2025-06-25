@@ -1,9 +1,12 @@
 import "./css/navbar.css"
 import {NavLink} from 'react-router-dom'
 import useAuth from '../../auth/hooks/useAuth';
+import {useDispatch} from 'react-redux';
+import { logoutHandler } from "../../auth/services/authService";
 
 function Navbar() {
-const {user, isLoggedIn} = useAuth();
+const dispatch = useDispatch();
+const {accessToken, refreshToken, isLoggedIn} = useAuth();
 
     return(
     <header>
@@ -32,7 +35,8 @@ const {user, isLoggedIn} = useAuth();
                         <NavLink to="/Profile">Profile</NavLink>
                     </li>
                     <li>
-                        <NavLink to="/logout">logout</NavLink>
+                        <button onClick={() => {
+                            logoutHandler(accessToken, refreshToken, dispatch)}}>logout</button>
                     </li>
                 </> ) : ( <>
                     <li>
