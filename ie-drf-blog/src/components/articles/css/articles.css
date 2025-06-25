@@ -1,5 +1,5 @@
 .articles-section {
-    width: 93%;
+    width: 80%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -12,7 +12,7 @@
     transition: 0.8s;
 }
 .articles-section:hover {
-    width: 95%;
+    width: 83%;
 }
 .articles-section h2 {
     text-align: center;
@@ -36,7 +36,7 @@
     align-items: center;
     text-align: center;
     text-transform: capitalize;
-    padding: 2.5em 0.5em 2em;
+    padding: 4.5em 0.5em 2em;
     gap: 1em;
     background-color: rgba(3, 63, 3, 0.118);
     border: 1px solid rgba(255, 255, 255, 0.359);
@@ -73,12 +73,14 @@
     border-radius: 12px;
     border-left: 1px solid rgba(0, 0, 0, 0.58);
     border-right: 1px solid rgba(0, 0, 0, 0.58);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.58);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.29);
     transition: 0.3s ease;
 }
 
 .article-info {
-    width: 85%;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
     padding: 1em 1.5em;
     margin-bottom: 1em;
     border-radius: 12px;
@@ -94,6 +96,7 @@
 
 .author-info {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     margin-bottom: 0.8em;
@@ -101,10 +104,14 @@
     font-style: italic;
     color: #ccc;
 }
+.author-info p{
+    text-decoration: underline;
+}
 
 .timestamps {
     font-size: 0.8rem;
     gap: 1.2em;
+    padding: 1em 0em 0em;
     opacity: 0.85;
     color: #ccc;
     margin-top: 0.5em;
@@ -125,7 +132,7 @@
 
 .article-content {
     position: relative;
-    width: 85%;
+    width: 90%;
     background: rgba(0, 0, 0, 0.282);
     font-weight: 500;
     padding: 0.5em;
@@ -143,10 +150,16 @@
 .article-content:hover {
     box-shadow: 0 0 14px rgba(0, 255, 102, 0.4);
 }
-
 .article-content.expanded {
     max-height: 5000px;
     overflow: visible;
+}
+
+.text-size-btns{
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: .5em 3em 0;
 }
 
 .article-card:hover .article-content {
@@ -180,12 +193,19 @@
 }
 
 .tags-container {
-    width: 100%;
+    width: fit-content;
     display: flex;
     flex-direction: column;
     align-items: center;
+    align-self: center;
     gap: 0.4em;
+    padding: .7em 1em;
     margin-top: 1em;
+
+    border-left: 1px solid rgba(255, 255, 255, 0.571);
+    border-right: 1px solid rgba(255, 255, 255, 0.564);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.096);
+    border-radius: 10px;
 }
 
 .tags-container h5 {
@@ -193,8 +213,9 @@
     color: #b2f5ea;
     font-weight: 500;
     letter-spacing: 0.5px;
+    padding: 0;
+
     text-shadow: 0 0 4px rgba(0, 255, 102, 0.3);
-    margin-bottom: 0.3em;
 }
 
 .tags-div {
@@ -210,16 +231,22 @@
 }
 
 .article-tag {
-    padding: 0.35em 0.9em;
-    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    justify-items: center;
     background-color: #003300b7;
+    padding: .2em 0em 0em;
     color: #b2f5ea;
     font-size: 0.85rem;
     font-weight: 500;
     border: 1px solid #00ff66;
     box-shadow: 0 0 4px rgba(0, 255, 102, 0.15);
+    border-radius: 20px;
     transition: transform 0.2s ease, background-color 0.3s ease;
     cursor: default;
+}
+.article-tag p{
+    padding: .2em 1.5em;
 }
 
 .article-tag:hover {

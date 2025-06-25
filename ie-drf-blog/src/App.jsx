@@ -1,7 +1,7 @@
 import './App.css'
 import { HashRouter as Router, Routes, Route } from 'react-router-dom'
 import { GuestRoute } from './auth/guards/RouteGuards' 
-import { useDispatch, useSelector} from 'react-redux'
+import { useDispatch} from 'react-redux'
 import { ToastContainer } from "react-toastify"
 import Home from './components/home/Home'
 import About from './components/about/About'
@@ -10,6 +10,7 @@ import Login from './components/login/Login'
 import Register from './components/register/Register'
 import { useEffect } from 'react'
 import { SetAuthLoading } from './redux/UserState'
+import NotFound from './components/notfound/NotFound'
 
 
 function App() {
@@ -51,8 +52,8 @@ function App() {
             <Register />
           </GuestRoute>
           } />
+      <Route path="*" element={<NotFound />} /> 
       </Routes>
-
     </Router>
   </div>)
 }

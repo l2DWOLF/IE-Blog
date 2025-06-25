@@ -13,4 +13,9 @@ export async function getAllComments(){
         nextUrl = data.next;
     }
     return allComments;
-}
+};
+
+export async function getArticleComments(articleId){
+    const response = await axios.get(`articles/${articleId}/comments/`);
+    return handleResponse(response);
+};
