@@ -1,25 +1,50 @@
 .loading-wrapper {
     height: 100%;
-    width: 200px;
+    width: 300px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    align-self: center;
     background: rgba(0, 0, 0, 0.175); 
-    padding: .5em 1em;
+    padding: 1em 1em;
+    margin: 1em 0em;
     border-radius: 15px;  
     color: #0f0;
     font-size: 1.2rem;
 }
 
+.loading-wrapper p{
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: aqua;
+}
+
 .spinner {
-    width: 50px;
-    height: 50px;
-    border: 5px solid #0f0;
-    border-top: 5px solid transparent;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin-bottom: 1em;
+    background: conic-gradient(
+        transparent 0deg 20deg,
+        /* Leading transparent gap (20deg) */
+        rgba(0, 255, 255, 0.3) 20deg,
+        rgba(0, 255, 255, 0.8) 60deg,
+        rgb(0, 255, 255) 230deg,
+        /* Aqua tail end */
+        rgb(0, 255, 162) 260deg,
+        /* Start of green head */
+        #0f0 300deg,
+        /* Peak green (10deg) */
+        #0f0 300deg,
+        transparent 295deg 360deg
+        /* End transparent trail (~20% gap total) */
+        );
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 8px), black calc(100% - 8px));
+    mask: radial-gradient(farthest-side, transparent calc(100% - 8px), black calc(100% - 8px));
+    animation: spin 1.1s linear infinite;
+    margin: 1em 0em;
+    filter: blur(2.5px);
+    /* optional: softens edges */
 }
 
 @keyframes spin {

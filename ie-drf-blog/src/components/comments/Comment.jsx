@@ -1,4 +1,5 @@
 import './css/comments.css';
+import '../common/design/design-tools.css'
 
 function Comment({ comment, depth = 0, onReplyClick }) {
     const getClassForDepth = (depth) => {
@@ -22,7 +23,7 @@ function Comment({ comment, depth = 0, onReplyClick }) {
 
     return (
         <div className={getClassForDepth(depth)}>
-            <div className="comment-div">
+            <div className="comment-div custom-scrollbar-thin">
                 <div className="comment-content">
                     <div className="comment">
                         <div className="comment-header">

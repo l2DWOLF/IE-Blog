@@ -8,6 +8,8 @@ import { pwField, usernameField } from "../../utils/validations/yupValidations";
 import { loginHandler } from "../../auth/services/authService";
 import { successMsg } from "../../utils/toastify/toast";
 import LoadingScreen from "../common/loadscreen/LoadingScreen";
+import FormWrapper from "../common/forms/FormWrapper";
+import FormInput from "../common/forms/formInput";
 
 
 function Login() {
@@ -44,30 +46,26 @@ function Login() {
         <div className="login-section">
             <h1>Login</h1>
             
-            <div className="form-container">
-                <h3>Login Form</h3>
-
+            <FormWrapper title="Login Form" onSubmit={formik.handleSubmit}>
                 {isLoading ? (
                     <LoadingScreen />
-                ) : (
-                <form className="login-form" onSubmit={formik.handleSubmit}>
-                    <div className="input-field">
-                        <label htmlFor="username">*Username:</label>
-                        <input type="username" name="username" id="username" autoComplete="on" placeholder="Enter Username" value={formik.values.username} onBlur={formik.handleBlur} onChange={formik.handleChange} />
-                        {formik.touched.username && formik.errors.username && (<p className="input-error-msg">
-                            {formik.errors.username}
-                        </p>)}
-                    </div>
+                ) : ( <>
+                    <FormInput label="Username" name="username"
+                        formik={formik} placeholder="Enter Username"
+                    />
+                    <FormInput
+                        label="Password" name="password" type="password"
+                        formik={formik} placeholder="Enter Password"
+                    />
 
-                    <div className="input-field">
-                        <label htmlFor="password">*Password:</label>
-                        <input type="password" name="password" id="password" autoComplete="on" placeholder="Enter Password" value={formik.values.password} onBlur={formik.handleBlur} onChange={formik.handleChange} />
-                        {formik.touched.password && formik.errors.password && (<p className="input-error-msg">
-                            {formik.errors.password}
-                        </p>)}
-                    </div>
-                    <button className="submit-btn" type="submit" disabled={!formik.dirty || !formik.isValid}>Login</button>
-                    </form>)}
+                    <button
+                        className="submit-btn" type="submit"
+                        disabled={!formik.dirty || !formik.isValid}
+                    >
+                        Login
+                    </button>
+                </> )}
+            </FormWrapper>
             </div>
-        </div>)}
-export default Login;
+        )}
+export default Login; 

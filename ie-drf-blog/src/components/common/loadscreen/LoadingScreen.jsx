@@ -6,7 +6,7 @@ function LoadingScreen(){
             <div className="spinner">
 
             </div>
-            <p>Loading, please wait..</p>
+            <p>Loading.. </p>
         </div>
     )
 }

@@ -74,7 +74,7 @@
     color: #e0e0e0;
     padding-left: 0.5em;
     margin-top: 0.3em;
-    min-height: 3em;
+    min-height: 2.8em;
 }
 
 /* Replies container */
@@ -86,6 +86,14 @@
     background-color: #181818;
     border-radius: 8px;
     box-shadow: inset 0 0 4px rgba(0, 255, 200, 0.05);
+}
+
+.reply .comment-content{
+    min-height: 65px;
+}
+.reply.reply-level-2 .comment-content{
+    padding: .7em;
+    min-height: 45px;
 }
 
 /* Replies heading */

@@ -1,0 +1,88 @@
+.form-container {
+    min-width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4em 3em 4em;
+    gap: 2em;
+    margin-bottom: 3em;
+    box-shadow: 0px 0px 5px 1px rgb(15, 15, 15);
+    background-color: rgba(51, 89, 101, 0.51);
+
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-radius: 5px;
+    transition: .3s;
+}
+
+.form-container:hover,
+.form-container:focus-within {
+    background-color: rgba(3, 230, 255, 0.186);
+}
+
+.custom-form {
+    width: 100%;
+    display: grid;
+    padding: 1em;
+    grid-template-columns: 1fr;
+    gap: 1em;
+    border-radius: 10px;
+    
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    background-color: rgba(0, 229, 255, 0.003);
+}
+
+.input-field {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 1em;
+    align-items: center;
+    padding: .3em .5em;
+    box-shadow: 0px 0px 5px 1px rgb(11, 148, 186);
+    border-radius: 10px;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+.input-field label {
+    font-size: .9rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+.input-field input {
+    color: rgb(255, 255, 255);
+    font-size: .9rem;
+    font-weight: 600;
+    padding: 3px 5px;
+    border-radius: 10px;
+    background-color: rgba(95, 160, 127, 0.404);
+    border: none;
+}
+
+.input-field input::placeholder {
+    color: turquoise;
+    font-style: italic;
+    font-size: .9rem;
+    text-align: center;
+}
+
+.input-error-msg {
+    text-align: center;
+    color: orange;
+    font-weight: 600;
+}
+
+.submit-btn:disabled {
+    color: grey;
+}
+
+.submit-btn {
+    margin-top: 1em;
+    width: 50% !important;
+    justify-self: center;
+    cursor: pointer;
+    color: greenyellow;
+}

@@ -1,4 +1,5 @@
 import './css/articles.css'
+import '../common/design/design-tools.css'
 import React, { useState, useEffect, useRef } from "react"
 import { User, ThumbsUp, ThumbsDown, Edit3, Trash2 } from "lucide-react";
 import { getAllArticles } from "../../services/articleServices";
@@ -142,9 +143,6 @@ function Articles() {
                                                 )}
                                             </>)}
                                     </div>
-                                    <div className="article-stats"><br />
-                                        likes: 40 | dislikes: 5 | comments: {nestedComments.length || 0} | stars: 95 users
-                                    </div>
                                     <div className="tags-container">
                                         <div className="tags-div">
                                             <h5>Categories:</h5>
@@ -155,6 +153,9 @@ function Articles() {
                                             ))}
                                         </div>
                                     </div>
+                                    <div className="article-stats"><br />
+                                        likes: 40 | dislikes: 5 | comments: {nestedComments.length || 0} | stars: 95 users
+                                    </div>
                                     <div className="timestamps">
                                         <p>Created at: {article?.created_at}</p>
                                         <p>last update: {article?.updated_at}</p>
@@ -164,7 +165,7 @@ function Articles() {
                                 <div className="article-engagement-container">
                                     <div className="comments-div">
                                         <h3>Comments:</h3>
-                                        <div className="comments-container">
+                                        <div className="comments-container custom-scrollbar-thin">
                                             {nestedComments.length > 0 ? nestedComments.map(comment => (
                                                 <Comment key={comment.id} comment={comment} />
                                             )) : (
