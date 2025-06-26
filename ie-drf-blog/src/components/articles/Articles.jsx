@@ -109,7 +109,7 @@ function Articles() {
                                         </button>)}
                                 </div>
 
-                                <div className="article-info">
+                                <div className="article-info-container">
                                     <div className="card-btns">
                                         {canLikeDislike(user, article) &&
                                             (<>
@@ -161,7 +161,7 @@ function Articles() {
                                     </div>
                                 </div>
 
-                                <div className="article-engagement">
+                                <div className="article-engagement-container">
                                     <div className="comments-div">
                                         <h3>Comments:</h3>
                                         <div className="comments-container">

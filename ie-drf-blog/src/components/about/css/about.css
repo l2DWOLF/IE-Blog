@@ -12,13 +12,14 @@
 }
 
 .about-section h1{
-    margin: 1em 0;
+    margin: 1em 0 .5em;
 }
 
 .about-p{
     text-align: center;
-    width: 70%;
-    padding: 2em;
+    width: 65%;
+    padding: 2em 10%;
+    font-size: 1.1rem;
     background: rgba(0, 0, 0, 0.732);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
