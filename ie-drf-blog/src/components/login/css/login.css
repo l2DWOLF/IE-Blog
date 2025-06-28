@@ -8,6 +8,10 @@
     margin: 1em 0em 1.5em;
 }
 
+.login-section .form-container{
+    max-width: 350px;
+}
 .login-section .custom-form>* {
     grid-column: 1 /-1;
 }
+

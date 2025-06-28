@@ -13,5 +13,8 @@ export function userLogout(data){
     }).then(handleResponse)
 };
 
+export function userRegistration(data){{
+    return axios.post("http://127.0.0.1:8000/api/auth/register/", data).then(handleResponse);
+}};
 
 

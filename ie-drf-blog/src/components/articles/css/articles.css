@@ -209,7 +209,7 @@
     font-weight: 500;
     max-height: 500px;
     padding-bottom: 3em !important;
-    border-radius: 15px;
+    border-radius: 15px 15px 0px 0px;
     overflow: hidden;
     font-family: 'Georgia', 'Times New Roman', serif;
     white-space: pre-wrap;
@@ -226,6 +226,7 @@
 .article-content.expanded {
     max-height: none;
     overflow: visible;
+    margin-bottom: 2em;
 }
 
 .sticky-title {

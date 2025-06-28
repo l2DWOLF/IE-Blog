@@ -46,10 +46,10 @@ function Login() {
         <div className="login-section">
             <h1>Login</h1>
             
-            <FormWrapper title="Login Form" onSubmit={formik.handleSubmit}>
                 {isLoading ? (
-                    <LoadingScreen />
-                ) : ( <>
+                <LoadingScreen />
+                ) : ( 
+                <FormWrapper title="Login Form" onSubmit={formik.handleSubmit}>
                     <FormInput label="Username" name="username"
                         formik={formik} placeholder="Enter Username"
                     />
@@ -64,8 +64,7 @@ function Login() {
                     >
                         Login
                     </button>
-                </> )}
-            </FormWrapper>
+                </FormWrapper>)}
             </div>
         )}
 export default Login; 

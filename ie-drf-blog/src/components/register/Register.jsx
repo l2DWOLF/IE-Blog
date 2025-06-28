@@ -4,12 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
-import { emailField, nameField, pwField, usernameField } from "../../utils/validations/yupValidations";
+import { confirmPwField, emailField, nameField, pwField, usernameField } from "../../utils/validations/yupValidations";
 import { loginHandler } from "../../auth/services/authService";
 import { successMsg } from "../../utils/toastify/toast";
 import LoadingScreen from "../common/loadscreen/LoadingScreen";
 import FormWrapper from "../common/forms/FormWrapper";
 import FormInput from "../common/forms/formInput";
+import { userRegistration } from '../../services/userServices';
 
 
 function Register(){
@@ -29,7 +30,7 @@ function Register(){
         validationSchema: yup.object({
             username: usernameField,
             password: pwField,
-            confirmPassword: pwField,
+            confirmPassword: confirmPwField,
             email: emailField,
             first_name: nameField,
             last_name: nameField,
@@ -37,7 +38,12 @@ function Register(){
         onSubmit: async (values) => {
             setIsLoading(true);
             try {
-                const token = await loginHandler(values, dispatch);
+                delete values.confirmPassword;
+                
+                await userRegistration(values);
+                const loginInfo = {username: values.username, password: values.password};
+                
+                const token = await loginHandler(loginInfo, dispatch);
                 if (token) {
                     successMsg(`Registered Successfully!\n Welcome aboard ${values.username} :)`);
                     navigate("/", { state: { fromLogin: true } });
@@ -53,11 +59,12 @@ function Register(){
     return (
         <div className="register-section">
             <h1>Register</h1>
-
-            <FormWrapper title="Registration Form" onSubmit={formik.handleSubmit}>
+            
                 {isLoading ? (
-                    <LoadingScreen />
-                ) : (<>
+                <LoadingScreen />
+                ) : ( 
+                <FormWrapper title="Registration Form" onSubmit={formik.handleSubmit}>
+                        
                     <FormInput
                         label="Email" name="email" type="email"
                         formik={formik} placeholder="Enter Email"
@@ -84,12 +91,11 @@ function Register(){
 
                     <button
                         className="submit-btn" type="submit"
-                        disabled={!formik.dirty || !formik.isValid}
+                        disabled={!formik.dirty || !formik.isValid || formik.values.password !== formik.values.confirmPassword}
                     >
-                        register
+                        Register
                     </button>
-                </>)}
-            </FormWrapper>
+                </FormWrapper>)}
         </div>
     )
 }
