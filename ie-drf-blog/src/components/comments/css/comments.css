@@ -94,6 +94,7 @@
 .reply.reply-level-2 .comment-content{
     padding: .7em;
     min-height: 45px;
+    border-left: 2px solid #00eeff;
 }
 
 /* Replies heading */
@@ -144,7 +145,7 @@
 .reply .comment-replies {
     margin-left: 1.5em;
     padding-left: 1em;
-    border-left: 1px dashed #00ffc833;
+    border-left: 2px solid #00eeff;
     background-color: #1a1a1a;
     margin-top: 0.4em;
     border-radius: 6px;

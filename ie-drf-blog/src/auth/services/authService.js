@@ -2,6 +2,7 @@ import {jwtDecode} from "jwt-decode";
 import { userLogin, userLogout } from "../../services/userServices";
 import { SetToken, SetUser, Signoff } from "../../redux/UserState";
 import { successMsg } from "../../utils/toastify/toast";
+import { handleException } from "../../utils/errors/handleException";
 
 export const loginHandler = async (Values, dispatch) => {
     try{
@@ -14,9 +15,9 @@ export const loginHandler = async (Values, dispatch) => {
 
         dispatch(SetToken(accessToken, refreshToken));
         dispatch(SetUser(decodedUser));
-        return {accessToken, refreshToken}
+        return {accessToken, refreshToken};
     } catch (err) {
-        console.error(err.response.data || err.message);
+        handleException(err, {toast: true});
     };
 };
 

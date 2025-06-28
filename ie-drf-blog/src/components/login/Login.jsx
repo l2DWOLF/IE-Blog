@@ -6,7 +6,7 @@ import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import { pwField, usernameField } from "../../utils/validations/yupValidations";
 import { loginHandler } from "../../auth/services/authService";
-import { successMsg } from "../../utils/toastify/toast";
+import { errorMsg, successMsg } from "../../utils/toastify/toast";
 import LoadingScreen from "../common/loadscreen/LoadingScreen";
 import FormWrapper from "../common/forms/FormWrapper";
 import FormInput from "../common/forms/formInput";
@@ -31,11 +31,12 @@ function Login() {
             try {
                 const token = await loginHandler(values, dispatch);
                 if (token) {
-                    successMsg(`Logged in Successfully!\n Welcome back ${values.username}`);
+                    successMsg(`Logged in Successfully!\n Welcome back ${values.username}! :)`);
                     navigate("/", {state: {fromLogin: true}});
                 }
             } catch (err) {
                 console.error(err);
+                errorMsg(err.message);
             } finally {
                 setIsLoading(false);
             };

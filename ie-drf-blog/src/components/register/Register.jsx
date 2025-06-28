@@ -6,11 +6,12 @@ import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import { confirmPwField, emailField, nameField, pwField, usernameField } from "../../utils/validations/yupValidations";
 import { loginHandler } from "../../auth/services/authService";
-import { successMsg } from "../../utils/toastify/toast";
+import { errorMsg, successMsg } from "../../utils/toastify/toast";
 import LoadingScreen from "../common/loadscreen/LoadingScreen";
 import FormWrapper from "../common/forms/FormWrapper";
 import FormInput from "../common/forms/formInput";
 import { userRegistration } from '../../services/userServices';
+import { handleException } from '../../utils/errors/handleException';
 
 
 function Register(){
@@ -49,7 +50,7 @@ function Register(){
                     navigate("/", { state: { fromLogin: true } });
                 }
             } catch (err) {
-                console.error(err);
+                handleException(err, { toast: true, alert:true });
             } finally {
                 setIsLoading(false);
             };
