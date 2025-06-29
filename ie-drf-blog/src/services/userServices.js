@@ -1,12 +1,14 @@
 import axios from "./AxiosInstance"
 import { handleResponse } from "./utils/handleResponse"
 
-export function userLogin(credentials) {
-    return axios.post("http://127.0.0.1:8000/api/auth/login/", credentials).then(handleResponse);
+const authURL = import.meta.env.VITE_API_AUTH_URL;
+
+export async function userLogin(credentials) {
+    return axios.post(`${authURL}/login/`, credentials).then(handleResponse);
 };
 
-export function userLogout(data){
-    return axios.post("http://127.0.0.1:8000/api/auth/logout/", {refresh: data.refreshToken}, {
+export async function userLogout(data){
+    return axios.post(`${authURL}/logout/`, {refresh: data.refreshToken}, {
         headers: {
             Authorization: `Bearer ${data.accessToken}`
         }
@@ -14,7 +16,7 @@ export function userLogout(data){
 };
 
 export const userRegistration = async (values) => {
-    await axios.post("http://127.0.0.1:8000/api/auth/register/", values).then(handleResponse);
+    await axios.post(`${authURL}/register/`, values).then(handleResponse);
 };
 
 

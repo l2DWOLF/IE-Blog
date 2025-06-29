@@ -8,6 +8,7 @@ import Comment from '../comments/Comment'
 import LoadingScreen from '../common/loadscreen/LoadingScreen';
 import { canEditDelete, canLikeDislike } from '../../auth/utils/permissions';
 import useAuth from '../../auth/hooks/useAuth';
+import { handleException } from '../../utils/errors/handleException';
 
 function Articles() {
     const { user } = useAuth();
@@ -23,16 +24,19 @@ function Articles() {
             setIsLoading(true);
             try {
                 const serverArticles = await getAllArticles();
-                setArticles(serverArticles.results);
+                if(serverArticles.results){
+                    setArticles(serverArticles.results);
 
-                const commentsMap = {};
-                for (let article of serverArticles.results) {
-                    const articleComments = await getArticleComments(article.id);
-                    commentsMap[article.id] = articleComments;
-                };
-                setArticlesComments(commentsMap);
+                    const commentsMap = {};
+                    for (let article of serverArticles.results) {
+                        const articleComments = await getArticleComments(article.id);
+                        commentsMap[article.id] = articleComments;
+                    };
+                    setArticlesComments(commentsMap);
+                }
             } catch (e) {
                 console.error(e)
+                handleException(e, {toast: true, alert: true})
             } finally {
                 setIsLoading(false);
             }

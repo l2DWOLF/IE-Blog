@@ -1,7 +1,7 @@
-import axios from "./AxiosInstance"
+import axiosInstance from "./AxiosInstance"
 import { handleResponse } from "./utils/handleResponse";
 
 
 export function getAllArticles(){
-    return axios.get('articles/').then(handleResponse);
+    return axiosInstance.get('articles/').then(handleResponse);
 }

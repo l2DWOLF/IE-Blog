@@ -3,8 +3,10 @@ import { jwtDecode } from "jwt-decode";
 import { SetToken, SetUser, Signoff, SetAuthLoading } from "../redux/UserState";
 import store from "../redux/store";
 
+const baseURL = import.meta.env.VITE_API_BASE_URL;
+
 const axiosInstance = axios.create({
-    baseURL: "http://127.0.0.1:8000/api/"
+    baseURL: baseURL
 });
 
 let refreshPromise = null;
@@ -24,7 +26,7 @@ axiosInstance.interceptors.request.use(
                         if (!refreshPromise) {
                             store.dispatch(SetAuthLoading(true));
                             refreshPromise = axios.post(
-                                "http://127.0.0.1:8000/api/token/refresh/",
+                                `${baseURL}/token/refresh/`,
                                 { refresh: refreshToken },
                                 {
                                     headers: {

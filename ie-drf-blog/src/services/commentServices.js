@@ -1,4 +1,4 @@
-import axios from './AxiosInstance'
+import axiosInstance from './AxiosInstance'
 import { handleResponse } from './utils/handleResponse'
 
 export async function getAllComments(){
@@ -6,7 +6,7 @@ export async function getAllComments(){
     let nextUrl = "comments/"
 
     while (nextUrl) {
-        const response = await axios.get(nextUrl);
+        const response = await axiosInstance.get(nextUrl);
         const data = handleResponse(response);
         
         allComments = [...allComments, ...data.results]
@@ -16,6 +16,6 @@ export async function getAllComments(){
 };
 
 export async function getArticleComments(articleId){
-    const response = await axios.get(`articles/${articleId}/comments/`);
+    const response = await axiosInstance.get(`articles/${articleId}/comments/`);
     return handleResponse(response);
 };

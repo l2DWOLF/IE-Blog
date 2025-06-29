@@ -6,7 +6,7 @@ import { logoutHandler } from "../../auth/services/authService";
 
 function Navbar() {
 const dispatch = useDispatch();
-const {accessToken, refreshToken, isLoggedIn} = useAuth();
+const {isLoggedIn} = useAuth();
 
     return(
     <header>
@@ -24,30 +24,42 @@ const {accessToken, refreshToken, isLoggedIn} = useAuth();
                         <li>
                             <NavLink to="/about">About</NavLink>
                         </li>
+                        <li>
+                            <NavLink to="/likedarticles">Liked Articles</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/myarticles">My Articles</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/addarticle">Add Article</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/crm">CRM</NavLink>
+                        </li>
                     </ul>
                 </div>
 
                 <div className="user-nav">
-                <ul>
-                {isLoggedIn ? ( <>
-                
-                    <li>
-                        <NavLink to="/Profile">Profile</NavLink>
-                    </li>
-                    <li>
-                        <button onClick={() => {
-                            logoutHandler(accessToken, refreshToken, dispatch)}}>logout</button>
-                    </li>
-                </> ) : ( <>
-                    <li>
-                        <NavLink to="/login">Login</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="register">Register</NavLink>
-                    </li>
-                </> )}
+                    <ul>
+                    {isLoggedIn ? ( <>
                     
-                </ul>
+                        <li>
+                            <NavLink to="/Profile">Profile</NavLink>
+                        </li>
+                        <li>
+                            <button onClick={() => {
+                                logoutHandler(dispatch)}}>logout</button>
+                        </li>
+                    </> ) : ( <>
+                        <li>
+                            <NavLink to="/login">Login</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/register">Register</NavLink>
+                        </li>
+                    </> )}
+                        
+                    </ul>
                 </div>
 
             </div>
