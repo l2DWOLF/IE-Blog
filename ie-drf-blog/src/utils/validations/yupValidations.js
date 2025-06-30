@@ -10,4 +10,11 @@ const usernameField = yup.string().required().min(3, "username Must contain 3 or
 
 const nameField = yup.string().min(2, "Name Must contain 2 or more characters").max(50, "Name Must contain 50 or less characters")
 
-export {emailField, pwField, confirmPwField, usernameField, nameField}
+const titleField = yup.string().required().min(5, "Title must contain 5 or more characters").max(100, "Title must contain less than 100 characters.").matches(/^[a-zA-Z0-9].*$/, "Must begin with a letter or number")
+
+const contentField = yup.string().required().min(15, "must contain 15 or more characters").max(4096, "must contain less than 4096 characters")
+
+
+export {emailField, pwField, confirmPwField, usernameField, nameField, 
+        titleField, contentField
+}

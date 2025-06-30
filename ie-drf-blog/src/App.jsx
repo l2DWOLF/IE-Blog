@@ -11,6 +11,7 @@ import Register from './components/register/Register'
 import { useEffect } from 'react'
 import { SetAuthLoading } from './redux/UserState'
 import NotFound from './components/notfound/NotFound'
+import CreateArticle from './components/articles/CreateArticle'
 
 
 function App() {
@@ -52,6 +53,9 @@ function App() {
             <Register />
           </GuestRoute>
           } />
+
+          <Route path="/add-article" element={<CreateArticle />} />
+
       <Route path="*" element={<NotFound />} /> 
       </Routes>
     </Router>

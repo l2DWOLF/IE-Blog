@@ -86,3 +86,10 @@
     cursor: pointer;
     color: greenyellow;
 }
+
+.article-tag.selected {
+    background-color: #00ff66;
+    color: black;
+    transform: scale(1.05);
+    cursor: pointer; 
+}

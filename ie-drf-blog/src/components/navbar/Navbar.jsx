@@ -31,7 +31,7 @@ const {isLoggedIn} = useAuth();
                             <NavLink to="/myarticles">My Articles</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/addarticle">Add Article</NavLink>
+                            <NavLink to="/add-article">Add Article</NavLink>
                         </li>
                         <li>
                             <NavLink to="/crm">CRM</NavLink>

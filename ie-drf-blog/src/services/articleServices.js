@@ -5,3 +5,7 @@ import { handleResponse } from "./utils/handleResponse";
 export function getAllArticles(){
     return axiosInstance.get('articles/').then(handleResponse);
 }
+
+export function createArticle(payload){
+    return axiosInstance.post('articles/', payload).then(handleResponse);
+}
