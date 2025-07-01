@@ -1,10 +1,10 @@
 import './css/articles.css'
 import '../common/design/design-tools.css'
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect, useRef } from "react";
 import { User, ThumbsUp, ThumbsDown, Edit3, Trash2 } from "lucide-react";
-import { getAllArticles } from "../../services/articleServices";
+import { getArticles } from "../../services/articleServices";
 import { getArticleComments } from '../../services/commentServices';
-import Comment from '../comments/Comment'
+import Comment from '../comments/Comment';
 import LoadingScreen from '../common/loadscreen/LoadingScreen';
 import { canEditDelete, canLikeDislike } from '../../auth/utils/permissions';
 import useAuth from '../../auth/hooks/useAuth';
@@ -13,36 +13,54 @@ import { handleException } from '../../utils/errors/handleException';
 function Articles() {
     const { user } = useAuth();
     const [isLoading, setIsLoading] = useState(true);
+    const [isLoadingMore, setIsLoadingMore] = useState(false);
     const [articles, setArticles] = useState([]);
+    const [offset, setOffset] = useState(0);
+    const limit = 3;
+    const [hasMore, setHasMore] = useState(true);
     const [articlesComments, setArticlesComments] = useState({});
     const [expandedArticles, setExpandedArticles] = useState({});
     const contentRefs = useRef({});
     const [textScale, setTextScale] = useState(1);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            setIsLoading(true);
-            try {
-                const serverArticles = await getAllArticles();
-                if(serverArticles.results){
-                    setArticles(serverArticles.results);
+    const fetchData = async (offsetValue = 0) => {
+        if (offsetValue === 0) setIsLoading(true);
+        else setIsLoadingMore(true);
 
-                    const commentsMap = {};
-                    for (let article of serverArticles.results) {
-                        const articleComments = await getArticleComments(article.id);
-                        commentsMap[article.id] = articleComments;
-                    };
-                    setArticlesComments(commentsMap);
-                }
-            } catch (e) {
-                console.error(e)
-                handleException(e, {toast: true, alert: true})
-            } finally {
-                setIsLoading(false);
+        try {
+            const serverArticles = await getArticles({ limit, offset: offsetValue });
+            if (serverArticles.results && serverArticles.results.length > 0) {
+                setArticles(prev =>
+                    offsetValue === 0 ? serverArticles.results :
+                        [...prev, ...serverArticles.results]
+                );
+
+                const commentsMap = {};
+                for (let article of serverArticles.results) {
+                    const articleComments = await getArticleComments(article.id);
+                    commentsMap[article.id] = articleComments;
+                };
+                setArticlesComments(prev => ({ ...prev, ...commentsMap }));
+                setHasMore(!!serverArticles.next);
+                setOffset(offsetValue);
+            } else {
+                setHasMore(false);
             }
-        };
+        } catch (e) {
+            console.error(e)
+            handleException(e, { toast: true, alert: true })
+        } finally {
+            if (offsetValue === 0) setIsLoading(false);
+            else setIsLoadingMore(false);
+        }
+    };
+    useEffect(() => {
         fetchData();
     }, [])
+
+    const handleLoadMore = () => {
+        fetchData(offset + limit)
+    };
 
     const toggleExpanded = (id) => {
         setExpandedArticles(prev => ({
@@ -53,10 +71,10 @@ function Articles() {
 
     return (
         <section className="articles-section">
-        <h2>Articles</h2>
+            <h2>Articles</h2>
 
-        {isLoading ? (
-            <LoadingScreen />
+        {isLoading && articles.length === 0 ? (
+            <LoadingScreen message="Loading Articles..."/>
         ) : (
         <div className="articles-container">
             {articles && articles.length > 0 ? 
@@ -182,6 +200,11 @@ function Articles() {
                         </div>)
                 })) : (<p className="no-content-msg">No Articles Loaded..</p>)   
             }
+        {hasMore && (
+            <button className="load-more-btn" onClick={handleLoadMore} disabled={isLoadingMore}>
+                {isLoadingMore ? <LoadingScreen inline size="medium" /> : "Load More"}
+            </button>
+        )}
         </div>)}
     </section>)
 }

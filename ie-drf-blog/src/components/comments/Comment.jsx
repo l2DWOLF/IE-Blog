@@ -17,7 +17,7 @@ function Comment({ comment, depth = 0, onReplyClick }) {
 
     const handleReplyClick = () => {
         if (onReplyClick) {
-            onReplyClick(comment.id); // Pass the comment ID to the parent
+            onReplyClick(comment.id);
         }
     };
 

@@ -1,18 +1,8 @@
 import axiosInstance from './AxiosInstance'
 import { handleResponse } from './utils/handleResponse'
 
-export async function getAllComments(){
-    let allComments = [];
-    let nextUrl = "comments/"
-
-    while (nextUrl) {
-        const response = await axiosInstance.get(nextUrl);
-        const data = handleResponse(response);
-        
-        allComments = [...allComments, ...data.results]
-        nextUrl = data.next;
-    }
-    return allComments;
+export async function getAllComments({ limit = 5_000, offset = 0 }) {
+    return axiosInstance.get('comments/', { params: { limit, offset } }).then(handleResponse)
 };
 
 export async function getArticleComments(articleId){

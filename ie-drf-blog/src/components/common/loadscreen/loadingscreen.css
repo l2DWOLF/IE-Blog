@@ -46,6 +46,32 @@
     filter: blur(2.5px);
     /* optional: softens edges */
 }
+.loading-wrapper.inline {
+    width: auto;
+    height: auto;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    flex-direction: row;
+    gap: 0.5em;
+}
+
+.spinner.small {
+    width: 20px;
+    height: 20px;
+    filter: none;
+    margin: 0;
+}
+
+.spinner.medium {
+    width: 40px;
+    height: 40px;
+}
+
+.spinner.large {
+    width: 60px;
+    height: 60px;
+}
 
 @keyframes spin {
     to {

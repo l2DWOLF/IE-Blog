@@ -1,13 +1,12 @@
-import './loadingscreen.css'
+import './loadingscreen.css';
 
-function LoadingScreen(){
-    return(
-        <div className="loading-wrapper">
-            <div className="spinner">
-
-            </div>
-            <p>Loading.. </p>
+function LoadingScreen({ message = "Loading..", size = "large", inline = false }) {
+    return (
+        <div className={`loading-wrapper ${inline ? 'inline' : ''}`}>
+            <div className={`spinner ${size}`}></div>
+            {!inline && <p>{message}</p>}
         </div>
-    )
+    );
 }
-export default LoadingScreen
+
+export default LoadingScreen;

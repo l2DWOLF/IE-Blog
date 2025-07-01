@@ -66,7 +66,9 @@ function CreateArticle() {
                         formik={formik} placeholder="Enter Content"
                     />
                     <FormTagSelector 
-                            formik={formik} label="Categories" name="tags" options={["C++", "Django", "Python", "SQL", "JavaScript", "React"]}
+                            formik={formik} label="Categories" name="tags" options={['Python', 'C++', 'JavaScript', 'React', 'Node', 'SQL',
+                                'Django', 'MongoDB', 'HTML', 'CSS', 'Computer Science'
+                            ]}
                     />
 
                     <button

@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import './css/forms.css'
 
 export function FormInput({formik, label, name, type = "text", placeholder = "", required=false}){
@@ -19,8 +18,8 @@ export function FormInput({formik, label, name, type = "text", placeholder = "",
     );
 }
 
-export function FormSelectInput({
-    formik, label, name, options=[], required=true, multipleAllowed="false"}){
+export function FormSelectInput({formik, label, name,
+    options=[], required=true, multipleAllowed="false"}){
     
     const handleChange = (e) =>{
         const value = e.target.value;
