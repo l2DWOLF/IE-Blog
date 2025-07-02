@@ -1,40 +1,63 @@
 import './css/article-edit-create.css'
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useFormik } from "formik";
 import * as yup from "yup";
-import {  contentField, titleField } from "../../utils/validations/yupValidations";
+import { contentField, titleField } from "../../utils/validations/yupValidations";
 import { successMsg } from "../../utils/toastify/toast";
 import LoadingScreen from "../common/loadscreen/LoadingScreen";
 import FormWrapper from "../common/forms/FormWrapper";
 import { FormInput, FormSelectInput } from "../common/forms/formInput";
 import { handleException } from '../../utils/errors/handleException';
 import { FormTagSelector } from "../common/forms/FormTagSelector";
-import { createArticle } from "../../services/articleServices";
+import { getArticle, updateArticle } from "../../services/articleServices";
 
 
-function CreateArticle() {
+
+function EditArticle() {
+    const {id} = useParams();
     const [isLoading, setIsLoading] = useState(false);
+    const [initialValues, setInitialValues] = useState(null);
     const navigate = useNavigate();
 
+    useEffect(() => {
+        const loadArticle = async () => {
+            try {
+                const article = await getArticle(id);
+                setInitialValues({
+                    title: article.title,
+                    content: article.content,
+                    status: article.status,
+                    tags: article.tags,
+                })
+            } catch (err) {
+                handleException(err, { toast: true, alert: true})
+            } finally {
+                setIsLoading(false);
+            }  
+        };
+        loadArticle();
+    }, [id])
+
     const formik = useFormik({
-        initialValues: {
+        enableReinitialize: true,
+        initialValues: initialValues || {
             title: "",
             content: "",
-            status: "publish",
+            status: "",
             tags: [],
         },
         validationSchema: yup.object({
             title: titleField,
             content: contentField,
             status: yup.string().required(),
-            tags: yup.array().of(yup.string()).min(1, "Pick at least one Category Tag").ensure().required(), 
+            tags: yup.array().of(yup.string()).min(1, "Pick at least one Category Tag").ensure().required(),
         }),
         onSubmit: async (values) => {
             setIsLoading(true);
             try {
-                await createArticle(values);
-                successMsg("New Article Added Succesfully! :)")
+                await updateArticle(id, values);
+                successMsg("Article Edited Succesfully! :)")
                 navigate("/")
             } catch (err) {
                 handleException(err, { toast: true, alert: true });
@@ -42,16 +65,16 @@ function CreateArticle() {
                 setIsLoading(false);
             };
         }
-    }); 
+    });
 
     return (
         <div className="add-article-section">
-            <h1>Create Article</h1>
+            <h1>Edit Article</h1>
 
             {isLoading ? (
                 <LoadingScreen />
             ) : (
-                <FormWrapper title="New Article Form" onSubmit={formik.handleSubmit}>
+                <FormWrapper title="Edit Article Form" onSubmit={formik.handleSubmit}>
 
                     <FormInput
                         label="Title" name="title" type="text"
@@ -63,20 +86,20 @@ function CreateArticle() {
                     <FormInput label="Content" name="content" type="textarea"
                         formik={formik} placeholder="Enter Content" className="span-full"
                     />
-                    <FormTagSelector 
-                            formik={formik} label="Categories" name="tags" options={['Python', 'C++', 'JavaScript', 'React', 'Node', 'SQL',
-                                'Django', 'MongoDB', 'HTML', 'CSS', 'Computer Science'
-                            ]}
+                    <FormTagSelector
+                        formik={formik} label="Categories" name="tags" options={['Python', 'C++', 'JavaScript', 'React', 'Node', 'SQL',
+                            'Django', 'MongoDB', 'HTML', 'CSS', 'Computer Science'
+                        ]}
                     />
 
                     <button
                         className="submit-btn" type="submit"
                         disabled={!formik.dirty || !formik.isValid}
                     >
-                        Submit Article
+                        Submit Edited Article
                     </button>
                 </FormWrapper>)}
         </div>
     )
 }
-export default CreateArticle
+export default EditArticle

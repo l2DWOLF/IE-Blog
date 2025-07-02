@@ -1,6 +1,7 @@
 import './css/articles.css'
 import '../common/design/design-tools.css'
 import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { User, ThumbsUp, ThumbsDown, Edit3, Trash2 } from "lucide-react";
 import { getArticles } from "../../services/articleServices";
 import { getArticleComments } from '../../services/commentServices';
@@ -11,6 +12,7 @@ import useAuth from '../../auth/hooks/useAuth';
 import { handleException } from '../../utils/errors/handleException';
 
 function Articles() {
+    const navigate = useNavigate();
     const { user } = useAuth();
     const [isLoading, setIsLoading] = useState(true);
     const [isLoadingMore, setIsLoadingMore] = useState(false);
@@ -47,7 +49,6 @@ function Articles() {
                 setHasMore(false);
             }
         } catch (e) {
-            console.error(e)
             handleException(e, { toast: true, alert: true })
         } finally {
             if (offsetValue === 0) setIsLoading(false);
@@ -151,7 +152,9 @@ function Articles() {
                                             (<>
                                                 {(article?.id) && (
                                                     <>
-                                                        <button title="Edit Article">
+                                                        <button title="Edit Article"
+                                                            onClick={() => navigate(`edit-article/${article.id}`)}
+                                                        >
                                                             <Edit3 className="card-icons" />
                                                         </button>
                                                     </>

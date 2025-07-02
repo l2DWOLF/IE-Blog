@@ -2,6 +2,7 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { SetToken, SetUser, Signoff, SetAuthLoading } from "../redux/UserState";
 import store from "../redux/store";
+import { handleException } from "../utils/errors/handleException";
 
 const baseURL = import.meta.env.VITE_API_BASE_URL;
 
@@ -60,7 +61,7 @@ axiosInstance.interceptors.request.use(
                     config.headers["Authorization"] = `Bearer ${accessToken}`;
                 }
             } catch (decodeErr) {
-                console.error("[AxiosInstance] Failed to decode access token:", decodeErr);
+                handleException(decodeErr, { toast: true, alert:true });
                 store.dispatch(Signoff());
             }
         }

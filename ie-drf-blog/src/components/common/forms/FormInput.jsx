@@ -1,22 +1,34 @@
 import './css/forms.css'
 
-export function FormInput({formik, label, name, type = "text", placeholder = "", required=false}){
+export function FormInput({formik, label, name, type = "text", 
+                placeholder = "", required=false, className=""}){
     return(
-        <div className="input-field">
+        <div className={`input-field ${className}`}>
             <label htmlFor={name}>{label}</label>
             {formik.touched[name] && formik.errors[name] && (
                 <p className="input-error-msg">
                     {formik.errors[name]}
                 </p>
             )}
-            <input 
-                type={type} id={name} name={name} autoComplete="on"
-                value={formik.values[name]} onChange={formik.handleChange}
-                onBlur={formik.handleBlur} placeholder={placeholder} required={required}
-            />
+
+            {type === "textarea" ? (
+                <textarea name={name} id={name} value={formik.values[name]} required={required}
+                onChange={formik.handleChange} onBlur={formik.handleBlur} rows={10}
+                placeholder={placeholder} className="form-textarea"
+                > 
+
+                </textarea>
+            ) : (
+                <input
+                    type={type} id={name} name={name} autoComplete="on"
+                    value={formik.values[name]} onChange={formik.handleChange}
+                    onBlur={formik.handleBlur} placeholder={placeholder} required={required}
+                />
+            )}
+            
         </div>
     );
-}
+};
 
 export function FormSelectInput({formik, label, name,
     options=[], required=true, multipleAllowed="false"}){
@@ -50,4 +62,4 @@ export function FormSelectInput({formik, label, name,
         </select>
     </div>
     ); 
-}
+};

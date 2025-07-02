@@ -6,7 +6,7 @@ import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import { pwField, usernameField } from "../../utils/validations/yupValidations";
 import { loginHandler } from "../../auth/services/authService";
-import { errorMsg, successMsg } from "../../utils/toastify/toast";
+import { successMsg } from "../../utils/toastify/toast";
 import LoadingScreen from "../common/loadscreen/LoadingScreen";
 import FormWrapper from "../common/forms/FormWrapper";
 import {FormInput} from "../common/forms/formInput";

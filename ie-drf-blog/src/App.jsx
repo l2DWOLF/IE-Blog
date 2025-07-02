@@ -12,6 +12,7 @@ import { useEffect } from 'react'
 import { SetAuthLoading } from './redux/UserState'
 import NotFound from './components/notfound/NotFound'
 import CreateArticle from './components/articles/CreateArticle'
+import EditArticle from './components/articles/EditArticle'
 
 
 function App() {
@@ -55,6 +56,7 @@ function App() {
           } />
 
           <Route path="/add-article" element={<CreateArticle />} />
+          <Route path="/edit-article/:id" element={<EditArticle />} />
 
       <Route path="*" element={<NotFound />} /> 
       </Routes>

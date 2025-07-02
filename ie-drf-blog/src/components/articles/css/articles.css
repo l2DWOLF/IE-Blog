@@ -207,7 +207,9 @@
     align-self: center;
     background: rgba(0, 0, 0, 0.282);
     font-weight: 500;
+    min-height: 300px;
     max-height: 500px;
+    padding-top: 2em !important;
     padding-bottom: 3em !important;
     border-radius: 15px 15px 0px 0px;
     overflow: hidden;
