@@ -3,13 +3,14 @@ import '../common/design/design-tools.css'
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { User, ThumbsUp, ThumbsDown, Edit3, Trash2 } from "lucide-react";
-import { getArticles } from "../../services/articleServices";
+import { deleteArticle, getArticles } from "../../services/articleServices";
 import { getArticleComments } from '../../services/commentServices';
 import Comment from '../comments/Comment';
 import LoadingScreen from '../common/loadscreen/LoadingScreen';
 import { canEditDelete, canLikeDislike } from '../../auth/utils/permissions';
 import useAuth from '../../auth/hooks/useAuth';
 import { handleException } from '../../utils/errors/handleException';
+import { successMsg } from '../../utils/toastify/toast';
 
 function Articles() {
     const navigate = useNavigate();
@@ -58,6 +59,19 @@ function Articles() {
     useEffect(() => {
         fetchData();
     }, [])
+
+    async function handleDeleteArticle(id){
+        const confirm = window.confirm("Are you sure you want to delete this article?");
+        if (!confirm) return;
+
+        try {
+            await deleteArticle(id);
+            successMsg(`Article was deleted successfully.`);
+            setArticles(prev => prev.filter(article => article.id !== id));
+        } catch (err) {
+            handleException(err);
+        }
+    }
 
     const handleLoadMore = () => {
         fetchData(offset + limit)
@@ -161,7 +175,9 @@ function Articles() {
                                                 )}
                                                 {(article?.id) && (
                                                     <>
-                                                        <button title="Delete Article">
+                                                        <button title="Delete Article"
+                                                        onClick={() => handleDeleteArticle(article.id)}
+                                                        >
                                                             <Trash2 className="card-icons" />
                                                         </button>
                                                     </>

@@ -13,6 +13,11 @@ export function getArticle(id){
 export function createArticle(payload){
     return axiosInstance.post('articles/', payload).then(handleResponse);
 }
+
 export function updateArticle(id, payload){
     return axiosInstance.put(`articles/${id}/`, payload).then(handleResponse);
+}
+
+export function deleteArticle(id){
+    return axiosInstance.delete(`articles/${id}/`).then(handleResponse);
 }
