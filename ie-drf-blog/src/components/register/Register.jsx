@@ -59,7 +59,10 @@ function Register(){
 
     return (
         <div className="register-section">
-            <h1>Register</h1>
+            <div className="mirror-wrapper">
+                <h1 className="mirrored" data-text="Register">
+                    Register</h1>
+            </div>
             
                 {isLoading ? (
                 <LoadingScreen />

@@ -43,7 +43,8 @@
     text-transform: capitalize;
     padding: 4.5em 0.5em 2em;
     gap: 1em;
-    background-color: rgba(3, 63, 3, 0.118);
+    /* background-color: rgba(3, 63, 3, 0.118); */
+    background-color: rgba(86, 140, 201, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.359);
     box-shadow: 0 0 15px 1px rgb(0, 0, 0);
     border-radius: 10px;
@@ -53,11 +54,12 @@
 }
 
 .article-card:hover {
-    background-color: rgba(3, 42, 3, 0.289);
+    /* background-color: rgba(3, 42, 3, 0.289); */
     border: 1px solid rgba(255, 250, 250, 0.308);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     transform: scale(1.02);
+    margin: 2em 0;
 }
 
 .article-card p {
@@ -428,4 +430,9 @@
     background: rgba(54, 176, 187, 0.293);
     border:1px dashed #b0f1e346;
     border-radius: 20px;
+}
+
+.load-more-btn{
+    font-size: 2rem;
+    padding: 5px 1.5em;
 }

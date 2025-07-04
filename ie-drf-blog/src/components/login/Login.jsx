@@ -45,7 +45,10 @@ function Login() {
 
     return (
         <div className="login-section">
-            <h1>Login</h1>
+            <div className="mirror-wrapper">
+                <h1 className="mirrored" data-text="Login">
+                    Login</h1>
+            </div>
             
                 {isLoading ? (
                 <LoadingScreen />

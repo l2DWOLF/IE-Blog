@@ -2,7 +2,10 @@ import "./css/about.css"
 
 function About() {
     return ( <div className="about-section">
-        <h1>About Us</h1>
+        <div className="mirror-wrapper">
+            <h1 className="mirrored" data-text="About us">
+                About us</h1>
+        </div>
         <p className="about-p">
             Welcome to IE-Blog!
             <br /><br />

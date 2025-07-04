@@ -69,7 +69,10 @@ function EditArticle() {
 
     return (
         <div className="add-article-section">
-            <h1>Edit Article</h1>
+            <div className="mirror-wrapper">
+                <h1 className="mirrored" data-text="Edit Article">
+                    Edit Article</h1>
+            </div>
 
             {isLoading ? (
                 <LoadingScreen />

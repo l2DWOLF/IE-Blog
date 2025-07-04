@@ -27,17 +27,13 @@
     grid-template-columns: 1fr;
     gap: 1em;
     border-radius: 10px;
-    
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    background-color: rgba(0, 229, 255, 0.003);
+   /*  background-color: #00f7ff0f; */
 }
 
 .form-container:hover .custom-form, .form-container:focus-within .custom-form{
-    background: linear-gradient(135deg,
-                rgba(0, 229, 255, 0.289),
-                rgba(0, 255, 150, 0.1));
-       
+  /*   background: linear-gradient(135deg,
+    #00f7ff4f,
+                #00f7ff37); */
 }
 
 .input-field {
@@ -46,17 +42,25 @@
     grid-template-rows: auto auto;
     column-gap: 1em;
     align-items: center;
-    padding: .3em .5em;
-    box-shadow: 0px 0px 5px 1px rgb(11, 148, 186);
+    padding: .5em 1.5em;
+    border: 1px dotted rgba(0, 255, 98, 0.381);
     border-radius: 10px;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
 }
 
 .input-field label {
-    font-size: .9rem;
-    font-weight: 500;
+    width: unset;
+    font-size: 1rem;
+    font-weight: 900;
+    letter-spacing: 1.7px;
     text-align: center;
+    color: rgb(18, 249, 41);
+    font-style: italic;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-color: rgba(1, 255, 251, 0.659);
+
 }
 
 .input-field input {

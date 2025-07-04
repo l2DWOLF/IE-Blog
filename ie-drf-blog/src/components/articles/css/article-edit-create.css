@@ -10,7 +10,10 @@
     row-gap:4em;
 }
 
-.add-article-section .custom-form label{
+.add-article-section .input-field label{
+    grid-column: 1/2;
+}
+.add-article-section .custom-form .span-full label{
     grid-column: 1/3;
 }
 

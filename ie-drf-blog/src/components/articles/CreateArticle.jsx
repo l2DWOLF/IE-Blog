@@ -46,7 +46,10 @@ function CreateArticle() {
 
     return (
         <div className="add-article-section">
-            <h1>Create Article</h1>
+            <div className="mirror-wrapper">
+                <h1 className="mirrored" data-text="Create Article">
+                    Create Article</h1>
+            </div>
 
             {isLoading ? (
                 <LoadingScreen />

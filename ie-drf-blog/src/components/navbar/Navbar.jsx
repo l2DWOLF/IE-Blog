@@ -12,7 +12,7 @@ const {isLoggedIn} = useAuth();
     <header>
         <div className="navbar">
             <div className="logo">
-                <NavLink to="/">IE Blog</NavLink>
+                    <NavLink to="/" className="mirrored" data-text="IE Blog">IE Blog</NavLink>
             </div>
 
             <div className="nav-wrapper">
