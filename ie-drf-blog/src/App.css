@@ -11,9 +11,11 @@
 
 .mirror-wrapper {
   width: 100%;
+  margin: 5em 0;
   text-align: center;
   position: relative;
   overflow: visible;
+  padding:0 0 0 0;
 }
 
 .mirrored {
@@ -23,12 +25,17 @@
   color: #00ff66;
   font-size: 4rem;
   font-weight: 700;
-  padding: .4em 0em .3em;
-  background: rgba(0, 0, 0, 0.7);
+  transform:scaleY(1.15) scaleX(1.1);
+  padding: 0 0 1px;
+  
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border-radius: 8px;
   text-shadow: 0 0 4px rgba(0, 255, 102, 0.3);
+}
+.mirror-wrapper h1{
+  margin: 0 0 !important;
+  
 }
 
 .mirrored::after {
@@ -121,6 +128,14 @@ h4{
     font-style: italic;
 }
 
-.toastifier{
-  margin-top:70px;
+.toast-wrapper{
+  position:fixed;
+  top: 65px;
+  right: 0px;
+  z-index: 1003;
+}
+
+.toast-container{
+  position: relative;
+  font-size: 1.25rem;
 }

@@ -7,7 +7,7 @@
     gap: 2em;
     margin-bottom: 3em;
     box-shadow: 0px 0px 5px 1px rgb(15, 15, 15);
-    background-color: rgba(51, 89, 101, 0.51);
+    background-color: rgba(3, 230, 255, 0.15);
 
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
@@ -17,7 +17,14 @@
 
 .form-container:hover,
 .form-container:focus-within {
-    background-color: rgba(3, 230, 255, 0.186);
+    background-color: rgba(3, 230, 255, 0.2);
+}
+.form-container:hover .input-field, 
+.form-container:focus-within .input-field{
+    -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+    background: transparent !important;
+    background-color: transparent !important;
 }
 
 .custom-form {
@@ -43,17 +50,16 @@
     column-gap: 1em;
     align-items: center;
     padding: .5em 1.5em;
-    border: 1px dotted rgba(0, 255, 98, 0.381);
+    border: 1px dotted rgba(0, 255, 98, 0.181);
     border-radius: 10px;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
+    
 }
 
 .input-field label {
     width: unset;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 900;
-    letter-spacing: 1.7px;
+    letter-spacing: .9px;
     text-align: center;
     color: rgb(18, 249, 41);
     font-style: italic;
@@ -84,6 +90,11 @@
     text-align: center;
     color: orange;
     font-weight: 600;
+    font-size: .9rem;
+    margin: 2px;
+    padding: 2px;
+    border-radius: 15px;
+    background: rgba(0, 0, 0, 0.442);
 }
 
 .submit-btn:disabled {

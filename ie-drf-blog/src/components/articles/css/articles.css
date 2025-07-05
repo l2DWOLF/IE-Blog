@@ -1,6 +1,6 @@
 .articles-section {
     width: 80%;
-    background-color: rgba(0, 255, 242, 0.094);
+    background-color: rgba(0, 255, 242, 0.16);
     min-height: 350px;
     display: flex;
     flex-direction: column;
@@ -15,11 +15,16 @@
 }
 
 .articles-section:hover {
-    width: 82%;
+    width: 80.5%;
 }
 
 .articles-section h2 {
     text-align: center;
+    font-size: 2.5rem;
+}
+
+.articles-section h3 {
+    font-size: 2rem;
 }
 
 .articles-container {
@@ -45,7 +50,7 @@
     gap: 1em;
     /* background-color: rgba(3, 63, 3, 0.118); */
     background-color: rgba(86, 140, 201, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.359);
+    border: 1px solid rgba(255, 255, 255, 0.457);
     box-shadow: 0 0 15px 1px rgb(0, 0, 0);
     border-radius: 10px;
     backdrop-filter: blur(5px);
@@ -54,11 +59,9 @@
 }
 
 .article-card:hover {
-    /* background-color: rgba(3, 42, 3, 0.289); */
-    border: 1px solid rgba(255, 250, 250, 0.308);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
-    transform: scale(1.02);
+    transform: scale(1.015);
     margin: 2em 0;
 }
 
@@ -103,6 +106,7 @@
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     transition: 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.35);
 }
 
 .article-info-container:hover {
@@ -122,6 +126,7 @@
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     transition: 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.35);
 }
 .article-engagement-container:hover {
     width: 96%;
@@ -198,6 +203,7 @@
     -webkit-backdrop-filter: blur(4px);
     transition: 0.3s ease;
     min-height: 0;
+    border: 1px solid rgba(0, 221, 255, 0.436);
 }
 .article-content-wrapper:hover{
     box-shadow: 0 0 14px rgba(0, 255, 102, 0.4);
@@ -207,7 +213,7 @@
 .article-content {
     width: 90%;
     align-self: center;
-    background: rgba(0, 0, 0, 0.282);
+    background: rgba(0, 0, 0, 0.6);
     font-weight: 500;
     min-height: 300px;
     max-height: 500px;
@@ -222,9 +228,13 @@
     text-align: left;
     transition: 0.3s;
     scroll-behavior: smooth;
+    border: 1px solid rgba(255, 255, 255, 0.27);
 }
 .article-content:hover {
     box-shadow: 0 0 10px rgba(190, 255, 216, 0.2);
+}
+.article-content-wrapper:hover .article-content{
+    width:88.5%
 }
 
 .article-content.expanded {
@@ -245,7 +255,8 @@
     justify-content: center;
     backdrop-filter: blur(4px);
     background: rgba(0, 0, 0, 0.1);
-    box-shadow: 0 0 10px rgba(0, 255, 102, 0.3);
+    box-shadow: 0 0 10px 2px rgba(0, 255, 102, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.383);
     border-radius: 8px;
 }
 .article-card:hover .sticky-title{
@@ -403,7 +414,7 @@
     padding: 0.6em 1.2em;
     border-radius: 10px;
     font-weight: 500;
-    font-size: 0.9rem;
+    font-size: 1rem;
     display: flex;
     align-items: center;
     gap: 0.5em;
@@ -419,9 +430,23 @@
     box-shadow: 0 0 8px rgba(0, 255, 102, 0.4);
 }
 
+
 .card-icons {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
+}
+
+.active-like {
+    background-color: #00ff66 !important;
+    color: black !important;
+    box-shadow: 0 0 8px rgba(0, 255, 102, 0.6) !important;
+}
+
+.active-dislike {
+    background-color: #ff2e2e !important;
+    color: white !important;
+    border-color: rgba(255, 46, 46, 0.6) !important;
+    box-shadow: 0 0 8px rgba(255, 46, 46, 0.4) !important;
 }
 
 .no-content-msg{

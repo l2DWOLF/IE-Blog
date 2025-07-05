@@ -32,11 +32,14 @@ function App() {
 
     <Router>
       <Navbar />
-      <ToastContainer className="toastifier"
-        newestOnTop
-        pauseOnFocusLoss
-        pauseOnHover
-      />
+      <div className="toast-wrapper">
+        <ToastContainer className="toast-container"
+          newestOnTop
+          pauseOnFocusLoss
+          pauseOnHover
+        />
+      </div>
+      
       <Routes>
         <Route path="/">
           <Route index element={<Home />} />

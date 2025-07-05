@@ -27,7 +27,6 @@
 }
 
 .comments-container {
-
     max-height: 250px;
     overflow-y: auto;
     display: flex;

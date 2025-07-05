@@ -21,3 +21,7 @@ export function updateArticle(id, payload){
 export function deleteArticle(id){
     return axiosInstance.delete(`articles/${id}/`).then(handleResponse);
 }
+
+export function articleLike(payload){
+    return axiosInstance.post(`article-likes/`, payload).then(handleResponse);
+}

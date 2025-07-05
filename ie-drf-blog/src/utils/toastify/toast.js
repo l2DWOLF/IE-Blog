@@ -1,6 +1,7 @@
 import { Flip, toast } from "react-toastify";
 
 const baseOptions = {
+    className: "toast-container",
     position: "top-right",
     autoClose: 2000,
     hideProgressBar: false,

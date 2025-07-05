@@ -16,11 +16,10 @@ export class UserState {
 }
 
 export const ActionType = {
+    SetAuthLoading: "SetAuthLoading",
     SetToken: "SetToken",
     SetUser: "SetUser",
-    SetMyCardIds: "SetMyCardIds",
     Signoff: "Signoff",
-    SetAuthLoading: "SetAuthLoading",
 };
 
 export function SetAuthLoading(status){
@@ -50,6 +49,10 @@ export function userReducer(currentState = new UserState(), action) {
     const newState = { ...currentState };
 
     switch (action.type) {
+        case ActionType.SetAuthLoading:
+            newState.isAuthLoading = action.payload;
+            break;
+
         case ActionType.SetToken:
             newState.accessToken = action.payload.accessToken;
             newState.refreshToken = action.payload.refreshToken;
@@ -66,10 +69,6 @@ export function userReducer(currentState = new UserState(), action) {
             newState.isAuthLoading = "";
             break;
         
-        case ActionType.SetAuthLoading:
-            newState.isAuthLoading = action.payload;
-            break;
-            
         default:
             break;
     }
