@@ -430,6 +430,9 @@
     box-shadow: 0 0 8px rgba(0, 255, 102, 0.4);
 }
 
+.span-full {
+    grid-column: 1 / 3;
+}
 
 .card-icons {
     width: 20px;

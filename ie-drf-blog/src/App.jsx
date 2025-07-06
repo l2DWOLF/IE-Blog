@@ -1,15 +1,16 @@
 import './App.css'
 import { HashRouter as Router, Routes, Route } from 'react-router-dom'
-import { GuestRoute } from './auth/guards/RouteGuards' 
+import { AuthRoute, GuestRoute, RoleRoute } from './auth/guards/RouteGuards' 
 import { useDispatch} from 'react-redux'
 import { ToastContainer } from "react-toastify"
-import Home from './components/home/Home'
-import About from './components/about/About'
-import Navbar from './components/navbar/Navbar'
-import Login from './components/login/Login'
-import Register from './components/register/Register'
 import { useEffect } from 'react'
 import { SetAuthLoading } from './redux/UserState'
+
+import Navbar from './components/navbar/Navbar'
+import Home from './components/home/Home'
+import About from './components/about/About'
+import Login from './components/login/Login'
+import Register from './components/register/Register'
 import NotFound from './components/notfound/NotFound'
 import CreateArticle from './components/articles/CreateArticle'
 import EditArticle from './components/articles/EditArticle'
@@ -25,7 +26,6 @@ function App() {
     if(!access & !refresh){
       dispatch(SetAuthLoading(false));
     };
-
   },[dispatch])
 
   return (<div className="wrapper">
@@ -46,19 +46,16 @@ function App() {
           <Route path="/about" element={<About />} />
         </Route>
 
-        <Route path="/login" element={
-          <GuestRoute>
-            <Login />
-          </GuestRoute>
-          } />
+        <Route
+          path="/login"
+          element={<GuestRoute> <Login /> </GuestRoute>}
+        />
+        <Route
+          path="/register"
+          element={<GuestRoute> <Register /> </GuestRoute>}
+        />
 
-        <Route path="/register" element={
-          <GuestRoute>
-            <Register />
-          </GuestRoute>
-          } />
-
-          <Route path="/add-article" element={<CreateArticle />} />
+        <Route path="/add-article" element={<RoleRoute roles={["mod"]}> <CreateArticle />  </RoleRoute>} />
           <Route path="/edit-article/:id" element={<EditArticle />} />
 
       <Route path="*" element={<NotFound />} /> 

@@ -27,6 +27,8 @@ function Register(){
             email: "",
             first_name: "",
             last_name: "",
+            mod_key: "",
+            is_mod: false,
         },
         validationSchema: yup.object({
             username: usernameField,
@@ -35,12 +37,34 @@ function Register(){
             email: emailField,
             first_name: nameField,
             last_name: nameField,
+            mod_key: yup.string().optional(),
         }),
         onSubmit: async (values) => {
             setIsLoading(true);
             try {
                 delete values.confirmPassword;
+
+                const correctModKey = "ModMePlease";
+                const enteredKey = values.mod_key.trim();
                 
+                if (enteredKey) {
+                    if (enteredKey === correctModKey) {
+                        values.is_mod = true;
+                    } else {
+                        const proceed = window.confirm(
+                            "Wrong moderator key. \nClick OK to continue registration as a user or Cancel to re-enter the mod key."
+                        );
+                        if (!proceed) {
+                            setIsLoading(false);
+                            return;
+                        }
+                        values.is_mod = false;
+                    }
+                } else {
+                    values.is_mod = false;
+                }
+                delete values.mod_key;
+
                 await userRegistration(values);
                 const loginInfo = {username: values.username, password: values.password};
                 
@@ -91,6 +115,15 @@ function Register(){
                     <FormInput
                         label="Last name" name="last_name" type="text"
                         formik={formik} placeholder="Enter Last Name"
+                    />
+
+                    <FormInput
+                        className="span-full"
+                        label="Mod Access"
+                        name="mod_key"
+                        type="text"
+                        formik={formik}
+                        placeholder="Enter keyword to register as moderator"
                     />
 
                     <button

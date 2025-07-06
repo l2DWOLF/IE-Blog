@@ -1,16 +1,14 @@
 import './css/articles.css';
 import '../common/design/design-tools.css';
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { User, ThumbsUp, ThumbsDown, Edit3, Trash2 } from "lucide-react";
 import { articleLike, deleteArticle, getArticles } from "../../services/articleServices";
 import { getArticleComments } from '../../services/commentServices';
-import Comment from '../comments/Comment';
 import LoadingScreen from '../common/loadscreen/LoadingScreen';
-import { canEditDelete, canLikeDislike } from '../../auth/utils/permissions';
 import useAuth from '../../auth/hooks/useAuth';
 import { handleException } from '../../utils/errors/handleException';
 import { infoMsg, successMsg } from '../../utils/toastify/toast';
+import ArticleCard from './ArticleCard';
 
 function Articles() {
     const navigate = useNavigate();
@@ -76,7 +74,7 @@ function Articles() {
 
     useEffect(() => {
         fetchData();
-    }, [user]);
+    }, [user.id]);
 
     async function handleDeleteArticle(id) {
         const confirm = window.confirm("Are you sure you want to delete this article?");
@@ -164,125 +162,22 @@ function Articles() {
             ) : (
                 <div className="articles-container">
                     {articles.length > 0 ? articles.map(article => {
-                        const isExpanded = !!expandedArticles[article.id];
-                        const maxContent = article.content.length > 1028;
-                        const nestedComments = articlesComments[article.id] || [];
-                        if (!contentRefs.current[article.id]) {
-                            contentRefs.current[article.id] = React.createRef();
-                        }
-                        const contentRef = contentRefs.current[article.id];
-                        const currentStatus = userLikesMap[article.id];
-
-                        const handleToggle = () => {
-                            if (isExpanded && contentRef.current) {
-                                const offset = 100;
-                                const elementTop = contentRef.current.getBoundingClientRect().top;
-                                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                                window.scrollTo({
-                                    top: elementTop + scrollTop - offset,
-                                    behavior: 'smooth'
-                                });
-                            }
-                            toggleExpanded(article.id);
-                        };
-
-                        return (
-                            <div className="article-card" key={article.id}>
-                                <h3>{article.title}</h3>
-                                <div className="article-inner">
-                                    <div className="article-content-wrapper">
-                                        <div className="sticky-title">
-                                            <div className="text-size-btns">
-                                                <button onClick={() => setTextScale(prev => Math.min(prev + 0.1, 2))}>text+</button>
-                                                <button onClick={() => setTextScale(prev => Math.max(prev - 0.1, 0.6))}>text-</button>
-                                                <button onClick={() => setTextScale(1)}>reset</button>
-                                            </div>
-                                            <div className="article-metadata">
-                                                <div className="author-info">
-                                                    <User size={18} className="author-icon" />
-                                                    <span className="author-label">Author:</span>
-                                                    <h4 className="author-name">{article.author_name}</h4>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <p style={{ fontSize: `${1.3 * textScale}rem` }} ref={contentRef} className={`article-content ${isExpanded ? "expanded" : ""}`}>
-                                            {article.content}
-                                        </p>
-                                        {maxContent && (
-                                            <button className="read-more-btn" onClick={handleToggle} aria-expanded={isExpanded}>
-                                                {isExpanded ? "Read Less.." : "Read More.."}
-                                            </button>
-                                        )}
-                                    </div>
-
-                                    <div className="article-info-container">
-                                        <div className="card-btns">
-                                            <button
-                                                title="Like Article"
-                                                onClick={() => {
-                                                    if (requireAuthReaction()) {
-                                                        handleReaction(article.id, 'like');
-                                                    }
-                                                }}
-                                                className={`reaction-btn ${currentStatus === 'like' ? 'active-like' : ''}`}
-                                            >
-                                                <ThumbsUp className="card-icons" />
-                                            </button>
-
-                                            <button
-                                                title="Dislike Article"
-                                                onClick={() => {
-                                                    if (requireAuthReaction()) {
-                                                        handleReaction(article.id, 'dislike');
-                                                    }
-                                                }}
-                                                className={`reaction-btn ${currentStatus === 'dislike' ? 'active-dislike' : ''}`}
-                                            >
-                                                <ThumbsDown className="card-icons" />
-                                            </button>
-
-                                            {canEditDelete(user, article) && (
-                                                <>
-                                                    <button title="Edit Article" onClick={() => navigate(`edit-article/${article.id}`)}>
-                                                        <Edit3 className="card-icons" />
-                                                    </button>
-                                                    <button title="Delete Article" onClick={() => handleDeleteArticle(article.id)}>
-                                                        <Trash2 className="card-icons" />
-                                                    </button>
-                                                </>
-                                            )}
-                                        </div>
-                                        <div className="tags-container">
-                                            <div className="tags-div">
-                                                <h5>Categories:</h5>
-                                                {article.tags.map((tag, id) => (
-                                                    <div className="article-tag" key={id}><p>{tag}</p></div>
-                                                ))}
-                                            </div>
-                                        </div>
-                                        <div className="article-stats"><br />
-                                            likes: {article.likes.filter(like => like.status === "like").length || 0} | dislikes: {article.likes.filter(like => like.status === "dislike").length || 0} | comments: {nestedComments.length || 0}
-                                        </div>
-                                        <div className="timestamps">
-                                            <p>Created at: {article.created_at}</p>
-                                            <p>last update: {article.updated_at}</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="article-engagement-container">
-                                        <div className="comments-div">
-                                            <h3>Comments:</h3>
-                                            <div className="comments-container custom-scrollbar-thin">
-                                                {nestedComments.length > 0 ? nestedComments.map(comment => (
-                                                    <Comment key={comment.id} comment={comment} />
-                                                )) : <p>No comments yet.</p>}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        );
+                    return (
+                        <ArticleCard key={article.id}
+                        article={article}
+                        user={user}
+                        comments={articlesComments[article.id] || []}
+                        isExpanded={!!expandedArticles[article.id]}
+                        contentRef={contentRefs.current[article.id]}
+                        textScale={textScale}
+                        setTextScale={setTextScale}
+                        onToggleExpanded={toggleExpanded}
+                        onReaction={handleReaction}
+                        onDelete={handleDeleteArticle}
+                        onEdit={(id) => navigate(`edit-article/${id}`)}
+                        requireAuthReaction={requireAuthReaction}
+                        currentStatus={userLikesMap[article.id]}
+                        />);
                     }) : <p className="no-content-msg">No Articles Loaded..</p>}
 
                     {hasMore && (
@@ -295,5 +190,4 @@ function Articles() {
         </section>
     );
 }
-
 export default Articles;
