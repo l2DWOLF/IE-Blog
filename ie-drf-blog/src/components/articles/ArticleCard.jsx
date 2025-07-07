@@ -18,7 +18,7 @@ function ArticleCard({
     setTextScale,
     currentStatus,
 }) {
-    const maxContent = article.content.length > 1028;
+    const maxContent = article.content.length > 512;
 
     const handleToggle = () => {
         if (isExpanded && contentRef?.current) {

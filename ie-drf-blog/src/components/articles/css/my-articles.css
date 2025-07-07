@@ -1,0 +1,38 @@
+.my-articles-wrapper {
+    min-height: calc(100vh - 70px);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+    padding: 1em;
+}
+
+.my-articles-section {
+    width: 80%;
+    background-color: rgba(0, 255, 242, 0.16);
+    min-height: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2em .5em;
+    margin-bottom: 5em;
+    gap: 1em;
+    box-shadow: 0 0 20px 5px rgba(0, 7, 0, 0.505);
+    border-radius: 10px;
+    transition: 0.8s;
+    scroll-padding: 20px;
+}
+
+.my-articles-section:hover {
+    width: 80.5%;
+}
+
+.my-articles-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+}
+
+.my-articles-section h3 {
+    font-size: 2rem;
+}

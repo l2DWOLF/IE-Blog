@@ -1,4 +1,5 @@
 import './css/articles.css';
+import './css/my-articles.css';
 import '../common/design/design-tools.css';
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +11,7 @@ import { handleException } from '../../utils/errors/handleException';
 import { infoMsg, successMsg } from '../../utils/toastify/toast';
 import ArticleCard from './ArticleCard';
 
-function Articles() {
+function MyArticles() {
     const navigate = useNavigate();
     const { user } = useAuth();
     const [isLoading, setIsLoading] = useState(true);
@@ -18,7 +19,7 @@ function Articles() {
     const [articles, setArticles] = useState([]);
     const [userLikesMap, setUserLikesMap] = useState({});
     const [offset, setOffset] = useState(0);
-    const limit = 3;
+    const limit = 100;
     const [hasMore, setHasMore] = useState(true);
     const [articlesComments, setArticlesComments] = useState({});
     const [expandedArticles, setExpandedArticles] = useState({});
@@ -28,15 +29,17 @@ function Articles() {
     const fetchData = async (offsetValue = 0) => {
         if (offsetValue === 0) setIsLoading(true);
         else setIsLoadingMore(true);
-
+        
         try {
             const serverArticles = await getArticles({ limit, offset: offsetValue });
-            
-            if (serverArticles.results && serverArticles.results.length > 0) {
+
+            const myArticles = serverArticles.results.filter(article => article.author_id === user.id)
+
+            if (myArticles && myArticles.length > 0) {
                 const articleCommentPromises = [];
                 const likesMap = {};
 
-                for (let article of serverArticles.results) {
+                for (let article of myArticles) {
                     const reaction = (article.likes || []).find(
                         r => r.username === user?.username && ['like', 'dislike'].includes(r.status)
                     );
@@ -47,18 +50,18 @@ function Articles() {
 
                 const commentsResults = await Promise.all(articleCommentPromises);
                 const commentsMap = {};
-                serverArticles.results.forEach((article, i) => {
+                myArticles.forEach((article, i) => {
                     commentsMap[article.id] = commentsResults[i];
                 });
 
                 setArticles(prev =>
-                    offsetValue === 0 ? serverArticles.results : [...prev, ...serverArticles.results]
+                    offsetValue === 0 ? myArticles : [...prev, ...myArticles]
                 );
 
                 setArticlesComments(prev => ({ ...prev, ...commentsMap }));
                 setUserLikesMap(prev => ({ ...prev, ...likesMap }));
 
-                setHasMore(!!serverArticles.next);
+                setHasMore(!!myArticles.next);
                 setOffset(offsetValue);
             } else {
                 setHasMore(false);
@@ -73,7 +76,7 @@ function Articles() {
 
     useEffect(() => {
         fetchData();
-    }, [user.id]);
+    }, [user?.id]);
 
     async function handleDeleteArticle(id) {
         const confirm = window.confirm("Are you sure you want to delete this article?");
@@ -153,30 +156,34 @@ function Articles() {
         setExpandedArticles(prev => ({ ...prev, [id]: !prev[id] }));
     };
 
-    return (
-        <section className="articles-section">
-            <h2>Articles</h2>
+    return ( <div className="my-articles-wrapper">
+        <div className="mirror-wrapper">
+            <h1 className="mirrored" data-text="My Articles">
+                My Articles</h1>
+        </div>
+        <section className="my-articles-section">
+            <h2>My Articles <p> Count: {articles.length || ""}</p></h2>
             {isLoading && articles.length === 0 ? (
                 <LoadingScreen message="Loading Articles..." />
             ) : (
                 <div className="articles-container">
                     {articles.length > 0 ? articles.map(article => {
-                    return (
-                        <ArticleCard key={article.id}
-                        article={article}
-                        user={user}
-                        comments={articlesComments[article.id] || []}
-                        isExpanded={!!expandedArticles[article.id]}
-                        contentRef={contentRefs.current[article.id]}
-                        textScale={textScale}
-                        setTextScale={setTextScale}
-                        onToggleExpanded={toggleExpanded}
-                        onReaction={handleReaction}
-                        onDelete={handleDeleteArticle}
-                        onEdit={(id) => navigate(`edit-article/${id}`)}
-                        requireAuthReaction={requireAuthReaction}
-                        currentStatus={userLikesMap[article.id]}
-                        />);
+                        return (
+                            <ArticleCard key={article.id}
+                                article={article}
+                                user={user}
+                                comments={articlesComments[article.id] || []}
+                                isExpanded={!!expandedArticles[article.id]}
+                                contentRef={contentRefs.current[article.id]}
+                                textScale={textScale}
+                                setTextScale={setTextScale}
+                                onToggleExpanded={toggleExpanded}
+                                onReaction={handleReaction}
+                                onDelete={handleDeleteArticle}
+                                onEdit={(id) => navigate(`edit-article/${id}`)}
+                                requireAuthReaction={requireAuthReaction}
+                                currentStatus={userLikesMap[article.id]}
+                            />);
                     }) : <p className="no-content-msg">No Articles Loaded..</p>}
 
                     {hasMore && (
@@ -187,6 +194,7 @@ function Articles() {
                 </div>
             )}
         </section>
+    </div>
     );
 }
-export default Articles;
+export default MyArticles;

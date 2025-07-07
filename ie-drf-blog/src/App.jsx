@@ -14,6 +14,7 @@ import Register from './components/register/Register'
 import NotFound from './components/notfound/NotFound'
 import CreateArticle from './components/articles/CreateArticle'
 import EditArticle from './components/articles/EditArticle'
+import MyArticles from './components/articles/MyArticles'
 
 
 function App() {
@@ -46,6 +47,11 @@ function App() {
           <Route path="/about" element={<About />} />
         </Route>
 
+        <Route path="/my-articles" element={<AuthRoute> <MyArticles />  </AuthRoute>} />
+        <Route path="/add-article" element={<RoleRoute roles={["mod", "admin"]}> <CreateArticle />  </RoleRoute>} />
+        
+        <Route path="/edit-article/:id" element={<EditArticle />} />
+
         <Route
           path="/login"
           element={<GuestRoute> <Login /> </GuestRoute>}
@@ -55,10 +61,7 @@ function App() {
           element={<GuestRoute> <Register /> </GuestRoute>}
         />
 
-        <Route path="/add-article" element={<RoleRoute roles={["mod"]}> <CreateArticle />  </RoleRoute>} />
-          <Route path="/edit-article/:id" element={<EditArticle />} />
-
-      <Route path="*" element={<NotFound />} /> 
+        <Route path="*" element={<NotFound />} /> 
       </Routes>
     </Router>
   </div>)

@@ -3,10 +3,11 @@ import {NavLink} from 'react-router-dom'
 import useAuth from '../../auth/hooks/useAuth';
 import {useDispatch} from 'react-redux';
 import { logoutHandler } from "../../auth/services/authService";
+import { canAddArticles } from "../../auth/utils/permissions";
 
 function Navbar() {
 const dispatch = useDispatch();
-const {isLoggedIn} = useAuth();
+const {user, isLoggedIn} = useAuth();
 
     return(
     <header>
@@ -25,14 +26,15 @@ const {isLoggedIn} = useAuth();
                             <NavLink to="/about">About</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/likedarticles">Liked Articles</NavLink>
+                            <NavLink to="/liked-articles">Liked Articles</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/myarticles">My Articles</NavLink>
+                            <NavLink to="/my-articles">My Articles</NavLink>
                         </li>
+                        {canAddArticles(user) && 
                         <li>
                             <NavLink to="/add-article">Add Article</NavLink>
-                        </li>
+                        </li>}
                         <li>
                             <NavLink to="/crm">CRM</NavLink>
                         </li>
@@ -48,7 +50,7 @@ const {isLoggedIn} = useAuth();
                         </li>
                         <li>
                             <button onClick={() => {
-                                logoutHandler(dispatch)}}>logout</button>
+                                logoutHandler(dispatch)}}>Logout</button>
                         </li>
                     </> ) : ( <>
                         <li>
