@@ -52,11 +52,10 @@ header::before {
     gap: .3em;
     padding: 5px;
     min-width: 150px;
-
     list-style-type: none;
     border-radius: 12px;
-    border-left: 1px solid rgba(0, 255, 217, 0.406);
-    border-right: 1px solid rgba(0, 255, 26, 0.406);
+    border-left: 1px solid rgb(0, 255, 208);
+    border-right: 1px solid rgb(0, 148, 15);
 }
 .navbar li{
     padding: 2px;
@@ -87,14 +86,15 @@ header::before {
 }
 
 .logo{
-    width: 167px;
+    width: 165px;
     text-align: center;
     border-radius: 15px;
     padding:0px 0px;
     letter-spacing: 1.2px;
 }
+
 .logo a{
-    font-size: 2.9rem;
+    font-size: 2.75rem;
     padding: 0 10px;
     color: #e7fce4;
 }

@@ -1,4 +1,5 @@
 import './css/articles.css';
+import './css/my-articles.css';
 import '../common/design/design-tools.css';
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
@@ -8,7 +9,7 @@ import ArticleCard from './ArticleCard';
 import { useArticleHandlers } from './hooks/articleHandlers';
 import { motion, AnimatePresence } from 'motion/react'
 
-function Articles() {
+function LikedArticles() {
     const navigate = useNavigate();
     const { user } = useAuth();
     const contentRefs = useRef({});
@@ -28,49 +29,52 @@ function Articles() {
         requireAuthReaction,
         handleLoadMore,
         toggleExpanded
-    } = useArticleHandlers(user, {limit: 3});
+    } = useArticleHandlers(user, { limit: 0, filterByLiked: true, });
+
 
     useEffect(() => {
         fetchData();
     }, [user.id]);
 
-
-    return (
-        <section className="articles-section">
-            <h2>Articles</h2>
+    return (<div className="my-articles-wrapper">
+        <div className="mirror-wrapper">
+            <h1 className="mirrored" data-text="Liked Articles">
+                Liked Articles</h1>
+        </div>
+        <section className="my-articles-section">
+            <h2>My Liked Articles <p> Count: {articles.length || ""}</p></h2>
             {isLoading && articles.length === 0 ? (
                 <LoadingScreen message="Loading Articles..." />
             ) : (
                 <div className="articles-container">
                 <AnimatePresence>
-                    {articles.length > 0 ? articles.map(article => {
-                        return (
-
+                {articles.length > 0 ? articles.map(article => {
+                    return (
                         <motion.div
                             key={article.id}
                             className="article-motion-wrapper"
-                            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.2, x: 450, y: 30 }}
+                            initial={{ opacity: 0, scale: 0.95, y: 20}}
+                            animate={{ opacity: 1, scale: 1, y: 0}}
+                            exit={{ opacity: 0, scale: 0.2, x: 450, y:30 }}
                             transition={{ duration: 0.5 }}
                         >
-                        <ArticleCard key={article.id}
-                            article={article}
-                            user={user}
-                            comments={articlesComments[article.id] || []}
-                            isExpanded={!!expandedArticles[article.id]}
-                            contentRef={contentRefs.current[article.id]}
-                            textScale={textScale}
-                            setTextScale={setTextScale}
-                            onToggleExpanded={toggleExpanded}
-                            onReaction={handleReaction}
-                            onDelete={handleDeleteArticle}
-                            onEdit={(id) => navigate(`edit-article/${id}`)}
-                            requireAuthReaction={requireAuthReaction}
-                            currentStatus={userLikesMap[article.id]}
-                        />
+                            <ArticleCard key={article.id}
+                                article={article}
+                                user={user}
+                                comments={articlesComments[article.id] || []}
+                                isExpanded={!!expandedArticles[article.id]}
+                                contentRef={contentRefs.current[article.id]}
+                                textScale={textScale}
+                                setTextScale={setTextScale}
+                                onToggleExpanded={toggleExpanded}
+                                onReaction={handleReaction}
+                                onDelete={handleDeleteArticle}
+                                onEdit={(id) => navigate(`edit-article/${id}`)}
+                                requireAuthReaction={requireAuthReaction}
+                                currentStatus={userLikesMap[article.id]}
+                            />
                         </motion.div>)
-                    }) : <p className="no-content-msg">No Articles Loaded..</p>}
+                        }) : <p className="no-content-msg">No Articles Loaded..</p>}
                     </AnimatePresence>
 
                     {hasMore && (
@@ -81,6 +85,7 @@ function Articles() {
                 </div>
             )}
         </section>
+    </div>
     );
 }
-export default Articles;
+export default LikedArticles;

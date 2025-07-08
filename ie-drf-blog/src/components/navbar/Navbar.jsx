@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom'
 import useAuth from '../../auth/hooks/useAuth';
 import {useDispatch} from 'react-redux';
 import { logoutHandler } from "../../auth/services/authService";
-import { canAddArticles } from "../../auth/utils/permissions";
+import { isUserAccess, modArticlesAccess } from "../../auth/utils/permissions";
 
 function Navbar() {
 const dispatch = useDispatch();
@@ -25,16 +25,22 @@ const {user, isLoggedIn} = useAuth();
                         <li>
                             <NavLink to="/about">About</NavLink>
                         </li>
-                        <li>
-                            <NavLink to="/liked-articles">Liked Articles</NavLink>
-                        </li>
-                        <li>
+
+                        {isUserAccess(user) && 
+                            <li>
+                                <NavLink to="/liked-articles">Liked Articles</NavLink>
+                            </li>
+                        }
+                        {modArticlesAccess(user) &&
+                            <li>
                             <NavLink to="/my-articles">My Articles</NavLink>
-                        </li>
-                        {canAddArticles(user) && 
-                        <li>
+                            </li>
+                        }
+                        {modArticlesAccess(user) && 
+                            <li>
                             <NavLink to="/add-article">Add Article</NavLink>
-                        </li>}
+                            </li>
+                        }
                         <li>
                             <NavLink to="/crm">CRM</NavLink>
                         </li>
@@ -63,9 +69,7 @@ const {user, isLoggedIn} = useAuth();
                         
                     </ul>
                 </div>
-
             </div>
-
         </div>
     </header>
     )

@@ -35,7 +35,7 @@ function CreateArticle() {
             try {
                 await createArticle(values);
                 successMsg("New Article Added Succesfully! :)")
-                navigate("/")
+                navigate("/my-articles")
             } catch (err) {
                 handleException(err, { toast: true, alert: true });
             } finally {

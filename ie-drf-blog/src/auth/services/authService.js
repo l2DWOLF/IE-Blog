@@ -5,6 +5,9 @@ import { SetToken, SetUser, Signoff } from "../../redux/UserState";
 import { successMsg } from "../../utils/toastify/toast";
 import { handleException } from "../../utils/errors/handleException";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+
+const navigate = useNavigate;
 
 export const loginHandler = async (Values, dispatch) => {
     try{
@@ -32,9 +35,9 @@ export const logoutHandler = async (dispatch) => {
             const { refreshToken } = store.getState().user;
             await axios.post(`${baseURL}/auth/logout/`, { refresh: refreshToken });
             dispatch(Signoff());
-            return successMsg("You've been logged out, see you soon! :)")
+            return successMsg("You've been logged out, see you soon! :)");
         } catch (err) {
-            console.error(err.response.data || err.message)
+            console.error(err.response.data || err.message);
         };
     }
     else return;
