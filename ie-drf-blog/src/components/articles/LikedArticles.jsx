@@ -29,7 +29,7 @@ function LikedArticles() {
         requireAuthReaction,
         handleLoadMore,
         toggleExpanded
-    } = useArticleHandlers(user, { limit: 0, filterByLiked: true, });
+    } = useArticleHandlers(user, { limit: 100, filterByLiked: true, filterOwn: false });
 
 
     useEffect(() => {

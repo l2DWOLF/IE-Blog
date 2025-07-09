@@ -9,3 +9,7 @@ export async function getArticleComments(articleId){
     const response = await axiosInstance.get(`articles/${articleId}/comments/`);
     return handleResponse(response);
 };
+
+export async function createComment(payload) {
+    return axiosInstance.post('comments/', payload).then(handleResponse);
+}

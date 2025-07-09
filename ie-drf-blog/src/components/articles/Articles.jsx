@@ -70,7 +70,7 @@ function Articles() {
                             currentStatus={userLikesMap[article.id]}
                         />
                         </motion.div>)
-                    }) : <p className="no-content-msg">No Articles Loaded..</p>}
+                    }) : <p className="no-content-msg">No Articles available..</p>}
                     </AnimatePresence>
 
                     {hasMore && (

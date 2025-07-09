@@ -1,7 +1,13 @@
 import './css/comments.css';
 import '../common/design/design-tools.css'
+import CreateComment from './CreateComment'
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+
 
 function Comment({ comment, depth = 0, onReplyClick }) {
+    const [showReplyModal, setShowReplyModal] = useState(false);
+
     const getClassForDepth = (depth) => {
         switch (depth) {
             case 0:
@@ -15,20 +21,40 @@ function Comment({ comment, depth = 0, onReplyClick }) {
         }
     };
 
+    const closeModal = () => {
+        setShowReplyModal(false);
+    }
+
     const handleReplyClick = () => {
-        if (onReplyClick) {
-            onReplyClick(comment.id);
-        }
+        setShowReplyModal(true);
     };
 
-    return (
+    return (<>
+        <AnimatePresence>
+        {showReplyModal && (
+            <motion.div
+                className="modal-overlay"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                transition={{ duration: 0.25 }}
+            >
+                <CreateComment
+                    articleId={comment.article}
+                    replyTo={comment.id}
+                    onClose={closeModal}
+                />
+            </motion.div>
+        )}
+    </AnimatePresence>
         <div className={getClassForDepth(depth)}>
+
             <div className="comment-div custom-scrollbar-thin">
                 <div className="comment-content">
                     <div className="comment">
                         <div className="comment-header">
                             <h5 className="comment-author">{comment.author_name}:</h5>
-                            <button className="reply-button" onClick={handleReplyClick}>
+                            <button className="reply-button" onClick={() => handleReplyClick()}>
                                 Reply to {depth === 0 ? 'Comment' : 'Reply'}
                             </button>
                         </div>
@@ -48,7 +74,7 @@ function Comment({ comment, depth = 0, onReplyClick }) {
                 )}
             </div>
         </div>
-    );
+        </>);
 }
 
 export default Comment;
