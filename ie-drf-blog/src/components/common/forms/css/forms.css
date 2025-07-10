@@ -1,5 +1,4 @@
 .form-container {
-    min-width: 350px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -50,7 +49,7 @@
     column-gap: 1em;
     align-items: center;
     padding: .5em 1.5em;
-    border: 1px dotted rgba(0, 255, 98, 0.181);
+    border: 1px solid rgba(0, 255, 98, 0.181);
     border-radius: 10px;
     
 }

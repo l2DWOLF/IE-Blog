@@ -3,9 +3,10 @@ import '../common/design/design-tools.css'
 import CreateComment from './CreateComment'
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import ModalPortal from '../common/modal/ModalPortal';
 
 
-function Comment({ comment, depth = 0, onReplyClick }) {
+function Comment({ comment, depth = 0, onReplyClick, onCommentAdded }) {
     const [showReplyModal, setShowReplyModal] = useState(false);
 
     const getClassForDepth = (depth) => {
@@ -31,7 +32,8 @@ function Comment({ comment, depth = 0, onReplyClick }) {
 
     return (<>
         <AnimatePresence>
-        {showReplyModal && (
+        {showReplyModal && ( 
+        <ModalPortal>
             <motion.div
                 className="modal-overlay"
                 initial={{ opacity: 0, y: 10 }}
@@ -43,9 +45,10 @@ function Comment({ comment, depth = 0, onReplyClick }) {
                     articleId={comment.article}
                     replyTo={comment.id}
                     onClose={closeModal}
+                    onCommentAdded={onCommentAdded}
                 />
             </motion.div>
-        )}
+        </ModalPortal>)}
     </AnimatePresence>
         <div className={getClassForDepth(depth)}>
 
@@ -68,7 +71,7 @@ function Comment({ comment, depth = 0, onReplyClick }) {
                     <div className="comment-replies">
                         {depth === 0 && <h6> Replies:</h6>}
                         {comment.replies.map(reply => (
-                            <Comment key={reply.id} comment={reply} depth={depth + 1} onReplyClick={onReplyClick} />
+                            <Comment key={reply.id} comment={reply} depth={depth + 1} onReplyClick={onReplyClick} onCommentAdded={onCommentAdded} />
                         ))}
                     </div>
                 )}

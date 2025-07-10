@@ -27,6 +27,7 @@ function LikedArticles() {
         handleDeleteArticle,
         handleReaction,
         requireAuthReaction,
+        refreshArticleComments,
         handleLoadMore,
         toggleExpanded
     } = useArticleHandlers(user, { limit: 100, filterByLiked: true, filterOwn: false });
@@ -70,6 +71,7 @@ function LikedArticles() {
                                 onReaction={handleReaction}
                                 onDelete={handleDeleteArticle}
                                 onEdit={(id) => navigate(`edit-article/${id}`)}
+                                onCommentAdded={refreshArticleComments}
                                 requireAuthReaction={requireAuthReaction}
                                 currentStatus={userLikesMap[article.id]}
                             />

@@ -14,6 +14,7 @@ function ArticleCard({
     onReaction,
     onDelete,
     onEdit,
+    onCommentAdded,
     requireAuthReaction,
     setTextScale,
     currentStatus,
@@ -130,7 +131,7 @@ function ArticleCard({
                         <h3>Comments:</h3>
                         <div className="comments-container custom-scrollbar-thin">
                             {comments.length > 0 ? (
-                                comments.map((comment) => <Comment key={comment.id} comment={comment} />)
+                                comments.map((comment) => <Comment key={comment.id} comment={comment} onCommentAdded={async () => onCommentAdded(article.id)} />)
                             ) : (
                                 <p>No comments yet.</p>
                             )}

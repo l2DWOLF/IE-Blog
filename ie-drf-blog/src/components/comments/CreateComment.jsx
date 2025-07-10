@@ -13,10 +13,10 @@ import { handleException } from '../../utils/errors/handleException';
 import { motion } from 'framer-motion';
 import { createComment } from '../../services/commentServices';
 
-function CreateComment({articleId, replyTo, onClose}) {
+function CreateComment({articleId, replyTo, onClose, onCommentAdded}) {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
-
+    console.log("reply modal props:", { articleId, onCommentAdded });
     const formik = useFormik({
         initialValues: {
             content: "",
@@ -32,11 +32,14 @@ function CreateComment({articleId, replyTo, onClose}) {
                 const payload = values;
                 payload.article = articleId;
                 payload.reply_to = replyTo;
-
-                console.log(payload);
                 
                 await createComment(payload);
                 successMsg("New Comment Added Succesfully! :)");
+
+                if(typeof onCommentAdded === "function"){
+                    await onCommentAdded();
+                }
+                onClose();
             } catch (err) {
                 handleException(err, { toast: true, alert: true });
             } finally {
@@ -54,15 +57,16 @@ function CreateComment({articleId, replyTo, onClose}) {
             transition={{ duration: 0.50, ease: 'easeOut' }}
         >
         <div className="comment-modal-form">
-            <button className="close-btn" onClick={onClose}>X</button>
+            
 
             {isLoading ? (
                 <LoadingScreen />
             ) : (
                 <FormWrapper title="New Comment" onSubmit={formik.handleSubmit}>
+                    <button className="close-btn" type="button" onClick={onClose}>X</button>
 
                     <FormSelectInput
-                        label="Status" name="status" multipleAllowed="false" options={["publish", "draft", "archived"]} formik={formik}
+                        label="Status" name="status" className="status-input" multipleAllowed="false" options={["publish", "draft", "archived"]} formik={formik}
                     />
                     <FormInput label="Content" name="content" type="textarea"
                         formik={formik} placeholder="Enter Content" className="span-full"

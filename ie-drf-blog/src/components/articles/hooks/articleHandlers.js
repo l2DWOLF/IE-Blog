@@ -154,6 +154,19 @@ export function useArticleHandlers(user, options = {}) {
         return true;
     };
 
+    const refreshArticleComments = async (articleId) => {
+        try {
+            const updatedComments = await getArticleComments(articleId);
+            console.log("Updated Comments:", updatedComments);
+            setArticlesComments(prev => ({
+                ...prev, 
+                [articleId]: updatedComments,
+            }));
+        } catch (e) {
+            handleException(e);
+        }
+    };
+
     const handleLoadMore = () => {
         fetchData(offset + limit, options.filterOwn);
     };
@@ -174,6 +187,7 @@ export function useArticleHandlers(user, options = {}) {
         handleDeleteArticle,
         handleReaction,
         requireAuthReaction,
+        refreshArticleComments,
         handleLoadMore,
         toggleExpanded,
     };

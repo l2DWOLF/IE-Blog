@@ -44,7 +44,7 @@ export function FormSelectInput({formik, label, name,
     };
 
     return(
-    <div className="input-field">
+    <div className="input-field select-input    ">
         <label htmlFor={name}>{label}</label>
         {formik.touched[name] && formik.errors[name] && (
             <p className="input-error-msg">
