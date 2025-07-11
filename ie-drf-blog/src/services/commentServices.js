@@ -12,4 +12,8 @@ export async function getArticleComments(articleId){
 
 export async function createComment(payload) {
     return axiosInstance.post('comments/', payload).then(handleResponse);
-}
+};
+
+export async function updateComment(id, payload) {
+    return axiosInstance.put(`comments/${id}/`, payload).then(handleResponse);
+};

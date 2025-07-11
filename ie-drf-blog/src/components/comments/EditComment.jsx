@@ -10,15 +10,15 @@ import FormWrapper from "../common/forms/FormWrapper";
 import { FormInput, FormSelectInput } from "../common/forms/formInput";
 import { handleException } from '../../utils/errors/handleException';
 import { motion } from 'framer-motion';
-import { createComment } from '../../services/commentServices';
+import { updateComment } from '../../services/commentServices';
 
-function CreateComment({articleId, replyTo, onClose, onCommentAdded}) {
+function EditComment({comment, onClose, onCommentAdded}) {
     const [isLoading, setIsLoading] = useState(false);
     
     const formik = useFormik({
         initialValues: {
-            content: "",
-            status: "publish",
+            content: comment.content,
+            status: comment.status,
         },
         validationSchema: yup.object({
             content: contentField,
@@ -27,12 +27,14 @@ function CreateComment({articleId, replyTo, onClose, onCommentAdded}) {
         onSubmit: async (values) => {
             setIsLoading(true);
             try {
-                const payload = values;
-                payload.article = articleId;
-                payload.reply_to = replyTo;
+                const payload = {};
+                payload.content = values.content;
+                payload.status = values.status;
+                payload.article = comment.article;
+                payload.reply_to = comment.reply_to;
                 
-                await createComment(payload);
-                successMsg("New Comment Added Succesfully! :)");
+                await updateComment(comment.id, payload);
+                successMsg("Comment updated Succesfully! :)");
 
                 if(typeof onCommentAdded === "function"){
                     await onCommentAdded();
@@ -55,12 +57,11 @@ function CreateComment({articleId, replyTo, onClose, onCommentAdded}) {
             transition={{ duration: 0.50, ease: 'easeOut' }}
         >
             <div className="comment-modal-form">
-            
 
             {isLoading ? (
                 <LoadingScreen />
             ) : (
-                <FormWrapper title="New Comment" onSubmit={formik.handleSubmit}>
+                <FormWrapper title="Edit Comment" onSubmit={formik.handleSubmit}>
                     <button className="close-btn" type="button" onClick={onClose}>X</button>
 
                     <FormSelectInput
@@ -74,11 +75,11 @@ function CreateComment({articleId, replyTo, onClose, onCommentAdded}) {
                         className="submit-btn" type="submit"
                         disabled={!formik.dirty || !formik.isValid}
                     >
-                        Submit Comment
+                        Submit Edited Comment
                     </button>
                 </FormWrapper>)}
         </div>
         </motion.div>
     )
 }
-export default CreateComment
+export default EditComment

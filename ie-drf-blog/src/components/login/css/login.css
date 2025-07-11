@@ -9,7 +9,7 @@
 }
 
 .login-section .form-container{
-    max-width: 350px;
+    min-width: 400px;
 }
 .login-section .custom-form>* {
     grid-column: 1 /-1;

@@ -3,7 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
-  font-size: .7rem;
+  font-size: .8rem;
   text-decoration: none;
   scroll-behavior: smooth;
   scrollbar-color: #00ffc8 transparent;
@@ -43,13 +43,13 @@
   color: #00fffb;
   top: 100%;
   width:100%;
-  left: 0;
+  left: 10px;
   content: attr(data-text);
   display: block;
   transform: scaleY(-1);
-  opacity: 0.2;
+  opacity: 0.4;
   filter: blur(2px);
-  margin-top: -1em;
+  margin-top: -.8em;
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), transparent);
   -webkit-mask-image: linear-gradient(to bottom, rgba(0, 242, 255, 0.8)transparent);
   animation: mirrorFade 3s ease-in-out infinite;
@@ -138,4 +138,11 @@ h4{
 .toast-container{
   position: relative;
   font-size: 1.25rem;
+}
+
+h1, h2, h3, h4, h5, h6, p{
+  overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+    white-space: normal;
 }

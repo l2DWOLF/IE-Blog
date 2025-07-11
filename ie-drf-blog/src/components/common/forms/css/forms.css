@@ -20,10 +20,8 @@
 }
 .form-container:hover .input-field, 
 .form-container:focus-within .input-field{
-    -webkit-backdrop-filter: blur(10px);
-        backdrop-filter: blur(10px);
-    background: transparent !important;
     background-color: transparent !important;
+    background: rgba(95, 21, 91, 0.205) !important;
 }
 
 .custom-form {
@@ -49,7 +47,7 @@
     column-gap: 1em;
     align-items: center;
     padding: .5em 1.5em;
-    border: 1px solid rgba(0, 255, 98, 0.181);
+    border: 1px solid rgba(255, 255, 255, 0.35);
     border-radius: 10px;
     
 }
@@ -60,7 +58,7 @@
     font-weight: 900;
     letter-spacing: .9px;
     text-align: center;
-    color: rgb(103, 249, 18);
+    color: rgb(0, 247, 255);
     font-style: italic;
     text-decoration: underline;
     text-underline-offset: 2px;

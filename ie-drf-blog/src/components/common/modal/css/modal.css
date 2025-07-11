@@ -30,19 +30,22 @@
     margin: 0;
     gap: 0;
 }
+[draggable=true] {
+    cursor: move; }
 
 .modal-overlay {
+    
     width: 100%;
     position: fixed;
     padding: 0;
-    bottom: 25px;
+    bottom: 35px;
     right: 0;
     z-index: 9999;
     display: flex;
     justify-content: center;
-    background-color: transparent;
-    -webkit-backdrop-filter: blur(3px);
-    backdrop-filter: blur(3px);
+    background-color: rgba(120, 36, 141, 0.034);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
     border-radius: 15px;
 }
 
@@ -95,6 +98,10 @@
 
 .modal-content .input-field #content {
     grid-column: 1;
+}
+
+.modal-content .input-field:hover {
+    background: black;
 }
 
 .modal-content .input-field #status {
