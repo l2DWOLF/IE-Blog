@@ -1,7 +1,9 @@
 .notfound-container {
-    height: 80vh;
+    min-height: 80vh;
     display: flex;
     flex-direction: column;
+    margin: 0px 0px 3em 0px;
+    padding: 0px 0px 2em 0px;
     gap: 2em;
     align-items: center;
     background: rgba(0, 0, 0, 0.4);
@@ -22,6 +24,7 @@
 
 .notfound-message {
     margin-top: 2em;
+    
     font-size: 1.8rem;
     margin-bottom: 1em;
     color: #ccc;

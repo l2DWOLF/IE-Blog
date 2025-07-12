@@ -10,9 +10,10 @@ function Home() {
                 IE Blog</h1>
         </div>
         
-
-        {user?.is_admin && <p>Welcome Back {user.username} !</p>}
-        {user?.is_mod && <p>Welcome Back {user.username}!</p>}
+        {user?.id && <p>Welcome Back {user?.username}!</p>}
+        {user?.is_admin && <p> You have superuser permissions.</p>}
+        {(user?.is_mod && !user?.is_staff) && <p> You have moderator permissions.</p>}
+        {user?.is_staff && <p>You have admin staff permissions.</p>}
         <Articles />
     </div>)
 }

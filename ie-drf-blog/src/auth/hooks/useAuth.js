@@ -6,9 +6,10 @@ export default function useAuth(){
     const isLoggedIn = !!user?.id && !!accessToken && !!refreshToken;
     const isAdmin = user?.is_admin;
     const isMod = user?.is_mod;
+    const isStaff = user?.is_staff;
 
     return {
         user, accessToken, refreshToken,
-        isAuthLoading, isLoggedIn, isAdmin, isMod,
+        isAuthLoading, isLoggedIn, isAdmin, isMod, isStaff
     };
 };

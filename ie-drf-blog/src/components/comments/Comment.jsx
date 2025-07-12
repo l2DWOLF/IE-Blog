@@ -6,8 +6,10 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ModalPortal from '../common/modal/ModalPortal';
 import useAuth from '../../auth/hooks/useAuth';
-import { infoMsg } from '../../utils/toastify/toast';
+import { infoMsg, successMsg } from '../../utils/toastify/toast';
 import { User } from 'lucide-react';
+import { deleteComment } from '../../services/commentServices';
+import { handleException } from '../../utils/errors/handleException';
 
 
 function Comment({ comment, depth = 0, onReplyClick, onCommentAdded }) {
@@ -46,7 +48,22 @@ function Comment({ comment, depth = 0, onReplyClick, onCommentAdded }) {
         }
     };
 
-    return (<>
+    const handleDeleteComment = async (id) => {
+        const confirm = window.confirm("Are you sure you want to delete this Comment?");
+        if (!confirm) return;
+
+        try {
+            await deleteComment(id);
+            successMsg("Comment/Reply was deleted successfully.");
+            if (typeof onCommentAdded === "function") {
+                await onCommentAdded();
+            } 
+        } catch (err) {
+            handleException(err);
+        }
+    };
+
+    return (<> 
         <AnimatePresence>
         {showReplyModal && ( 
         <ModalPortal>
@@ -83,17 +100,16 @@ function Comment({ comment, depth = 0, onReplyClick, onCommentAdded }) {
 
                             <div className="comment-btns">
 
-                                {(user.username === comment.author_name || user.is_admin) && (
+                                {(user.username === comment.author_name || user.is_admin || user.is_staff) && (
                                     <button className="edit-reply-btn" onClick={() => handleReplyClick("edit")}>Edit</button>
                                 )}
-                                
 
                                 <button className="reply-button" onClick={() => handleReplyClick("create")}>
                                     Reply to {depth === 0 ? 'Comment' : 'Reply'}
                                 </button>
 
-                                {(user.username === comment.author_name || user.is_admin) && (
-                                    <button className="edit-reply-btn">Delete</button>
+                                {(user.username === comment.author_name || user.is_admin || user.is_staff || user.is_mod) && (
+                                    <button onClick={() => handleDeleteComment(comment.id)}>Delete</button>
                                 )}
                                 
                             </div>

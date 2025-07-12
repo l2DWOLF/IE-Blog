@@ -10,10 +10,14 @@ export async function getArticleComments(articleId){
     return handleResponse(response);
 };
 
-export async function createComment(payload) {
+export async function createComment(payload){
     return axiosInstance.post('comments/', payload).then(handleResponse);
 };
 
-export async function updateComment(id, payload) {
+export async function updateComment(id, payload){
     return axiosInstance.put(`comments/${id}/`, payload).then(handleResponse);
+};
+
+export async function deleteComment(id){
+    return axiosInstance.delete(`comments/${id}/`).then(handleResponse);
 };

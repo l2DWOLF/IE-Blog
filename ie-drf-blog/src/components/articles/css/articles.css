@@ -252,7 +252,7 @@
 
 .sticky-title {
     margin-bottom: 2em;
-    height: 60px;
+    min-height: 60px;
     padding: .5em 0em;
     position: -webkit-sticky;
     position: sticky;
@@ -260,19 +260,21 @@
     z-index: 3;
     display: flex;
     flex-direction: row-reverse;
+    flex-wrap: wrap;
     backdrop-filter: blur(25px);
-    background: rgba(85, 8, 116, 0.123);
+    background: rgba(46, 179, 212, 0.137);
     box-shadow: 0 0 10px 2px rgba(0, 255, 102, 0.1);
     
     border-radius: 8px;
 }
+
 .article-card:hover .sticky-title{
 
 }
 
 .text-size-btns {
     display: flex;
-    align-self: flex-end !important;
+    align-self: center !important;
     justify-self: flex-end !important;
     padding: 0px 10px 0px 0px;
     gap: .2em;
@@ -305,6 +307,10 @@
 
 .article-card:hover .article-content {
     background: rgba(0, 0, 0, 0.682);
+}
+
+.article-stats{
+    font-size: 1rem;
 }
 
 .read-more-btn {
@@ -354,6 +360,7 @@
     color: #b2f5ea;
     font-weight: 500;
     letter-spacing: 0.5px;
+    align-self: center;
     padding: 0;
 
     text-shadow: 0 0 4px rgba(0, 255, 102, 0.3);
@@ -389,6 +396,7 @@
 
 .article-tag p {
     padding: .2em 1.5em;
+    font-size: 1.05rem;
 }
 
 .article-tag:hover {

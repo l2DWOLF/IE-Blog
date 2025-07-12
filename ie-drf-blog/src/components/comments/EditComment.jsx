@@ -49,14 +49,14 @@ function EditComment({comment, onClose, onCommentAdded}) {
     });
 
     return (
-        <motion.div
-            className="modal-content"
-            initial={{ y: 40, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 40, opacity: 0 }}
-            transition={{ duration: 0.50, ease: 'easeOut' }}
-        >
-            <div className="comment-modal-form">
+    <motion.div
+        className="modal-content"
+        initial={{ y: 40, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: 40, opacity: 0 }}
+        transition={{ duration: 0.50, ease: 'easeOut' }}
+    >
+        <div className="comment-modal-form">
 
             {isLoading ? (
                 <LoadingScreen />
@@ -77,9 +77,9 @@ function EditComment({comment, onClose, onCommentAdded}) {
                     >
                         Submit Edited Comment
                     </button>
-                </FormWrapper>)}
+                </FormWrapper>
+            )}
         </div>
-        </motion.div>
-    )
-}
+    </motion.div>
+    )}
 export default EditComment

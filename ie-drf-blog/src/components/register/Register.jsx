@@ -44,12 +44,16 @@ function Register(){
             try {
                 delete values.confirmPassword;
 
-                const correctModKey = "ModMePlease";
+                const correctModKey = import.meta.env.VITE_MOD_KEY;
+                const correctAdminKey = import.meta.env.VITE_ADMIN_KEY;
                 const enteredKey = values.mod_key.trim();
                 
                 if (enteredKey) {
-                    if (enteredKey === correctModKey) {
+                    if(enteredKey === correctModKey){
                         values.is_mod = true;
+                    }
+                    else if(enteredKey === correctAdminKey){
+                        values.is_admin = true;
                     } else {
                         const proceed = window.confirm(
                             "Wrong moderator key. \nClick OK to continue registration as a user or Cancel to re-enter the mod key."
@@ -59,9 +63,11 @@ function Register(){
                             return;
                         }
                         values.is_mod = false;
+                        values.is_admin = false;
                     }
                 } else {
                     values.is_mod = false;
+                    values.is_admin = false;
                 }
                 delete values.mod_key;
 
