@@ -1,13 +1,20 @@
 import "./css/navbar.css"
+import { useEffect, useState } from "react";
+import { X, Search } from "lucide-react";
 import {NavLink} from 'react-router-dom'
 import useAuth from '../../auth/hooks/useAuth';
 import {useDispatch} from 'react-redux';
 import { logoutHandler } from "../../auth/services/authService";
 import { isUserAccess, modArticlesAccess } from "../../auth/utils/permissions";
+import { useArticleSearch } from "../articles/hooks/useArticleSearch";
+import { useArticleContext } from "../../contexts/ArticleContext";
+import { useDebounce } from "../../hooks/useDebounce";
 
 function Navbar() {
 const dispatch = useDispatch();
 const {user, isLoggedIn} = useAuth();
+const {handleSearch} = useArticleContext();
+const {shouldEnableSearch, inputValue, onSearchChange, clearSearch} = useArticleSearch(handleSearch);
 
     return(
     <header>
@@ -41,11 +48,30 @@ const {user, isLoggedIn} = useAuth();
                             <NavLink to="/add-article">Add Article</NavLink>
                             </li>
                         }
-                        <li>
-                            <NavLink to="/crm">CRM</NavLink>
-                        </li>
+                        {false && 
+                            <li>
+                                Pending implementation.
+                                <NavLink to="/crm">CRM</NavLink>
+                            </li>
+                        }
+                        
                     </ul>
                 </div>
+                {shouldEnableSearch && (
+                    <div className="search-bar">
+                        <input type="text" placeholder="Search Articles.." onChange={onSearchChange} value={inputValue} />
+                        {inputValue ? (
+                            <button onClick={clearSearch} className="search-icon-btn" title="Clear Search">
+                                <X size={18} />
+                            </button>
+                        ) : (
+                            <span className="search-icon">
+                                <Search size={18} />
+                            </span>
+                        )}
+                    </div>
+                )}
+                
 
                 <div className="user-nav">
                     <ul>
@@ -55,7 +81,7 @@ const {user, isLoggedIn} = useAuth();
                             <NavLink to="/Profile">Profile</NavLink>
                         </li>
                         <li>
-                            <button onClick={() => {
+                            <button className="nav-logout-btn" onClick={() => {
                                 logoutHandler(dispatch)}}>Logout</button>
                         </li>
                     </> ) : ( <>

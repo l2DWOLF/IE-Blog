@@ -98,6 +98,7 @@ function Comment({ comment, depth = 0, onReplyClick, onCommentAdded }) {
                         <div className="comment-header">
                             <h5 className="comment-author">{comment.author_name}:</h5>
 
+                            <p>created: {comment?.published_at}</p>
                             <div className="comment-btns">
 
                                 {(user.username === comment.author_name || user.is_admin || user.is_staff) && (

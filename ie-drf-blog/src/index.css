@@ -60,21 +60,79 @@ body::before {
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 0.8rem;
-  font-weight: 500;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+  background-color: #003300b7;
+    padding: .2em 0em 0em;
+    color: #00ff15;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border: 1px solid #00ff66;
+    box-shadow: 0 0 4px rgba(0, 255, 102, 0.15);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s ease;
 }
 button:hover {
-  border-color: #646cff;
+  background-color: #00ff66;
+    color: black;
+    transform: scale(1.05);
+    user-select: none;
+}
+button:disabled {
+  cursor:not-allowed;
 }
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+input{
+  background: rgba(0, 255, 136, 0.25);
+    color: #222;
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: center;
+    border-radius: 10px;
+    padding: 8px 12px;
+    border: 2px solid #00ff88;
+    outline: none;
+    box-shadow: 0 0 5px 3px rgba(0, 255, 136, 0.2);
+    transition: all 0.3s ease;
+}
+input:focus {
+  background: rgba(0, 255, 136, 0.35);
+  box-shadow: 0 0 8px 2px rgba(0, 255, 213, 0.6);
+}
+
+select,
+option {
+  width: 50%;
+  background: rgba(4, 148, 153, 0.384);
+  color: snow;
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+  border-radius: 10px;
+  padding: 8px 12px;
+  border: 2px solid #00ff88;
+  outline: none;
+  box-shadow: 0 0 5px 3px rgba(0, 255, 136, 0.4);
+  transition: all 0.3s ease;
+}
+
+select:focus,
+option:focus {
+  background: rgba(0, 255, 136, 0.45);
+  box-shadow: 0 0 8px 4px rgba(0, 255, 136, 0.6);
+}
+
+option {
+  background: rgba(0, 0, 0, 0.9);
+  color: #eaffea;
+}
+
+option:hover {
+  background: rgba(0, 255, 136, 0.6);
+  color: #222;
 }
 
 @media (prefers-color-scheme: light) {

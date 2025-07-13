@@ -5,8 +5,9 @@ import { useNavigate } from "react-router-dom";
 import LoadingScreen from '../common/loadscreen/LoadingScreen';
 import useAuth from '../../auth/hooks/useAuth';
 import ArticleCard from './ArticleCard';
-import { useArticleHandlers } from './hooks/articleHandlers';
+import { useArticleCardProps} from './hooks/useArticleCardProps';
 import { motion, AnimatePresence } from 'motion/react'
+import { useArticleContext } from '../../contexts/ArticleContext';
 
 function Articles() {
     const navigate = useNavigate();
@@ -24,21 +25,46 @@ function Articles() {
         hasMore,
         fetchData,
         handleDeleteArticle,
+        handleAddComment,
+        closeCommentModal,
+        activeCommentModal,
         handleReaction,
         requireAuthReaction,
         refreshArticleComments,
         handleLoadMore,
         toggleExpanded
-    } = useArticleHandlers(user, {limit: 3});
+    } = useArticleContext(user, {limit: 3});
+
+    const getCardProps = useArticleCardProps({
+        user,
+        contentRefs,
+        textScale,
+        setTextScale,
+        handlers: {
+            articlesComments,
+            expandedArticles,
+            handleReaction,
+            handleDeleteArticle,
+            toggleExpanded,
+            handleAddComment,
+            closeCommentModal,
+            activeCommentModal,
+            refreshArticleComments,
+            requireAuthReaction,
+            userLikesMap,
+        },
+        navigate
+    });
 
     useEffect(() => {
-        fetchData();
-    }, [user.id]);
+        if(articles.length === 0) fetchData();
+    }, []);
 
 
     return (
         <section className="articles-section">
             <h2>Articles</h2>
+
             {isLoading && articles.length === 0 ? (
                 <LoadingScreen message="Loading Articles..." />
             ) : (
@@ -46,7 +72,6 @@ function Articles() {
                 <AnimatePresence>
                     {articles.length > 0 ? articles.map(article => {
                         return (
-
                         <motion.div
                             key={article.id}
                             className="article-motion-wrapper"
@@ -55,22 +80,11 @@ function Articles() {
                             exit={{ opacity: 0, scale: 0.2, x: 450, y: 30 }}
                             transition={{ duration: 0.5 }}
                         >
+
                         <ArticleCard key={article.id}
-                            article={article}
-                            user={user}
-                            comments={articlesComments[article.id] || []}
-                            isExpanded={!!expandedArticles[article.id]}
-                            contentRef={contentRefs.current[article.id]}
-                            textScale={textScale}
-                            setTextScale={setTextScale}
-                            onToggleExpanded={toggleExpanded}
-                            onReaction={handleReaction}
-                            onDelete={handleDeleteArticle}
-                            onEdit={(id) => navigate(`edit-article/${id}`)}
-                            onCommentAdded={refreshArticleComments} 
-                            requireAuthReaction={requireAuthReaction}
-                            currentStatus={userLikesMap[article.id]}
+                            {...getCardProps(article)}
                         />
+
                         </motion.div>)
                     }) : <p className="no-content-msg">No Articles available..</p>}
                     </AnimatePresence>

@@ -15,3 +15,12 @@
     grid-column: 1 /-1;
 }
 
+.register-prompt{
+    text-align: center;
+    font-size: 1rem;
+}
+
+.register-navlink{
+    font-size: 1.1rem;
+    color: aquamarine;
+}

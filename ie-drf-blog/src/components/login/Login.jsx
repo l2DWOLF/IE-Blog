@@ -1,6 +1,6 @@
 import "./css/login.css";
 import { useState } from "react";
-import {useNavigate} from 'react-router-dom';
+import {NavLink, useNavigate} from 'react-router-dom';
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
@@ -11,7 +11,6 @@ import LoadingScreen from "../common/loadscreen/LoadingScreen";
 import FormWrapper from "../common/forms/FormWrapper";
 import {FormInput} from "../common/forms/formInput";
 import { handleException } from "../../utils/errors/handleException";
-
 
 function Login() {
     const [isLoading, setIsLoading] = useState(false);
@@ -68,6 +67,8 @@ function Login() {
                     >
                         Login
                     </button>
+
+                    <p className="register-prompt">Don't have an account yet? <br /> <NavLink to="/register" className="register-navlink">Register Here.</NavLink></p>
                 </FormWrapper>)}
             </div>
         )}

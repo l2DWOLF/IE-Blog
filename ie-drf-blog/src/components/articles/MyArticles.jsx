@@ -8,6 +8,7 @@ import useAuth from '../../auth/hooks/useAuth';
 import ArticleCard from './ArticleCard';
 import { useArticleHandlers } from './hooks/articleHandlers';
 import { motion, AnimatePresence } from 'motion/react'
+import { useArticleCardProps } from './hooks/useArticleCardProps';
 
 function MyArticles() {
     const navigate = useNavigate();
@@ -25,6 +26,9 @@ function MyArticles() {
         hasMore,
         fetchData,
         handleDeleteArticle,
+        handleAddComment,
+        closeCommentModal,
+        activeCommentModal,
         handleReaction,
         requireAuthReaction,
         refreshArticleComments,
@@ -32,6 +36,26 @@ function MyArticles() {
         toggleExpanded
     } = useArticleHandlers(user, { limit: 100, filterOwn: true, });
 
+    const getCardProps = useArticleCardProps({
+            user,
+            contentRefs,
+            textScale,
+            setTextScale,
+            handlers: {
+                articlesComments,
+                expandedArticles,
+                handleReaction,
+                handleDeleteArticle,
+                toggleExpanded,
+                handleAddComment,
+                closeCommentModal,
+                activeCommentModal,
+                refreshArticleComments,
+                requireAuthReaction,
+                userLikesMap,
+            },
+            navigate
+    });
 
     useEffect(() => {
         fetchData();
@@ -60,20 +84,7 @@ function MyArticles() {
                                     transition={{ duration: 0.5 }}
                                 >
                                     <ArticleCard key={article.id}
-                                        article={article}
-                                        user={user}
-                                        comments={articlesComments[article.id] || []}
-                                        isExpanded={!!expandedArticles[article.id]}
-                                        contentRef={contentRefs.current[article.id]}
-                                        textScale={textScale}
-                                        setTextScale={setTextScale}
-                                        onToggleExpanded={toggleExpanded}
-                                        onReaction={handleReaction}
-                                        onDelete={handleDeleteArticle}
-                                        onEdit={(id) => navigate(`edit-article/${id}`)}
-                                        onCommentAdded={refreshArticleComments}
-                                        requireAuthReaction={requireAuthReaction}
-                                        currentStatus={userLikesMap[article.id]}
+                                        {...getCardProps(article)}
                                     />
                                 </motion.div>)
                         }) : <p className="no-content-msg">No Articles Loaded..</p>}

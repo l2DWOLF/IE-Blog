@@ -16,10 +16,13 @@ import LikedArticles from './components/articles/LikedArticles'
 import CreateArticle from './components/articles/CreateArticle'
 import EditArticle from './components/articles/EditArticle'
 import MyArticles from './components/articles/MyArticles'
+import { ArticleProvider } from './contexts/ArticleContext'
 
 
 function App() {
   const dispatch = useDispatch();
+
+  
 
   useEffect(() => {
     const access = sessionStorage.getItem("access_token");
@@ -33,7 +36,9 @@ function App() {
   return (<div className="wrapper">
 
     <Router>
-      <Navbar />
+      <ArticleProvider>
+
+      <Navbar/>
       <div className="toast-wrapper">
         <ToastContainer className="toast-container"
           newestOnTop
@@ -67,6 +72,7 @@ function App() {
 
         <Route path="*" element={<NotFound />} /> 
       </Routes>
+      </ArticleProvider>
     </Router>
   </div>)
 }

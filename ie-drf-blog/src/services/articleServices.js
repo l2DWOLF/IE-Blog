@@ -2,8 +2,11 @@ import axiosInstance from "./AxiosInstance"
 import { handleResponse } from "./utils/handleResponse";
 
 
-export function getArticles({limit = 5, offset = 0}){
-    return axiosInstance.get('articles/', {params:{limit, offset}}).then(handleResponse);
+export function getArticles({limit = 5, offset = 0, search = ""}){
+    const params = {limit, offset};
+    if (search) params.search = search;
+
+    return axiosInstance.get('articles/', {params}).then(handleResponse);
 }
 
 export function getArticle(id){

@@ -17,8 +17,8 @@
 .about-p{
     text-align: center;
     width: 65%;
-    padding: 2em 10%;
-    font-size: 1.1rem;
+    padding: 2em 5em;
+    font-size: 1.5rem;
     background: rgba(0, 0, 0, 0.732);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -28,6 +28,19 @@
 
 .about-p:hover{
     background: rgba(0, 0, 0, 0.815);
+    border: 1px solid snow;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+}
+
+.dedication{
+    text-align: center;
+    width: 50%;
+    margin-top: 1em;
+    font-size: 1.5rem;
+    font-weight: 600;
+    background: rgba(0, 255, 157, 0.87);
+    color: black;
+    padding: .2em .8em;
+    border-radius: 15px;
 }

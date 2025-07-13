@@ -1,7 +1,9 @@
-import React from "react";
-import { User, ThumbsUp, ThumbsDown, Edit3, Trash2 } from "lucide-react";
+import { User, ThumbsUp, ThumbsDown, Edit3, Trash2, MailPlus } from "lucide-react";
 import Comment from "../comments/Comment";
+import CreateComment from "../comments/CreateComment";
+import ModalPortal from "../common/modal/ModalPortal";
 import { canEditDelete } from "../../auth/utils/permissions";
+import { motion, AnimatePresence } from 'motion/react'
 
 function ArticleCard({
     article,
@@ -16,6 +18,9 @@ function ArticleCard({
     onEdit,
     onCommentAdded,
     requireAuthReaction,
+    handleAddComment,
+    closeCommentModal,
+    activeCommentModal,
     setTextScale,
     currentStatus,
 }) {
@@ -100,6 +105,15 @@ function ArticleCard({
                                 </button>
                             </>
                         )}
+
+                        <button
+                            title="Add Comment"
+                            onClick={() => {
+                                handleAddComment(article.id);
+                            }}
+                        >
+                            <MailPlus className="card-icons" />
+                        </button>
                     </div>
 
                     <div className="tags-container">
@@ -127,18 +141,53 @@ function ArticleCard({
                 </div>
 
                 <div className="article-engagement-container">
+                    <button
+                        title="Add Comment" className="card-btns"
+                        style={{ width: "100px", position: "fixed", top: "5px", right: "5px", margin: "0px 0px 0px 0px" }}
+                        onClick={() => {
+                            handleAddComment(article.id);
+                        }}
+                    >
+                        Add Comment
+                    </button>
                     <div className="comments-div">
                         <h3>Comments:</h3>
+                        
                         <div className="comments-container custom-scrollbar-thin">
                             {comments.length > 0 ? (
                                 comments.map((comment) => <Comment key={comment.id} comment={comment} onCommentAdded={async () => onCommentAdded(article.id)} />)
                             ) : (
-                                <p>No comments yet.</p>
+                                <p style={{textAlign: "center"}}>No comments yet.</p>
                             )}
                         </div>
                     </div>
+                    
                 </div>
             </div>
+        
+            <AnimatePresence>
+                {activeCommentModal === article.id && (
+                    <ModalPortal>
+                        <motion.div
+                            className="modal-overlay"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 10 }}
+                            transition={{ duration: 0.25 }}
+                        >
+                            <CreateComment
+                                articleId={article.id}
+                                replyTo={null}
+                                onClose={closeCommentModal}
+                                onCommentAdded={() => {
+                                    closeCommentModal();
+                                    onCommentAdded(article.id);
+                                }}
+                            />
+                        </motion.div>
+                    </ModalPortal>
+                )}
+            </AnimatePresence>
         </div>
     );
 }

@@ -26,7 +26,13 @@ function About() {
             Our Goal
             We're here to create a space where curiosity thrives. Whether you're a fellow developer, a curious reader, or someone just stopping by, we hope our blog adds something valuable to your day.
         </p>
+
+        <p className="dedication">
+            In loving memory of P. Haussmann - a brilliant mind and a generous spirit.
+            <br/>Your guidance shaped my coding path, your presence is missed.
+            This project is dedicated to you.
+        </p>
+
     </div> );
 }
-
 export default About;

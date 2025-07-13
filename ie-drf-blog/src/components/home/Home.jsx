@@ -10,11 +10,19 @@ function Home() {
                 IE Blog</h1>
         </div>
         
-        {user?.id && <p>Welcome Back {user?.username}!</p>}
-        {user?.is_admin && <p> You have superuser permissions.</p>}
-        {(user?.is_mod && !user?.is_staff) && <p> You have moderator permissions.</p>}
-        {user?.is_staff && <p>You have admin staff permissions.</p>}
-        <Articles />
+        {user?.id &&
+        <div className="greeting">
+            {user?.id && <p>Welcome Back {user?.username}!</p>}
+
+            {user?.is_admin && 
+                <p>You have superuser permissions.</p>}
+            {(user?.is_mod && !user?.is_staff) && 
+                <p>You have moderator permissions.</p>}
+            {(user?.is_staff && !user?.is_admin) && 
+                <p>You have admin staff permissions.</p>}
+        </div>}
+
+        <Articles/>
     </div>)
 }
 export default Home

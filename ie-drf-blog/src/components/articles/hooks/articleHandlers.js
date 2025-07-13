@@ -11,6 +11,8 @@ export function useArticleHandlers(user, options = {}) {
     const [userLikesMap, setUserLikesMap] = useState({});
     const [articlesComments, setArticlesComments] = useState({});
     const [expandedArticles, setExpandedArticles] = useState({});
+    const [activeCommentModal, setActiveCommentModal] = useState(null);
+    const [searchTerm, setSearchTerm] = useState("");
     const [offset, setOffset] = useState(0);
     const [hasMore, setHasMore] = useState(true);
 
@@ -20,12 +22,15 @@ export function useArticleHandlers(user, options = {}) {
         limit = 3,
     } = options; 
 
-    const fetchData = async (offsetValue = 0) => {
+    const fetchData = async (offsetValue = 0, search = searchTerm) => {
+        const isSearching = !!search?.trim();
+        const effectiveLimit = isSearching? 100 : limit;
+
         if (offsetValue === 0) setIsLoading(true);
         else setIsLoadingMore(true);
 
         try {
-            const serverArticles = await getArticles({ limit, offset: offsetValue });
+            const serverArticles = await getArticles({ limit: effectiveLimit, offset: offsetValue, search});
             let results = serverArticles.results || [];
 
             if(filterOwn){
@@ -72,6 +77,12 @@ export function useArticleHandlers(user, options = {}) {
             if (offsetValue === 0) setIsLoading(false);
             else setIsLoadingMore(false);
         }
+    };
+
+    const handleSearch = async (query) => {
+        setSearchTerm(query)
+        setOffset(0);
+        await fetchData(0, query);
     };
 
     const handleDeleteArticle = async (id) => {
@@ -154,6 +165,21 @@ export function useArticleHandlers(user, options = {}) {
         return true;
     };
 
+    const handleAddComment = (articleId) => {
+        const isModalOpen = document.querySelector('.modal-overlay');
+
+        if(!user?.id){
+            infoMsg("Please login or register to add a comment.")
+        }
+        else if(isModalOpen){
+            infoMsg("Comment editor modal is already open.")
+        }
+        else{
+            setActiveCommentModal(articleId);
+        }
+    };
+    const closeCommentModal = () => setActiveCommentModal(null);
+
     const refreshArticleComments = async (articleId) => {
         try {
             const updatedComments = await getArticleComments(articleId);
@@ -168,7 +194,7 @@ export function useArticleHandlers(user, options = {}) {
     };
 
     const handleLoadMore = () => {
-        fetchData(offset + limit, options.filterOwn);
+        fetchData(offset + limit);
     };
 
     const toggleExpanded = (id) => {
@@ -183,12 +209,16 @@ export function useArticleHandlers(user, options = {}) {
         isLoading,
         isLoadingMore,
         hasMore,
+        closeCommentModal,
+        activeCommentModal,
         fetchData,
         handleDeleteArticle,
+        handleAddComment,
         handleReaction,
         requireAuthReaction,
         refreshArticleComments,
         handleLoadMore,
         toggleExpanded,
+        handleSearch,
     };
 }
