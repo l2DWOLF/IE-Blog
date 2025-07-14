@@ -60,8 +60,8 @@ axiosInstance.interceptors.request.use(
                 } else {
                     config.headers["Authorization"] = `Bearer ${accessToken}`;
                 }
-            } catch (decodeErr) {
-                handleException(decodeErr, { toast: true, alert:true });
+            } catch (err) {
+                handleException(err, { toast: true, alert:true });
                 store.dispatch(Signoff());
             }
         }

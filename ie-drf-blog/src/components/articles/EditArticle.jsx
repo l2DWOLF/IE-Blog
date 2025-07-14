@@ -4,19 +4,22 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { contentField, titleField } from "../../utils/validations/yupValidations";
-import { successMsg } from "../../utils/toastify/toast";
+import { successMsg, warningMsg } from "../../utils/toastify/toast";
 import LoadingScreen from "../common/loadscreen/LoadingScreen";
 import FormWrapper from "../common/forms/FormWrapper";
 import { FormInput, FormSelectInput } from "../common/forms/formInput";
 import { handleException } from '../../utils/errors/handleException';
 import { FormTagSelector } from "../common/forms/FormTagSelector";
 import { getArticle, updateArticle } from "../../services/articleServices";
+import useAuth from '../../auth/hooks/useAuth';
 
 
 
 function EditArticle() {
+    const {user} = useAuth();
     const {id} = useParams();
     const [isLoading, setIsLoading] = useState(false);
+    const [showContent, setShowContent] = useState(false);
     const [initialValues, setInitialValues] = useState(null);
     const navigate = useNavigate();
 
@@ -24,12 +27,20 @@ function EditArticle() {
         const loadArticle = async () => {
             try {
                 const article = await getArticle(id);
-                setInitialValues({
-                    title: article.title,
-                    content: article.content,
-                    status: article.status,
-                    tags: article.tags,
-                })
+                
+                if (user?.username !== article?.author_name && !user?.is_admin){
+                    warningMsg("You don't have permissions to edit this article, you may only edit/delete your own articles - redirecting to homepage.");
+                    navigate('/');
+                }
+                else {
+                    setShowContent(true);
+                    setInitialValues({
+                        title: article.title,
+                        content: article.content,
+                        status: article.status,
+                        tags: article.tags,
+                    });
+                };
             } catch (err) {
                 handleException(err, { toast: true, alert: true})
             } finally {
@@ -74,7 +85,7 @@ function EditArticle() {
                     Edit Article</h1>
             </div>
 
-            {isLoading ? (
+            {isLoading || !showContent ? (
                 <LoadingScreen />
             ) : (
                 <FormWrapper title="Edit Article Form" onSubmit={formik.handleSubmit}>

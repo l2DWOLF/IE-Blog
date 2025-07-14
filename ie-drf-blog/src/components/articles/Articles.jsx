@@ -57,7 +57,7 @@ function Articles() {
     });
 
     useEffect(() => {
-        if(articles.length === 0) fetchData();
+        fetchData();
     }, []);
 
 

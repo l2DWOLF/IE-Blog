@@ -74,6 +74,7 @@
 }
 
 .comment-btns button:hover {
+    background:unset;
     background-color: #00e5c6;
     color: black;
 }

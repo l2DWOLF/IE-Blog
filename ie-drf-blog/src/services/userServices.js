@@ -19,4 +19,6 @@ export const userRegistration = async (values) => {
     await axios.post(`${authURL}/register/`, values).then(handleResponse);
 };
 
-
+export const getUserProfile = async (id) => {
+    return await axios.get(`/userprofiles/${id}`).then(handleResponse);
+};

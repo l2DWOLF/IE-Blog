@@ -4,17 +4,17 @@ import { useNavigate } from 'react-router-dom';
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
-import { confirmPwField, emailField, nameField, pwField, usernameField } from "../../utils/validations/yupValidations";
-import { loginHandler } from "../../auth/services/authService";
-import { successMsg } from "../../utils/toastify/toast";
-import LoadingScreen from "../common/loadscreen/LoadingScreen";
-import FormWrapper from "../common/forms/FormWrapper";
-import {FormInput} from "../common/forms/formInput";
-import { userRegistration } from '../../services/userServices';
-import { handleException } from '../../utils/errors/handleException';
+import { confirmPwField, emailField, nameField, pwField, usernameField } from "../../../utils/validations/yupValidations";
+import { loginHandler } from "../../../auth/services/authService";
+import { successMsg } from "../../../utils/toastify/toast";
+import LoadingScreen from "../../common/loadscreen/LoadingScreen";
+import FormWrapper from "../../common/forms/FormWrapper";
+import { FormInput } from "../../common/forms/formInput";
+import { userRegistration } from '../../../services/userServices';
+import { handleException } from '../../../utils/errors/handleException';
 
 
-function Register(){
+function Register() {
     const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -47,12 +47,12 @@ function Register(){
                 const correctModKey = import.meta.env.VITE_MOD_KEY;
                 const correctAdminKey = import.meta.env.VITE_ADMIN_KEY;
                 const enteredKey = values.mod_key.trim();
-                
+
                 if (enteredKey) {
-                    if(enteredKey === correctModKey){
+                    if (enteredKey === correctModKey) {
                         values.is_mod = true;
                     }
-                    else if(enteredKey === correctAdminKey){
+                    else if (enteredKey === correctAdminKey) {
                         values.is_admin = true;
                     } else {
                         const proceed = window.confirm(
@@ -72,15 +72,15 @@ function Register(){
                 delete values.mod_key;
 
                 await userRegistration(values);
-                const loginInfo = {username: values.username, password: values.password};
-                
+                const loginInfo = { username: values.username, password: values.password };
+
                 const token = await loginHandler(loginInfo, dispatch);
                 if (token) {
                     successMsg(`Registered Successfully!\n Welcome aboard ${values.username} :)`);
                     navigate("/", { state: { fromLogin: true } });
                 }
             } catch (err) {
-                handleException(err, { toast: true, alert:true });
+                handleException(err, { toast: true, alert: true });
             } finally {
                 setIsLoading(false);
             };
@@ -93,12 +93,12 @@ function Register(){
                 <h1 className="mirrored" data-text="Register">
                     Register</h1>
             </div>
-            
-                {isLoading ? (
+
+            {isLoading ? (
                 <LoadingScreen />
-                ) : ( 
+            ) : (
                 <FormWrapper title="Registration Form" onSubmit={formik.handleSubmit}>
-                        
+
                     <FormInput
                         label="Email" name="email" type="email"
                         formik={formik} placeholder="Enter Email"

@@ -32,6 +32,7 @@ header::before {
 .nav-wrapper {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
 }
 
@@ -104,7 +105,7 @@ header::before {
 }
 
 .site-nav ul{
-   
+    
 }
 
 .user-nav{
@@ -114,7 +115,8 @@ header::before {
 }
 
 .user-nav ul{
-    
+    border-right: 1px solid rgb(0, 255, 208);
+    border-left: 1px solid rgb(0, 148, 15);
 }
 
 .search-bar{
@@ -163,4 +165,5 @@ header::before {
     transform: rotate(90deg) scale(1.1);
     color: #00ffaa;
     background: unset;
+    border: unset;
 }

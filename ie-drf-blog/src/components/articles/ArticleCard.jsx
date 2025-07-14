@@ -4,6 +4,7 @@ import CreateComment from "../comments/CreateComment";
 import ModalPortal from "../common/modal/ModalPortal";
 import { canEditDelete } from "../../auth/utils/permissions";
 import { motion, AnimatePresence } from 'motion/react'
+import { infoMsg } from "../../utils/toastify/toast";
 
 function ArticleCard({
     article,
@@ -38,6 +39,11 @@ function ArticleCard({
         }
         onToggleExpanded(article.id);
     };
+
+    const handleFullpageView = () => {
+        infoMsg("Dedicated article page coming soon...");
+    }
+
     return (
         <div className="article-card">
             <h3>{article.title}</h3>
@@ -127,15 +133,16 @@ function ArticleCard({
                         </div>
                     </div>
 
-                    <div className="article-stats">
-                        <br />
-                        likes: {article.likes.filter((l) => l.status === "like").length || 0} |
-                        dislikes: {article.likes.filter((l) => l.status === "dislike").length || 0} |
-                        comments: {comments.length || 0}
-                    </div>
+                    <button className="full-page-btn" onClick={handleFullpageView}>Full Page View</button>
 
                     <div className="timestamps">
                         <p>Created at: {article.created_at}</p>
+                        <div className="article-stats">
+                            <br />
+                            likes: {article.likes.filter((l) => l.status === "like").length || 0} |
+                            dislikes: {article.likes.filter((l) => l.status === "dislike").length || 0} |
+                            comments: {comments.length || 0}
+                        </div>
                         <p>last update: {article.updated_at}</p>
                     </div>
                 </div>

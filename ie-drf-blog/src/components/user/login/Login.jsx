@@ -1,16 +1,16 @@
 import "./css/login.css";
 import { useState } from "react";
-import {NavLink, useNavigate} from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
-import { pwField, usernameField } from "../../utils/validations/yupValidations";
-import { loginHandler } from "../../auth/services/authService";
-import { successMsg } from "../../utils/toastify/toast";
-import LoadingScreen from "../common/loadscreen/LoadingScreen";
-import FormWrapper from "../common/forms/FormWrapper";
-import {FormInput} from "../common/forms/formInput";
-import { handleException } from "../../utils/errors/handleException";
+import { pwField, usernameField } from "../../../utils/validations/yupValidations";
+import { loginHandler } from "../../../auth/services/authService";
+import { successMsg } from "../../../utils/toastify/toast";
+import LoadingScreen from "../../common/loadscreen/LoadingScreen";
+import FormWrapper from "../../common/forms/FormWrapper";
+import { FormInput } from "../../common/forms/formInput";
+import { handleException } from "../../../utils/errors/handleException";
 
 function Login() {
     const [isLoading, setIsLoading] = useState(false);
@@ -32,14 +32,14 @@ function Login() {
                 const token = await loginHandler(values, dispatch);
                 if (token) {
                     successMsg(`Logged in Successfully!\n Welcome back ${values.username}! :)`);
-                    navigate("/", {state: {fromLogin: true}});
+                    navigate("/", { state: { fromLogin: true } });
                 }
             } catch (err) {
-                handleException(err, { toast: true, alert:true });
+                handleException(err, { toast: true, alert: true });
             } finally {
                 setIsLoading(false);
             };
-        } 
+        }
     });
 
     return (
@@ -48,10 +48,10 @@ function Login() {
                 <h1 className="mirrored" data-text="Login">
                     Login</h1>
             </div>
-            
-                {isLoading ? (
+
+            {isLoading ? (
                 <LoadingScreen />
-                ) : ( 
+            ) : (
                 <FormWrapper title="Login Form" onSubmit={formik.handleSubmit}>
                     <FormInput label="Username" name="username"
                         formik={formik} placeholder="Enter Username"
@@ -70,6 +70,7 @@ function Login() {
 
                     <p className="register-prompt">Don't have an account yet? <br /> <NavLink to="/register" className="register-navlink">Register Here.</NavLink></p>
                 </FormWrapper>)}
-            </div>
-        )}
+        </div>
+    )
+}
 export default Login; 
