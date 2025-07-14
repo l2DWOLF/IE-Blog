@@ -30,7 +30,7 @@ function About() {
         <p className="dedication">
             In loving memory of P. Haussmann - a brilliant mind and a generous spirit.
             <br/>Your guidance shaped my coding path, your presence is missed.
-            This project is dedicated to you.
+            <br/>This project is dedicated to you.
         </p>
 
     </div> );
