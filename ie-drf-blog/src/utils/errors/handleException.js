@@ -4,6 +4,7 @@ export const handleException = (err, options = { toast: true, alert: true }) => 
     let msg = `Unknown error occurred (fallback message) ${err}`;
 
     const data = err?.response?.data;
+    console.error("Full Error Response: ", err?.response?.data);
 
     if (Array.isArray(data?.backend_error)) {
         msg = data.backend_error[0];

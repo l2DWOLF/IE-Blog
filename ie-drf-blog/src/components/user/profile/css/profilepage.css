@@ -167,6 +167,7 @@
 }
 
 .bio-field {
+    margin-top: 1em;
     padding: 1em !important;
     width: 50%;
     display: flex;
@@ -192,7 +193,7 @@
     border-right: 2px solid rgba(0, 255, 242, 0.637);
     border-bottom: 1px solid rgba(0, 255, 255, 0.623);
     padding: .2em 1em .2em .5em;
-    box-shadow: -5px -3px 5px 0px rgba(0, 255, 234, 0.555);
+    box-shadow: -5px -3px 5px 0px rgba(0, 255, 234, 0.455);
     border-radius: 5px;
 }
 

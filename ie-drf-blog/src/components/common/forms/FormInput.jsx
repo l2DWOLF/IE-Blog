@@ -11,21 +11,33 @@ export function FormInput({formik, label, name, type = "text",
                 </p>
             )}
 
-            {type === "textarea" ? (
-                <textarea name={name} id={name} value={formik.values[name]} required={required}
-                onChange={formik.handleChange} onBlur={formik.handleBlur} rows={10}
-                placeholder={placeholder} className="form-textarea"
-                > 
-
-                </textarea>
-            ) : (
+            {(type === "text" || type === "email" || type === "password") && (
                 <input
                     type={type} id={name} name={name} autoComplete="on"
                     value={formik.values[name]} onChange={formik.handleChange}
                     onBlur={formik.handleBlur} placeholder={placeholder} required={required}
                 />
             )}
-            
+
+            {type === "textarea" && (
+                <textarea name={name} id={name} value={formik.values[name]} required={required} placeholder={placeholder}
+                onChange={formik.handleChange} onBlur={formik.handleBlur} rows={10}
+                className="form-textarea"
+                > 
+                </textarea>
+            )}
+
+            {type === "date" && (
+                <input type={type} id={name} value={formik.values[name]
+                    ? new Date(formik.values[name]).toISOString().split("T")[0]
+                    : ""
+                }
+                required={required} placeholder={placeholder} 
+                onBlur={formik.handleBlur} onChange={formik.handleChange}
+                max={type ==="date" ? new Date().toISOString().split("T")[0] : undefined}
+                />
+            )}
+
         </div>
     );
 };

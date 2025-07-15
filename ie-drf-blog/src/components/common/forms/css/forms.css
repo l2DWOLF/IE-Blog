@@ -22,6 +22,7 @@
 .form-container:focus-within .input-field{
     background-color: transparent !important;
     background: rgba(95, 21, 91, 0.205) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .custom-form {
@@ -47,7 +48,7 @@
     column-gap: 1em;
     align-items: center;
     padding: .5em 1.5em;
-    border: 1px solid rgba(255, 255, 255, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.09);
     border-radius: 10px;
     
 }

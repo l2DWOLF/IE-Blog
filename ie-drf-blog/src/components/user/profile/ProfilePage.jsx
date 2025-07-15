@@ -5,20 +5,28 @@ import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from 'motion/react';
 import useAuth from '../../../auth/hooks/useAuth';
 import LoadingScreen from '../../common/loadscreen/LoadingScreen';
-import { getUserProfile } from '../../../services/userServices';
+import { getUserInfo, getUserProfile } from '../../../services/userServices';
 import { handleException } from '../../../utils/errors/handleException';
 import { LogOut, Home, UserCircle, FileEdit, Trash2, Star } from 'lucide-react';
+import EditProfileForm from './EditProfileForm';
 
 function ProfilePage() {
     const navigate = useNavigate();
     const { user, logout } = useAuth();
     const [userProfile, setUserProfile] = useState(null);
+    const [userInfo, setUserInfo] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
 
     async function fetchUser() {
+
         setIsLoading(true);
         try {
-            const profile = await getUserProfile(user.id);
+            const [userInfo, profile] = await Promise.all([
+                getUserInfo(user.id),
+                getUserProfile(user.id),
+            ])
+            setUserInfo(userInfo);
             setUserProfile(profile);
         } catch (err) {
             handleException(err);
@@ -31,9 +39,7 @@ function ProfilePage() {
         if (user?.id) fetchUser();
     }, [user?.id]);
 
-    const handleEdit = () => {
-        navigate('/edit-profile');
-    };
+    const handleCancel = () => setIsEditing(false);
 
     const handleDelete = () => {
         console.log("Delete account coming soon...");
@@ -82,55 +88,59 @@ function ProfilePage() {
                                     className="profile-avatar"
                                 />
                             </div>
-
-                            <div className="profile-info-container">
-                                <h3>Account Info</h3>
-                                <div className="account-info">
-                                    <div className="info-field">
-                                        <strong>User ID:</strong> <p>#{user.id}</p>
-                                    </div>
-                                    <div className="info-field">
-                                        <strong>Username:</strong> <p>{user.username}</p>
-                                    </div>
-                                    <div className="info-field">
-                                        <strong>Email:</strong> <p>{user.email || "Sample@email.com"}</p>
-                                    </div>
-                                </div>
-                                
-                                <div className="badges-container">
-                                    {user?.is_admin && <p className="role-badge">🔧 Admin User</p>}
-                                    {user?.is_mod && <p className="role-badge">🛡️ Moderator</p>}
-                                    {user?.is_staff && <p className="role-badge">👤 Staff Member</p>}
-                                </div>
-                            </div>
-
-                            <div className="profile-details-container">
-                                <h3>Profile Details</h3>
-                                <div className="profile-info">
-                                    <div className="info-field">
-                                        <strong>Full Name:</strong> <p>{userProfile?.first_name} {userProfile?.last_name} Placeholder Lastname</p>
-                                    </div>
-                                    <div className="info-field">
-                                        <strong>Location:</strong> <p>{userProfile.location || 'New York'}</p>
-                                    </div>
-                                    <div className="info-field">
-                                                    <strong>Birth Date:</strong> <p>{userProfile.birth_date || '05/25/1888'}</p>
-                                    </div>
-                                </div>
-                                    <div className="info-field bio-field">
-                                        <strong>Bio:</strong> <p>{userProfile?.bio || 'N/A'}</p>
-                                    </div>
-                                
-                            </div>
-
                             <div className="profile-card-btns">
-                                <button onClick={handleEdit}>
+                                <button onClick={() => setIsEditing(true)}>
                                     <FileEdit className="card-icons" /> Edit Profile
                                 </button>
                                 <button onClick={handleDelete}>
                                     <Trash2 className="card-icons" /> Delete Account
                                 </button>
                             </div>
+
+                            {isEditing ? (
+                                <EditProfileForm userInfo={userInfo} userProfile={userProfile} 
+                                    refetch={fetchUser} onCancel={handleCancel} />
+                            ) : (<>
+                                        <div className="profile-info-container">
+                                            <h3>Account Info</h3>
+                                            <div className="account-info">
+                                                <div className="info-field">
+                                                    <strong>User ID:</strong> <p>#{userInfo.id}</p>
+                                                </div>
+                                                <div className="info-field">
+                                                    <strong>Username:</strong> <p>{userInfo.username}</p>
+                                                </div>
+                                                <div className="info-field">
+                                                    <strong>Email:</strong> <p>{userInfo.email || "Sample@email.com"}</p>
+                                                </div>
+                                            </div>
+
+                                            <div className="badges-container">
+                                                {user?.is_admin && <p className="role-badge">🔧 Admin User</p>}
+                                                {user?.is_mod && <p className="role-badge">🛡️ Moderator</p>}
+                                                {user?.is_staff && <p className="role-badge">👤 Staff Member</p>}
+                                            </div>
+                                        </div>
+
+                                        <div className="profile-details-container">
+                                            <h3>Profile Details</h3>
+                                            <div className="profile-info">
+                                                <div className="info-field">
+                                                    <strong>Full Name:</strong> <p>{userInfo?.first_name} {userInfo?.last_name}</p>
+                                                </div>
+                                                <div className="info-field">
+                                                    <strong>Location:</strong> <p>{userProfile.location || 'New York'}</p>
+                                                </div>
+                                                <div className="info-field">
+                                                    <strong>Birth Date:</strong> <p>{userProfile.birth_date || '05/25/1888'}</p>
+                                                </div>
+                                            </div>
+                                            <div className="info-field bio-field">
+                                                <strong>Bio:</strong> <p>{userProfile?.bio || 'N/A'}</p>
+                                            </div>
+                                        </div>
+                                    </> )}
+                            
 
                             <div className="profile-timestamps">
                                 <p>Created at: {userProfile.created_at}</p>
@@ -145,5 +155,4 @@ function ProfilePage() {
     </div>
     );
 }
-
 export default ProfilePage;
