@@ -86,7 +86,7 @@ function ArticleCard({
                             onClick={() => {
                                 if (requireAuthReaction()) onReaction(article.id, "like");
                             }}
-                            className={`reaction-btn ${currentStatus === "like" ? "active-like" : ""}`}
+                            className={`reaction-btn ${user && currentStatus === "like" ? "active-like" : ""}`}
                         >
                             <ThumbsUp className="card-icons" />
                         </button>
@@ -96,7 +96,7 @@ function ArticleCard({
                             onClick={() => {
                                 if (requireAuthReaction()) onReaction(article.id, "dislike");
                             }}
-                            className={`reaction-btn ${currentStatus === "dislike" ? "active-dislike" : ""}`}
+                            className={`reaction-btn ${user && currentStatus === "dislike" ? "active-dislike" : ""}`}
                         >
                             <ThumbsDown className="card-icons" />
                         </button>

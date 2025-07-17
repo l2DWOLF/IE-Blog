@@ -35,8 +35,9 @@
   text-shadow: 0 0 4px rgba(0, 255, 102, 0.3);
 }
 .mirror-wrapper h1{
+  font-size: 4.5rem;
   margin: 0 0 !important;
-  
+  padding: .3em 0em;
 }
 
 .mirrored::after {

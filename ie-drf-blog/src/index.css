@@ -28,8 +28,6 @@ a:hover {
 }
 
 body {
-
-
   min-height: calc(100vh - 65px);
   z-index: -1;
   display: flex;
@@ -39,8 +37,6 @@ body {
   max-width: 100%;
   margin-top: 65px;
   overflow-x: hidden;
-
-
 }
 
 body::before {

@@ -50,6 +50,7 @@
 
 .profile-nav-buttons button:hover {
     background: #00ff66;
+    border: 1px solid aqua;
     color: black;
 }
 
@@ -107,7 +108,7 @@
 
 /* Avatar */
 .profile-avatar-wrapper {
-    width: 350px;
+    width: 225px;
     height: 150px;
     border-radius: 50px;
     overflow: hidden;
@@ -288,4 +289,12 @@
     width: unset;
     font-size: 1rem;
     text-align: center;
+}
+
+.edit-profile-form{
+    width: 75%;
+}
+.edit-profile-form .custom-form{
+    width: 90%;
+    grid-template-columns: 1fr 1fr;
 }

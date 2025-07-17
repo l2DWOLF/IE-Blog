@@ -6,6 +6,8 @@ import { successMsg } from "../../utils/toastify/toast";
 import { handleException } from "../../utils/errors/handleException";
 import axios from 'axios';
 
+import { getResetArticles } from "../../contexts/ArticleContext";
+
 export const loginHandler = async (Values, dispatch) => {
     try{
         const response = await userLogin({username: Values.username, password: Values.password});
@@ -24,16 +26,22 @@ export const loginHandler = async (Values, dispatch) => {
 };
 
 const baseURL = import.meta.env.VITE_API_BASE_URL;
-export const logoutHandler = async (dispatch) => {
-    const confirmed = window.confirm("Are you sure you want to logout?");
-    
+export const logoutHandler = async (dispatch, autoLogout=false) => {
+
+    const confirmed = autoLogout ? true : window.confirm("Are you sure you want to logout?");
+    if (!confirmed) return 
+
     if(confirmed){
         try {
             const { refreshToken } = store.getState().user;
+            const resetArticles = getResetArticles();
             await axios.post(`${baseURL}/auth/logout/`, { refresh: refreshToken });
             dispatch(Signoff());
-            setTimeout(() => window.location.reload(), 500);
-            successMsg("You've been logged out, see you soon! :)");
+            resetArticles();
+
+            if(!autoLogout){
+                successMsg("You've been logged out, see you soon! :)");
+            };
         } catch (err) {
             console.error(err.response.data || err.message);
         };

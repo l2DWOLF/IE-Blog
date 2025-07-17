@@ -14,6 +14,7 @@ function Navbar() {
 const dispatch = useDispatch();
 const {user, isLoggedIn} = useAuth();
 const {handleSearch} = useArticleContext();
+const { resetArticles } = useArticleContext();
 const {shouldEnableSearch, inputValue, onSearchChange, clearSearch} = useArticleSearch(handleSearch);
 
     return(
@@ -82,7 +83,9 @@ const {shouldEnableSearch, inputValue, onSearchChange, clearSearch} = useArticle
                         </li>
                         <li>
                             <button className="nav-logout-btn" onClick={() => {
-                                logoutHandler(dispatch)}}>Logout</button>
+                                        logoutHandler(dispatch); 
+                                        /* resetArticles(); */
+                            }}>Logout</button>
                         </li>
                     </> ) : ( <>
                         <li>

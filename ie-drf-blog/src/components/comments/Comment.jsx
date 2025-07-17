@@ -64,75 +64,75 @@ function Comment({ comment, depth = 0, onReplyClick, onCommentAdded }) {
     };
 
     return (<> 
-        <AnimatePresence>
-        {showReplyModal && ( 
-        <ModalPortal>
-            <motion.div
-                className="modal-overlay"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 10 }}
-                transition={{ duration: 0.25 }}
-            >
-                {modalType === "create" && <CreateComment
-                    articleId={comment.article}
-                    replyTo={comment.id}
+    <AnimatePresence>
+    {showReplyModal && ( 
+    <ModalPortal>
+        <motion.div
+            className="modal-overlay"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            transition={{ duration: 0.25 }}
+        >
+            {modalType === "create" && <CreateComment
+                articleId={comment.article}
+                replyTo={comment.id}
+                onClose={closeModal}
+                onCommentAdded={onCommentAdded}
+            />}
+            
+            {modalType === "edit" && 
+                <EditComment
+                    comment={comment}
                     onClose={closeModal}
                     onCommentAdded={onCommentAdded}
-                />}
-                
-                {modalType === "edit" && 
-                    <EditComment
-                        comment={comment}
-                        onClose={closeModal}
-                        onCommentAdded={onCommentAdded}
-                />}
-            </motion.div>
-        </ModalPortal>)}
-    </AnimatePresence>
-        <div className={getClassForDepth(depth)}>
+            />}
+        </motion.div>
+    </ModalPortal>)}
+</AnimatePresence>
+    <div className={getClassForDepth(depth)}>
 
-            <div className="comment-div custom-scrollbar-thin">
-                <div className="comment-content">
-                    <div className="comment">
-                        <div className="comment-header">
-                            <h5 className="comment-author">{comment.author_name}:</h5>
+        <div className="comment-div custom-scrollbar-thin">
+            <div className="comment-content">
+                <div className="comment">
+                    <div className="comment-header">
+                        <h5 className="comment-author">{comment?.author_name}:</h5>
 
-                            <p>created: {comment?.published_at}</p>
-                            <div className="comment-btns">
+                        <p>created: {comment?.published_at}</p>
+                        <div className="comment-btns">
 
-                                {(user.username === comment.author_name || user.is_admin || user.is_staff) && (
-                                    <button className="edit-reply-btn" onClick={() => handleReplyClick("edit")}>Edit</button>
-                                )}
+                            <button className="reply-button" onClick={() => handleReplyClick("create")}>
+                                Reply to {depth === 0 ? 'Comment' : 'Reply'}
+                            </button>
 
-                                <button className="reply-button" onClick={() => handleReplyClick("create")}>
-                                    Reply to {depth === 0 ? 'Comment' : 'Reply'}
-                                </button>
+                            {(user?.username === comment?.author_name || user?.is_admin || user?.is_staff) && (
+                                <button className="edit-reply-btn" onClick={() => handleReplyClick("edit")}>Edit</button>
+                            )}
 
-                                {(user.username === comment.author_name || user.is_admin || user.is_staff || user.is_mod) && (
-                                    <button onClick={() => handleDeleteComment(comment.id)}>Delete</button>
-                                )}
-                                
-                            </div>
+                            {(user.username === comment.author_name || user.is_admin || user.is_staff || user.is_mod) && (
+                                <button onClick={() => handleDeleteComment(comment.id)}>Delete</button>
+                            )}
+                            
                         </div>
-
-                        <p className={depth === 0 ? 'root-comment' : 'nested-comment'}>
-                            {comment.content}
-                        </p>
                     </div>
+
+                    <p className={depth === 0 ? 'root-comment' : 'nested-comment'}>
+                        {comment.content}
+                    </p>
                 </div>
-
-                {comment.replies && comment.replies.length > 0 && (
-                    <div className="comment-replies">
-                        {depth === 0 && <h6> Replies:</h6>}
-                        {comment.replies.map(reply => (
-                            <Comment key={reply.id} comment={reply} depth={depth + 1} onReplyClick={onReplyClick} onCommentAdded={onCommentAdded} />
-                        ))}
-                    </div>
-                )}
             </div>
+
+            {comment.replies && comment.replies.length > 0 && (
+                <div className="comment-replies">
+                    {depth === 0 && <h6> Replies:</h6>}
+                    {comment.replies.map(reply => (
+                        <Comment key={reply.id} comment={reply} depth={depth + 1} onReplyClick={onReplyClick} onCommentAdded={onCommentAdded} />
+                    ))}
+                </div>
+            )}
         </div>
-        </>);
+    </div>
+    </>);
 }
 
 export default Comment;

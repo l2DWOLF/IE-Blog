@@ -23,32 +23,33 @@ function EditArticle() {
     const [initialValues, setInitialValues] = useState(null);
     const navigate = useNavigate();
 
+    const loadArticle = async () => {
+        try {
+            const article = await getArticle(id);
+
+            if (user?.username !== article?.author_name && !user?.is_admin) {
+                warningMsg("You don't have permissions to edit this article, you may only edit/delete your own articles - redirecting to homepage.");
+                navigate('/');
+            }
+            else {
+                setShowContent(true);
+                setInitialValues({
+                    title: article.title,
+                    content: article.content,
+                    status: article.status,
+                    tags: article.tags,
+                });
+            };
+        } catch (err) {
+            handleException(err, { toast: true, alert: true })
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     useEffect(() => {
-        const loadArticle = async () => {
-            try {
-                const article = await getArticle(id);
-                
-                if (user?.username !== article?.author_name && !user?.is_admin){
-                    warningMsg("You don't have permissions to edit this article, you may only edit/delete your own articles - redirecting to homepage.");
-                    navigate('/');
-                }
-                else {
-                    setShowContent(true);
-                    setInitialValues({
-                        title: article.title,
-                        content: article.content,
-                        status: article.status,
-                        tags: article.tags,
-                    });
-                };
-            } catch (err) {
-                handleException(err, { toast: true, alert: true})
-            } finally {
-                setIsLoading(false);
-            }  
-        };
         loadArticle();
-    }, [id])
+    }, [user?.id])
 
     const formik = useFormik({
         enableReinitialize: true,

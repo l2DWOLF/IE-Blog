@@ -193,6 +193,15 @@ export function useArticleHandlers(user, options = {}) {
         }
     };
 
+    const resetArticles = () => {
+        setArticles([]);
+        setUserLikesMap({});
+        setArticlesComments({});
+        setExpandedArticles({});
+        setOffset(0);
+        setSearchTerm("");
+    };
+
     const handleLoadMore = () => {
         fetchData(offset + limit);
     };
@@ -220,5 +229,6 @@ export function useArticleHandlers(user, options = {}) {
         handleLoadMore,
         toggleExpanded,
         handleSearch,
+        resetArticles,
     };
 }

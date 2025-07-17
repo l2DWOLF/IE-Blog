@@ -12,7 +12,7 @@ export async function userLogout(data){
         headers: {
             Authorization: `Bearer ${data.accessToken}`
         }
-    }).then(handleResponse)
+    }).then(handleResponse);
 };
 
 export const userRegistration = async (values) => {
@@ -20,13 +20,17 @@ export const userRegistration = async (values) => {
 };
 
 export const getUserProfile = async (id) => {
-    return await axios.get(`/userprofiles/${id}`).then(handleResponse);
+    return await axios.get(`/userprofiles/${id}/`).then(handleResponse);
 };
 
 export const getUserInfo = async (id) => {
-    return await axios.get(`/users/${id}`).then(handleResponse);
+    return await axios.get(`/users/${id}/`).then(handleResponse);
 };
 
 export const updateUserProfile = async (payload) => {
     return await axios.put(`/users/update_account/`, payload).then(handleResponse);
+};
+
+export const deleteUser = async (id) => {
+    return await axios.delete(`/userprofiles/${id}/`, id).then(handleResponse);
 };

@@ -33,7 +33,7 @@ function Articles() {
         refreshArticleComments,
         handleLoadMore,
         toggleExpanded
-    } = useArticleContext(user, {limit: 3});
+    } = useArticleContext();
 
     const getCardProps = useArticleCardProps({
         user,
@@ -58,7 +58,7 @@ function Articles() {
 
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [user]);
 
 
     return (

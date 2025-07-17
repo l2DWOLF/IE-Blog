@@ -3,7 +3,7 @@ import './css/comments.css'
 import { useState } from 'react';
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { contentField } from "../../utils/validations/yupValidations";
+import { commentContentField } from "../../utils/validations/yupValidations";
 import { successMsg } from "../../utils/toastify/toast";
 import LoadingScreen from "../common/loadscreen/LoadingScreen";
 import FormWrapper from "../common/forms/FormWrapper";
@@ -21,7 +21,7 @@ function CreateComment({articleId, replyTo, onClose, onCommentAdded}) {
             status: "publish",
         },
         validationSchema: yup.object({
-            content: contentField,
+            content: commentContentField,
             status: yup.string().required(),
         }),
         onSubmit: async (values) => {

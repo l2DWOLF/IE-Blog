@@ -1,8 +1,11 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect } from "react";
 import useAuth from "../auth/hooks/useAuth";
 import { useArticleHandlers } from "../components/articles/hooks/ArticleHandlers";
 
 export const ArticleContext = createContext(null);
+
+let resetArticlesExternal = () => {};
+export const getResetArticles = () => resetArticlesExternal;
 
 export const useArticleContext = () => {
     const context = useContext(ArticleContext);
@@ -15,6 +18,14 @@ export const useArticleContext = () => {
 export function ArticleProvider({children}){
     const {user} = useAuth();
     const articleHandlers = useArticleHandlers(user, {limit : 3});
+    resetArticlesExternal = articleHandlers.resetArticles;
+    
+    useEffect(() => {
+        if (!user) {
+            articleHandlers.resetArticles();
+        }
+        articleHandlers.fetchData();
+    }, [user]);
 
     return(
         <ArticleContext.Provider value={articleHandlers}>

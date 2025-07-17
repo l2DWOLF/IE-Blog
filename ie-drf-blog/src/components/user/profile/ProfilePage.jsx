@@ -2,17 +2,21 @@ import './css/profilepage.css';
 import '../../common/design/design-tools.css';
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useScroll } from 'motion/react';
 import useAuth from '../../../auth/hooks/useAuth';
 import LoadingScreen from '../../common/loadscreen/LoadingScreen';
-import { getUserInfo, getUserProfile } from '../../../services/userServices';
+import { deleteUser, getUserInfo, getUserProfile } from '../../../services/userServices';
 import { handleException } from '../../../utils/errors/handleException';
 import { LogOut, Home, UserCircle, FileEdit, Trash2, Star } from 'lucide-react';
 import EditProfileForm from './EditProfileForm';
+import { logoutHandler } from '../../../auth/services/authService';
+import { useDispatch } from 'react-redux';
+import { infoMsg, successMsg } from '../../../utils/toastify/toast';
 
 function ProfilePage() {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { user, logout } = useAuth();
+    const { user } = useAuth();
     const [userProfile, setUserProfile] = useState(null);
     const [userInfo, setUserInfo] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -41,9 +45,21 @@ function ProfilePage() {
 
     const handleCancel = () => setIsEditing(false);
 
-    const handleDelete = () => {
-        console.log("Delete account coming soon...");
-    };
+    const handleDelete = async () => {
+            const confirm = window.confirm(`Are you sure you want to delete your account?`);
+            if (!confirm) return;
+            setIsLoading(true);
+            try {
+                await deleteUser(user.id);
+                const autoLogout=true;
+                successMsg(`User ${user.username} was deleted successfully.`);
+                logoutHandler(dispatch, autoLogout);
+            } catch (err) {
+                handleException(err);
+            } finally {
+                setIsLoading(false);
+            }
+        };
 
     return (
     <div className="profile-wrapper">
@@ -59,7 +75,9 @@ function ProfilePage() {
                 <button onClick={() => navigate("/my-articles")}>
                     <FileEdit className="card-icons" /> My Articles
                 </button>
-                <button onClick={logout}>
+                    <button onClick={() => {
+                        logoutHandler(dispatch)
+                    }}>
                     <LogOut className="card-icons" /> Logout
                 </button>
             </div>
@@ -83,7 +101,7 @@ function ProfilePage() {
                         <div className="profile-card">
                             <div className="profile-avatar-wrapper">
                                 <img
-                                        src={userProfile?.image || "https://images.unsplash.com/photo-1597001829726-0c49345a679b?q=80&w=1025&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
+                                                src={userProfile?.image || "https://images.unsplash.com/photo-1717864477200-d4d1f112c792?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
                                     alt="Profile Avatar"
                                     className="profile-avatar"
                                 />
@@ -118,7 +136,7 @@ function ProfilePage() {
                                             <div className="badges-container">
                                                 {user?.is_admin && <p className="role-badge">🔧 Admin User</p>}
                                                 {user?.is_mod && <p className="role-badge">🛡️ Moderator</p>}
-                                                {user?.is_staff && <p className="role-badge">👤 Staff Member</p>}
+                                                {user?.is_staff && <p className="role-badge">👤 Admin Staff </p>}
                                             </div>
                                         </div>
 

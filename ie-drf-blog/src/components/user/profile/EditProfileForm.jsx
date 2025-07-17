@@ -8,7 +8,7 @@ import FormWrapper from "../../common/forms/FormWrapper";
 import { FormInput } from "../../common/forms/formInput";
 import { handleException } from '../../../utils/errors/handleException';
 import useAuth from '../../../auth/hooks/useAuth';
-import { bioField, dateField, emailField, nameField } from '../../../utils/validations/yupValidations';
+import { bioField, dateField, emailField, nameField, updatePwField } from '../../../utils/validations/yupValidations';
 import { updateUserProfile } from '../../../services/userServices';
 
 
@@ -34,6 +34,7 @@ function EditProfileForm( {userInfo, userProfile, refetch, onCancel} ) {
                     console.log("userProfile: ", userProfile);
                     setInitialValues({
                         email: userInfo?.email || "",
+                        password: "",
                         first_name: userInfo?.first_name || "",
                         last_name: userInfo?.last_name || "",
                         location: userProfile?.location || "",
@@ -54,6 +55,7 @@ function EditProfileForm( {userInfo, userProfile, refetch, onCancel} ) {
         enableReinitialize: true,
         initialValues: initialValues || {
             email: "",
+            password: "",
             first_name: "",
             last_name: "",
             location: "",
@@ -64,6 +66,7 @@ function EditProfileForm( {userInfo, userProfile, refetch, onCancel} ) {
         },
         validationSchema: yup.object({
             email: emailField,
+            password: updatePwField,
             first_name: nameField,
             last_name: nameField,
             location: yup.string().min(2).max(50),
@@ -76,12 +79,14 @@ function EditProfileForm( {userInfo, userProfile, refetch, onCancel} ) {
                 const payload = {
                     user: {
                         email: values.email,
+                        password: values.password,
                         first_name: values.first_name,
                         last_name: values.last_name,
 
                     },
                     userprofile: {
                         bio: values.bio,
+                        location: values.location,
                         birth_date: values.birth_date
                             ? new Date(values.birth_date).toISOString().split("T")[0]
                         : null,
@@ -114,10 +119,14 @@ function EditProfileForm( {userInfo, userProfile, refetch, onCancel} ) {
             {isLoading || !showContent ? (
                 <LoadingScreen />
             ) : (
-                <FormWrapper title="Edit Profile" onSubmit={formik.handleSubmit}>
+                <FormWrapper className="edit-profile-form" title="Edit Profile" onSubmit={formik.handleSubmit}>
                     <button className="close-btn" type="button" onClick={onCancel}>X</button>
                     
-                    <FormInput label="Email" name="email" type="email" formik={formik} placeholder="enter email" />
+                    <FormInput label="Email" name="email" type="email" 
+                        formik={formik} placeholder="enter email" />
+
+                    <FormInput label="change password" name="password" type="password"
+                        formik={formik} placeholder="enter new password" required={false}/>
 
                     <FormInput
                         label="First Name" name="first_name" type="text"

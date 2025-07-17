@@ -52,13 +52,21 @@ function App() {
             <Route path="/about" element={<About />} />
           </Route>
 
-          <Route path="/liked-articles" element={<AuthRoute roles={["user", "mod", "admin"]}> <LikedArticles />  </AuthRoute>} />
+          <Route path="/liked-articles" element={<AuthRoute roles={["user", "mod", "admin"]}>   
+            <LikedArticles />  
+          </AuthRoute>} />
 
-          <Route path="/my-articles" element={<AuthRoute roles={["mod", "admin"]}> <MyArticles />  </AuthRoute>} />
+          <Route path="/my-articles" element={<AuthRoute roles={["mod", "admin"]}> 
+            <MyArticles />  
+          </AuthRoute>} />
 
-          <Route path="/add-article" element={<RoleRoute roles={["mod", "admin"]}> <CreateArticle />  </RoleRoute>} />
+          <Route path="/add-article" element={<RoleRoute roles={["mod", "admin"]}> 
+            <CreateArticle />  
+          </RoleRoute>} />
 
-          <Route path="/edit-article/:id" element={<RoleRoute roles={["mod", "admin"]}> <EditArticle />  </RoleRoute>} />
+          <Route path="/edit-article/:id" element={<RoleRoute roles={["mod", "admin"]}> 
+            <EditArticle />  
+          </RoleRoute>} />
 
 
           <Route
@@ -69,7 +77,10 @@ function App() {
             path="/register"
             element={<GuestRoute> <Register /> </GuestRoute>}
           />
-          <Route path="/Profile" element={<ProfilePage />} />
+
+          <Route path="/Profile" element={<AuthRoute roles={["user", "mod", "admin"]}> 
+            <ProfilePage />  
+          </AuthRoute>} />
 
 
           <Route path="*" element={<NotFound />} />
@@ -78,5 +89,4 @@ function App() {
     </Router>
   </div>)
 }
-
 export default App
