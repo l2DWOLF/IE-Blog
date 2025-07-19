@@ -27,6 +27,10 @@ export const getUserInfo = async (id) => {
     return await axios.get(`/users/${id}/`).then(handleResponse);
 };
 
+export const getPublicProfile = async (id) => {
+    return await axios.get(`/profiles/${id}/`).then(handleResponse); 
+}
+
 export const updateUserProfile = async (payload) => {
     return await axios.put(`/users/update_account/`, payload).then(handleResponse);
 };
@@ -34,3 +38,4 @@ export const updateUserProfile = async (payload) => {
 export const deleteUser = async (id) => {
     return await axios.delete(`/userprofiles/${id}/`, id).then(handleResponse);
 };
+

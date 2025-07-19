@@ -12,7 +12,7 @@ import { bioField, dateField, emailField, nameField, updatePwField } from '../..
 import { updateUserProfile } from '../../../services/userServices';
 
 
-function EditProfileForm( {userInfo, userProfile, refetch, onCancel} ) {
+function EditProfileForm( {profileObj, refetch, onCancel} ) {
     const {user} = useAuth();
     const [isLoading, setIsLoading] = useState(false);
     const [showContent, setShowContent] = useState(false);
@@ -30,16 +30,14 @@ function EditProfileForm( {userInfo, userProfile, refetch, onCancel} ) {
                 }
                 else {
                     setShowContent(true);
-                    console.log("user Info: ", userInfo);
-                    console.log("userProfile: ", userProfile);
                     setInitialValues({
-                        email: userInfo?.email || "",
+                        email: profileObj?.email || "",
                         password: "",
-                        first_name: userInfo?.first_name || "",
-                        last_name: userInfo?.last_name || "",
-                        location: userProfile?.location || "",
-                        bio: userProfile?.bio || "",
-                        birth_date: userProfile?.birth_date || "",
+                        first_name: profileObj?.first_name || "",
+                        last_name: profileObj?.last_name || "",
+                        location: profileObj?.location || "",
+                        bio: profileObj?.bio || "",
+                        birth_date: profileObj?.birth_date || "",
                     });
                 };
             } catch (err) {
@@ -59,8 +57,8 @@ function EditProfileForm( {userInfo, userProfile, refetch, onCancel} ) {
             first_name: "",
             last_name: "",
             location: "",
-            birth_date: userProfile?.birth_date
-                ? new Date(userProfile.birth_date).toISOString().split("T")[0]
+            birth_date: profileObj?.birth_date
+                ? new Date(profileObj?.birth_date).toISOString().split("T")[0]
             : "",
             bio: "",
         },
@@ -102,6 +100,12 @@ function EditProfileForm( {userInfo, userProfile, refetch, onCancel} ) {
                         delete payload.user[key];
                     }
                 });
+                console.log("payload: ", payload);
+                if(user?.is_staff || user?.is_superuser){
+                    if(profileObj?.id && profileObj?.id !== user?.id){
+                        payload.user_id = profileObj.id; 
+                    };
+                };
 
                 await updateUserProfile(payload);
                 successMsg("Profile Updated Succesfully! :)")
@@ -122,11 +126,14 @@ function EditProfileForm( {userInfo, userProfile, refetch, onCancel} ) {
                 <FormWrapper className="edit-profile-form" title="Edit Profile" onSubmit={formik.handleSubmit}>
                     <button className="close-btn" type="button" onClick={onCancel}>X</button>
                     
-                    <FormInput label="Email" name="email" type="email" 
-                        formik={formik} placeholder="enter email" />
+                    {profileObj?.id === user?.id && <>
+                        <FormInput label="Email" name="email" type="email"
+                            formik={formik} placeholder="enter email" />
 
-                    <FormInput label="change password" name="password" type="password"
+                        <FormInput label="change password" name="password" type="password"
                         formik={formik} placeholder="enter new password" required={false}/>
+                    </>}
+                    
 
                     <FormInput
                         label="First Name" name="first_name" type="text"

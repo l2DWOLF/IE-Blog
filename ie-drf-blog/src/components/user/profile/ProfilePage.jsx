@@ -1,11 +1,11 @@
 import './css/profilepage.css';
 import '../../common/design/design-tools.css';
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { motion, AnimatePresence, useScroll } from 'motion/react';
 import useAuth from '../../../auth/hooks/useAuth';
 import LoadingScreen from '../../common/loadscreen/LoadingScreen';
-import { deleteUser, getUserInfo, getUserProfile } from '../../../services/userServices';
+import { deleteUser, getPublicProfile, getUserInfo, getUserProfile } from '../../../services/userServices';
 import { handleException } from '../../../utils/errors/handleException';
 import { LogOut, Home, UserCircle, FileEdit, Trash2, Star } from 'lucide-react';
 import EditProfileForm from './EditProfileForm';
@@ -14,34 +14,55 @@ import { useDispatch } from 'react-redux';
 import { infoMsg, successMsg } from '../../../utils/toastify/toast';
 
 function ProfilePage() {
+    const { id } = useParams();
+    const { user } = useAuth();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { user } = useAuth();
+    const [publicProfile, setPublicProfile] = useState(null);
     const [userProfile, setUserProfile] = useState(null);
     const [userInfo, setUserInfo] = useState(null);
+    const [profileObj, setProfileObj] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
+    const viewingOwnProfile = !id || id === String(user?.id);
+    let userId = id || user?.id;
 
     async function fetchUser() {
-
         setIsLoading(true);
         try {
-            const [userInfo, profile] = await Promise.all([
-                getUserInfo(user.id),
-                getUserProfile(user.id),
-            ])
-            setUserInfo(userInfo);
-            setUserProfile(profile);
+            if(id){
+                const publicProfileData = await getPublicProfile(userId);
+                setPublicProfile(publicProfileData);
+            } else {
+                const [userInfo, profile] = await Promise.all([
+                    getUserInfo(userId),
+                    getUserProfile(userId),
+                ])
+                setUserInfo(userInfo);
+                setUserProfile(profile);
+            }
         } catch (err) {
             handleException(err);
+            setPublicProfile(null);
+            setUserInfo(null);
+            setUserProfile(null);
+            setProfileObj(null);
         } finally {
             setIsLoading(false);
         }
-    }
+    };
 
     useEffect(() => {
-        if (user?.id) fetchUser();
-    }, [user?.id]);
+        if (userId !== "") fetchUser();
+    }, [userId]);
+
+    useEffect(() => {
+        if(viewingOwnProfile && userInfo && userProfile){
+            setProfileObj({...userInfo, ...userProfile});
+        } else if (!viewingOwnProfile && publicProfile){
+            setProfileObj(publicProfile);
+        }
+    }, [viewingOwnProfile, userInfo, userProfile, publicProfile]);
 
     const handleCancel = () => setIsEditing(false);
 
@@ -50,10 +71,14 @@ function ProfilePage() {
             if (!confirm) return;
             setIsLoading(true);
             try {
-                await deleteUser(user.id);
-                const autoLogout=true;
-                successMsg(`User ${user.username} was deleted successfully.`);
-                logoutHandler(dispatch, autoLogout);
+                await deleteUser(profileObj?.id);
+                successMsg(`User ${profileObj?.username} was deleted successfully.`);
+                if(viewingOwnProfile){
+                    const autoLogout = true;
+                    logoutHandler(dispatch, autoLogout);
+                } else {
+                    fetchUser();
+                };
             } catch (err) {
                 handleException(err);
             } finally {
@@ -84,9 +109,9 @@ function ProfilePage() {
         </div>
 
         <section className="profile-section">
-            <h2>{user.username}'s Profile</h2>
+            <h2>{profileObj?.username}'s Profile</h2>
 
-            {isLoading || !userProfile ? (
+            {isLoading ? (
                 <LoadingScreen message="Loading Profile..." />
             ) : (
                 <div className="profile-container">
@@ -101,7 +126,7 @@ function ProfilePage() {
                         <div className="profile-card">
                             <div className="profile-avatar-wrapper">
                                 <img
-                                                src={userProfile?.image || "https://images.unsplash.com/photo-1717864477200-d4d1f112c792?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
+                                                src={profileObj?.image || "https://images.unsplash.com/photo-1717864477200-d4d1f112c792?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
                                     alt="Profile Avatar"
                                     className="profile-avatar"
                                 />
@@ -116,27 +141,29 @@ function ProfilePage() {
                             </div>
 
                             {isEditing ? (
-                                <EditProfileForm userInfo={userInfo} userProfile={userProfile} 
+                                <EditProfileForm profileObj={profileObj} 
                                     refetch={fetchUser} onCancel={handleCancel} />
                             ) : (<>
                                         <div className="profile-info-container">
                                             <h3>Account Info</h3>
                                             <div className="account-info">
                                                 <div className="info-field">
-                                                    <strong>User ID:</strong> <p>#{userInfo.id}</p>
+                                                    <strong>User ID:</strong> <p>#{profileObj?.id}</p>
                                                 </div>
                                                 <div className="info-field">
-                                                    <strong>Username:</strong> <p>{userInfo.username}</p>
+                                                    <strong>Username:</strong> <p>{profileObj?.username}</p>
                                                 </div>
-                                                <div className="info-field">
-                                                    <strong>Email:</strong> <p>{userInfo.email || "Sample@email.com"}</p>
-                                                </div>
+                                                {viewingOwnProfile && 
+                                                    <div className="info-field">
+                                                        <strong>Email:</strong> <p>{profileObj?.email}</p>
+                                                    </div>
+                                                }
                                             </div>
 
                                             <div className="badges-container">
-                                                {user?.is_admin && <p className="role-badge">🔧 Admin User</p>}
-                                                {user?.is_mod && <p className="role-badge">🛡️ Moderator</p>}
-                                                {user?.is_staff && <p className="role-badge">👤 Admin Staff </p>}
+                                                {profileObj?.is_admin || profileObj?.admin_status && <p className="role-badge">🔧 Admin User</p>}
+                                                {profileObj?.is_mod || profileObj?.mod_status && <p className="role-badge">🛡️ Moderator</p>}
+                                                {profileObj?.is_staff || profileObj?.admin_staff_status && <p className="role-badge">👤 Admin Staff </p>}
                                             </div>
                                         </div>
 
@@ -144,25 +171,25 @@ function ProfilePage() {
                                             <h3>Profile Details</h3>
                                             <div className="profile-info">
                                                 <div className="info-field">
-                                                    <strong>Full Name:</strong> <p>{userInfo?.first_name} {userInfo?.last_name}</p>
+                                                    <strong>Full Name:</strong> <p>{profileObj?.first_name} {profileObj?.last_name}</p>
                                                 </div>
                                                 <div className="info-field">
-                                                    <strong>Location:</strong> <p>{userProfile.location || 'New York'}</p>
+                                                    <strong>Location:</strong> <p>{profileObj?.location}</p>
                                                 </div>
                                                 <div className="info-field">
-                                                    <strong>Birth Date:</strong> <p>{userProfile.birth_date || '05/25/1888'}</p>
+                                                    <strong>Birth Date:</strong> <p>{profileObj?.birth_date}</p>
                                                 </div>
                                             </div>
                                             <div className="info-field bio-field">
-                                                <strong>Bio:</strong> <p>{userProfile?.bio || 'N/A'}</p>
+                                                <strong>Bio:</strong> <p>{profileObj?.bio || 'N/A'}</p>
                                             </div>
                                         </div>
                                     </> )}
                             
 
                             <div className="profile-timestamps">
-                                <p>Created at: {userProfile.created_at}</p>
-                                <p>Last update: {userProfile.updated_at}</p>
+                                <p>Created at: {profileObj?.created_at}</p>
+                                <p>Last update: {profileObj?.updated_at}</p>
                             </div>
                         </div>
                     </motion.div>

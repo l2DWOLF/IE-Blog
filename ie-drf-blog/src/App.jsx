@@ -78,10 +78,10 @@ function App() {
             element={<GuestRoute> <Register /> </GuestRoute>}
           />
 
+          <Route path="/Profile/:id" element={<ProfilePage />} />
           <Route path="/Profile" element={<AuthRoute roles={["user", "mod", "admin"]}> 
             <ProfilePage />  
           </AuthRoute>} />
-
 
           <Route path="*" element={<NotFound />} />
         </Routes>
