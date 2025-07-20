@@ -21,6 +21,20 @@
     color: aqua;
 }
 
+.loading-wrapper button{
+    margin-top: 1em;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid #00ff66;
+    color: white;
+    padding: 0.5em 1em;
+    border-radius: 8px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+    transition: 0.3s;
+}
+
 .spinner {
     width: 60px;
     height: 60px;
