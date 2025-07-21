@@ -24,7 +24,7 @@ function EditProfileForm( {profileObj, refetch, onCancel} ) {
             try {
                 setIsLoading(true);
                 if(!user?.username){
-                    warningMsg("You don't have permissions to edit this article, you may only edit/delete your own articles - redirecting to homepage.");
+                    warningMsg("You don't have permissions to edit this user, you may only edit/delete your own user - redirecting to homepage.");
                     setIsLoading(false);
                     navigate('/');
                 }
@@ -100,10 +100,10 @@ function EditProfileForm( {profileObj, refetch, onCancel} ) {
                         delete payload.user[key];
                     }
                 });
-                console.log("payload: ", payload);
+                
                 if(user?.is_staff || user?.is_superuser){
                     if(profileObj?.id && profileObj?.id !== user?.id){
-                        payload.user_id = profileObj.id; 
+                        payload.user_id = profileObj?.id;
                     };
                 };
 

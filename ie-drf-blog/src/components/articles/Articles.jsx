@@ -58,7 +58,7 @@ function Articles() {
 
     useEffect(() => {
         fetchData();
-    }, [user]);
+    }, [user?.id]);
 
 
     return (
