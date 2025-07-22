@@ -1,12 +1,12 @@
 import store from "../../redux/store";
+import axios from 'axios';
 import {jwtDecode} from "jwt-decode";
 import { userLogin, userLogout } from "../../services/userServices";
 import { SetToken, SetUser, Signoff } from "../../redux/UserState";
 import { successMsg } from "../../utils/toastify/toast";
 import { handleException } from "../../utils/errors/handleException";
-import axios from 'axios';
-
-import { getResetArticles } from "../../contexts/ArticleContext";
+import { getResetArticles, getFetchData } from "../../contexts/ArticleContext";
+import { useArticleHandlers } from "../../components/articles/hooks/ArticleHandlers";
 
 export const loginHandler = async (Values, dispatch) => {
     try{
@@ -35,9 +35,13 @@ export const logoutHandler = async (dispatch, autoLogout=false) => {
         try {
             const { refreshToken } = store.getState().user;
             const resetArticles = getResetArticles();
+            const fetchData = getFetchData();
             await axios.post(`${baseURL}/auth/logout/`, { refresh: refreshToken });
             dispatch(Signoff());
             resetArticles();
+            setTimeout(() => {
+                fetchData();
+            }, 0);
 
             if(!autoLogout){
                 successMsg("You've been logged out, see you soon! :)");

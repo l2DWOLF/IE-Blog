@@ -2,7 +2,7 @@ import './css/profilepage.css';
 import '../../common/design/design-tools.css';
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { motion, AnimatePresence, useScroll } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import useAuth from '../../../auth/hooks/useAuth';
 import LoadingScreen from '../../common/loadscreen/LoadingScreen';
 import { deleteUser, getPublicProfile, getUserInfo, getUserProfile } from '../../../services/userServices';
@@ -11,7 +11,7 @@ import { LogOut, Home, UserCircle, FileEdit, Trash2, Star } from 'lucide-react';
 import EditProfileForm from './EditProfileForm';
 import { logoutHandler } from '../../../auth/services/authService';
 import { useDispatch } from 'react-redux';
-import { infoMsg, successMsg } from '../../../utils/toastify/toast';
+import { successMsg } from '../../../utils/toastify/toast';
 
 function ProfilePage() {
     const { id } = useParams();

@@ -14,6 +14,7 @@ function Articles() {
     const { user } = useAuth();
     const contentRefs = useRef({});
     const [textScale, setTextScale] = useState(1);
+    const didMountRef = useRef(false);
 
     const {
         articles,
@@ -57,8 +58,12 @@ function Articles() {
     });
 
     useEffect(() => {
+    if (user  && !isLoading) {
         fetchData();
-    }, [user?.id]);
+    }
+}, [user]);
+
+
 
 
     return (
@@ -81,7 +86,7 @@ function Articles() {
                             transition={{ duration: 0.5 }}
                         >
 
-                        <ArticleCard key={article.id}
+                        <ArticleCard key={`${article.id}-${userLikesMap[article.id] || 'none'}`} 
                             {...getCardProps(article)}
                         />
 

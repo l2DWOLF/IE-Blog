@@ -44,12 +44,14 @@ export function useArticleHandlers(user, options = {}) {
             };
 
             const likesMap = {};
-            results.forEach(article => {
-                const match = (article.likes || []).find(l => l.username === user?.username);
-                if (match) {
-                    likesMap[article.id] = match.status;
-                }
-            });
+            if (user?.username) {
+                results.forEach(article => {
+                    const match = (article.likes || []).find(l => l.username === user.username);
+                    if (match) {
+                        likesMap[article.id] = match.status;
+                    }
+                });
+            }
 
             const articleCommentPromises = results.map(article =>
                 getArticleComments(article.id)
@@ -63,7 +65,7 @@ export function useArticleHandlers(user, options = {}) {
 
             setArticles(prev => offsetValue === 0 ? results : [...prev, ...results]);
             setArticlesComments(prev => ({ ...prev, ...commentsMap }));
-            setUserLikesMap(prev => ({ ...prev, ...likesMap }));
+            setUserLikesMap(prev => offsetValue === 0 ? likesMap : { ...prev, ...likesMap });
 
             if (filterOwn || filterByLiked) {
                 setHasMore(false);
@@ -183,7 +185,6 @@ export function useArticleHandlers(user, options = {}) {
     const refreshArticleComments = async (articleId) => {
         try {
             const updatedComments = await getArticleComments(articleId);
-            console.log("Updated Comments:", updatedComments);
             setArticlesComments(prev => ({
                 ...prev, 
                 [articleId]: updatedComments,
@@ -231,4 +232,4 @@ export function useArticleHandlers(user, options = {}) {
         handleSearch,
         resetArticles,
     };
-}
+};

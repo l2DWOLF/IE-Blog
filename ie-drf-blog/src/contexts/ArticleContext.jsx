@@ -6,6 +6,8 @@ export const ArticleContext = createContext(null);
 
 let resetArticlesExternal = () => {};
 export const getResetArticles = () => resetArticlesExternal;
+let fetchDataExternal = () => {};
+export const getFetchData = () => fetchDataExternal;
 
 export const useArticleContext = () => {
     const context = useContext(ArticleContext);
@@ -19,12 +21,12 @@ export function ArticleProvider({children}){
     const {user} = useAuth();
     const articleHandlers = useArticleHandlers(user, {limit : 3});
     resetArticlesExternal = articleHandlers.resetArticles;
+    fetchDataExternal = articleHandlers.fetchData;
     
     useEffect(() => {
         if (!user) {
             articleHandlers.resetArticles();
         }
-        articleHandlers.fetchData();
     }, [user]);
 
     return(
