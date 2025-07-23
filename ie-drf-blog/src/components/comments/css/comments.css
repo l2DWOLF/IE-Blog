@@ -27,55 +27,104 @@
 }
 
 .comments-container {
+    width: 100%;
     max-height: 305px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    padding: 2em 2em 1em !important;
+    padding: 2em 2em 1em;
     gap: 1.2em;
-    width: 100%;
-    padding: 0.5em;
 }
 
+.comment{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1em;
+}
 .comment-card {
-    background: #232323;
+    background: linear-gradient(95deg, rgba(0, 0, 0, 0.479), rgba(0, 255, 255, 0.568));
     border-radius: 10px;
-    box-shadow: 0 0 6px rgba(0, 255, 200, 0.15);
+    box-shadow: 0 0 6px rgba(0, 255, 200, 0.925);
     padding: 1.2em 1.5em;
+}
+.comment-card:hover,
+.reply:hover {
+    box-shadow: 0 0 12px rgba(0, 255, 200, 0.25);
 }
 
 .comment-div {
     display: flex;
     flex-direction: column;
+    background-color: rgba(0, 0, 0, 0);
     gap: 0.8em;
 }
 
+.add-comment-btn {
+    width: 100px;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    margin: 0px 0px 0px 0px;
+}
+
 .comment-header {
+    width:40%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 0.4em;
+    font-size: 0.85rem;
+    color: #a0f0f0;
+    font-weight: 500;
+    flex-wrap: wrap;
+}
+
+.user-meta{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 0.4em;
+    
+}
+
+.comment-date{
+    font-size: 0.75rem;
+    color:888;
+}
+
+.dot-separator::before {
+    content: '•';
+    margin: 0 0.4em;
 }
 
 .comment-btns{
+    width: 100%;
     display: flex;
-    gap: 3px;
+    justify-content: flex-end;
+    gap: 0.5em;
+    font-size: 0.75rem;
+    margin-top: 0.5em;
+    padding-top: 5px;
+    padding-right: 5px;
+    flex-wrap: wrap;
+    border-top: 1px solid rgba(255, 255, 255, 0.137);
 }
 
 .comment-btns button {
-    font-size: 0.75rem;
     padding: 4px 8px;
-    margin-left: auto;
-    background-color: #00ff6626;
+    border-radius: 6px;
+    background-color: #00ffc82a;
+    color: #00ffcc;
     border: none;
-    border-radius: 5px;
-    color: #00ff66;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: 0.2s ease;
 }
 
 .comment-btns button:hover {
     background:unset;
-    background-color: #00e5c6;
+    background-color: #00ffc8;
     color: black;
 }
 
@@ -90,16 +139,27 @@
     box-shadow: 0 0 5px rgba(0, 255, 200, 0.1);
 }
 
+.comment-content-text {
+    width: 60%;
+    line-height: 1.4;
+    color: #eee;
+    padding: 0em 3em 0em .5em;
+    border-left: 1px solid snow;
+}
+
+.comment-content-text p {
+    font-size: 1.05rem;
+}
+
 /* Main author and comment */
 .comment-author {
-    font-size: 1rem;
+    font-size: 1.25rem;
     font-weight: bold;
-    color: #80ffea;
+    color: #06eeff;
     text-decoration: underline;
 }
 
 .root-comment {
-    font-size: 0.9rem;
     color: #e0e0e0;
     padding-left: 0.5em;
     margin-top: 0.3em;
@@ -112,23 +172,41 @@
     padding: 0em 1.2em .5em;
     margin-top: 0.5em;
     border-left: 2px solid #00ffc8;
-    background-color: #181818;
+    background-color: rgba(0, 255, 200, 0.02);
     border-radius: 8px;
     box-shadow: inset 0 0 4px rgba(0, 255, 200, 0.05);
 }
 
 .reply .comment-content{
+    padding: .3em 0em 0em 0em;
     min-height: 65px;
+}
+
+.reply-level-1{
+    background-color: rgba(53, 59, 58, 0.32) !important;
+    border-left: 2px solid #00ffc8;
+    box-shadow: inset 0 0 4px rgba(0, 255, 200, 0.05);
+}
+.reply-level-1 .comment-content {
+    background-color: rgba(0, 255, 200, 0.015);
+    border: 1px solid rgba(0, 255, 200, 0.1);
+}
+
+.reply-level-2{
+    background-color: rgba(0, 255, 200, 0.01) !important;
+    border-left: 2px dashed #00ffc8;
+    box-shadow: none;
 }
 .reply.reply-level-2 .comment-content{
     padding: .7em;
-    min-height: 45px;
-    border-left: 2px solid #00eeff;
+    background-color: rgba(0, 255, 200, 0.008);
+    border-left: 2px solid #00ccff;
+    border-bottom: none;
 }
 
 /* Replies heading */
 .comment-replies h6 {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     color: #80ffea;
     margin: 0.5em 0;
     text-decoration: underline;
@@ -140,7 +218,7 @@
 
 /* Reply block */
 .reply {
-    background-color: #2a2a2a;
+    background-color: rgba(0, 255, 200, 0.025);
     padding: 0.4em 0.7em;
     margin-bottom: 0.7em;
     border-radius: 6px;
@@ -150,6 +228,10 @@
 .reply .comment-content{
     border: none;
     border-left: 2px solid #00ffc8;
+}
+
+.reply .comment-content-text p{
+    font-size: .95rem;
 }
 
 /* Reply author */

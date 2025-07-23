@@ -1,4 +1,5 @@
 import './css/articles.css';
+import './css/mobile-articles.css';
 import '../common/design/design-tools.css';
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
@@ -61,10 +62,7 @@ function Articles() {
     if (user  && !isLoading) {
         fetchData();
     }
-}, [user]);
-
-
-
+    }, [user]);
 
     return (
         <section className="articles-section">

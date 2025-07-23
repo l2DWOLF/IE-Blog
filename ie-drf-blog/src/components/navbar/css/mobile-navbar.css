@@ -1,0 +1,9 @@
+@media (max-width: 768px) {
+
+    .logo .mirrored{
+        width: 100px;
+    }
+    .logo a{
+        font-size: 1.75rem !important;
+    }
+}

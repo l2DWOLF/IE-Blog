@@ -166,11 +166,11 @@ option:hover {
     background-attachment: scroll;
     background-position: bottom bottom;
   }
-  .articles-section{
-    min-width: 95%;
-    padding: 1em 0em 1em 0em;
-  }
-  .article-card{
-    width: 100% !important;
-  }
+
+    input,
+    textarea,
+    select {
+      font-size: 16px !important; 
+    }
+
 }

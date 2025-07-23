@@ -1,4 +1,5 @@
 import "./css/navbar.css"
+import "./css/mobile-navbar.css"
 import { useEffect, useState } from "react";
 import { X, Search } from "lucide-react";
 import {NavLink} from 'react-router-dom'

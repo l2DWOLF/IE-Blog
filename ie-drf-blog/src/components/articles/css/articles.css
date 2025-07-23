@@ -74,7 +74,6 @@
 
 .article-card p {
     transition: 1s;
-    padding: 0em 3em;
 }
 
 .article-card h4 {
@@ -119,9 +118,9 @@
     border: 1px solid rgba(255, 255, 255, 0.35);
 }
 
-.article-info-container:hover {
-    width: 96%;
-    box-shadow: 0 0 14px rgba(0, 255, 102, 0.4);
+.article-info-container:hover, .article-engagement-container:hover, .article-content-wrapper:hover {
+
+    box-shadow: 0 0 14px rgba(0, 217, 255, 0.5);
 }
 
 .article-engagement-container {
@@ -137,10 +136,6 @@
     -webkit-backdrop-filter: blur(4px);
     transition: 0.3s ease;
     border: 1px solid rgba(255, 255, 255, 0.35);
-}
-.article-engagement-container:hover {
-    width: 96%;
-    box-shadow: 0 0 14px rgba(0, 255, 102, 0.4);
 }
 
 .timestamps {
@@ -218,25 +213,22 @@
     min-height: 0;
     border: 1px solid rgba(0, 221, 255, 0.436);
 }
-.article-content-wrapper:hover{
-    box-shadow: 0 0 14px rgba(0, 255, 102, 0.4);
-    width: 96%;
-}
 
 .article-content {
     width: 90%;
     align-self: center;
+    font-size: 1rem;
     background: rgba(0, 0, 0, 0.6);
     font-weight: 500;
     min-height: 300px;
     max-height: 500px;
-    padding-top: 2em !important;
+    padding: 1em 1.5em;
     padding-bottom: 3em !important;
     border-radius: 15px 15px 0px 0px;
     overflow: hidden;
     font-family: 'Georgia', 'Times New Roman', serif;
     white-space: pre-wrap;
-    font-size: 1rem;
+
     line-height: 1.6;
     text-align: left;
     transition: 0.3s;

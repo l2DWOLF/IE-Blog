@@ -149,8 +149,7 @@ function ArticleCard({
 
                 <div className="article-engagement-container">
                     <button
-                        title="Add Comment" className="card-btns"
-                        style={{ width: "100px", position: "fixed", top: "5px", right: "5px", margin: "0px 0px 0px 0px" }}
+                        title="Add Comment" className="card-btns add-comment-btn"
                         onClick={() => {
                             handleAddComment(article.id);
                         }}

@@ -94,7 +94,8 @@ header::before {
     color: #e7fce4;
 }
 .logo a:hover{
-    background:#00ddff3e;
+    background:#00ff229f;
+    color:white;
     padding: 0 10px;
 }
 

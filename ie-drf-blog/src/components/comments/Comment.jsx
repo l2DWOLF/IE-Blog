@@ -1,4 +1,5 @@
 import './css/comments.css';
+import './css/mobile-comments.css';
 import '../common/design/design-tools.css';
 import CreateComment from './CreateComment';
 import EditComment from './EditComment';
@@ -96,35 +97,37 @@ function Comment({ comment, depth = 0, onReplyClick, onCommentAdded }) {
             <div className="comment-content">
                 <div className="comment">
                     <div className="comment-header">
-                        <h5 className="comment-author">{comment?.author_name}:</h5>
-
-                        <p>created: {comment?.published_at}</p>
-                        <div className="comment-btns">
-
-                            <button className="reply-button" onClick={() => handleReplyClick("create")}>
-                                Reply to {depth === 0 ? 'Comment' : 'Reply'}
-                            </button>
-
-                            {(user?.username === comment?.author_name || user?.is_admin || user?.is_staff) && (
-                                <button className="edit-reply-btn" onClick={() => handleReplyClick("edit")}>Edit</button>
-                            )}
-
-                            {(user.username === comment.author_name || user.is_admin || user.is_staff || user.is_mod) && (
-                                <button onClick={() => handleDeleteComment(comment.id)}>Delete</button>
-                            )}
+                        <div className="user-meta">
                             
+                                <h5 className="comment-author"> <User size={18} /> {comment?.author_name}</h5>
+                                <span className="comment-date">{comment?.published_at}</span>
                         </div>
                     </div>
 
-                    <p className={depth === 0 ? 'root-comment' : 'nested-comment'}>
-                        {comment.content}
-                    </p>
+                    <div className="comment-content-text">
+                        <p className={depth === 0 ? 'root-comment' : 'nested-comment'}>
+                            {comment?.content}
+                        </p>
+                    </div>
                 </div>
+                    <div className="comment-btns">
+                        <button className="reply-button" onClick={() => handleReplyClick("create")}>
+                            Reply to {depth === 0 ? 'Comment' : 'Reply'}
+                        </button>
+
+                        {(user?.username === comment?.author_name || user?.is_admin || user?.is_staff) && (
+                            <button className="edit-reply-btn" onClick={() => handleReplyClick("edit")}>Edit</button>
+                        )}
+
+                        {(user.username === comment.author_name || user.is_admin || user.is_staff || user.is_mod) && (
+                            <button onClick={() => handleDeleteComment(comment.id)}>Delete</button>
+                        )}
+                    </div>
             </div>
 
             {comment.replies && comment.replies.length > 0 && (
                 <div className="comment-replies">
-                    {depth === 0 && <h6> Replies:</h6>}
+                    {depth === 0 && <h6> Comment Replies:</h6>}
                     {comment.replies.map(reply => (
                         <Comment key={reply.id} comment={reply} depth={depth + 1} onReplyClick={onReplyClick} onCommentAdded={onCommentAdded} />
                     ))}
