@@ -11,7 +11,7 @@
 }
 
 .modal-content,
-.modal-content:hover {
+.modal-content {
     width: 50%;
     z-index: 100;
     background-color: rgba(52, 102, 108, 0.2);
@@ -24,7 +24,7 @@
 }
 
 .modal-overlay .form-container,
-.modal-overlay .form-container:hover {
+.modal-overlay .form-container {
     background-color: rgba(3, 230, 255, 0.4);
     padding: 5px;
     margin: 0;
@@ -34,7 +34,6 @@
     cursor: move; }
 
 .modal-overlay {
-    
     width: 100%;
     position: fixed;
     padding: 0;
@@ -64,8 +63,6 @@
         opacity: 1;
     }
 }
-
-.comment-modal-form {}
 
 .comment-modal-form .form-container .custom-form {
     display: flex;
@@ -115,8 +112,19 @@
 /* Mobile Modal */
 
 @media (max-width: 768px) {
-    .modal-content, .modal-content:hover{
+    .modal-overlay{
+
+    }
+    .modal-content{
         width: 85%;
+        align-self: center;
+    }
+    .modal-content .form-container {
+        width: 100%;
+        padding: 2em 0em .5em;
+    }
+    .modal-content .custom-form{
+        width: 100%;
     }
 
     .modal-content .input-field{
@@ -125,4 +133,10 @@
     .modal-content #status{
         width: 80%;
     }
+
+    .modal-content .submit-btn{
+        width: 60% !important;
+    }
+
+    
 }

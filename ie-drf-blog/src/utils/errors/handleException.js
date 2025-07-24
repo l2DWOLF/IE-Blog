@@ -6,6 +6,9 @@ export const handleException = (err, options = { toast: true, alert: true }) => 
     const data = err?.response?.data;
     console.error("Full Error Response: ", err?.response?.data);
 
+    if (err.code === 'ECONNABORTED' || err.message === 'Network Error') {
+        msg = 'Connection failed. Please check your internet or try again later.';
+    }
     if (typeof data?.backend_error === "string") {
         msg = data.backend_error;
     } else if (Array.isArray(data?.backend_error)) {

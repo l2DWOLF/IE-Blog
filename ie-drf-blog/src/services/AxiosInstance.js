@@ -1,4 +1,5 @@
 import axios from "axios";
+import axiosRetry from "axios-retry";
 import { jwtDecode } from "jwt-decode";
 import { SetToken, SetUser, Signoff, SetAuthLoading } from "../redux/UserState";
 import store from "../redux/store";
@@ -9,6 +10,18 @@ const baseURL = import.meta.env.VITE_API_BASE_URL;
 const axiosInstance = axios.create({
     baseURL: baseURL
 });
+
+axiosRetry(axiosInstance, {
+    retries: 2,
+    retryDelay: (retryCount) => {
+        handleException(`Retrying request... Attempt #${retryCount}`);
+        return retryCount * 1000;
+    },
+    retryCondition: (error) => {
+        return axiosRetry.isNetworkError(error) || axiosRetry.isRetryableError(error);
+    },
+});
+
 
 let refreshPromise = null;
 

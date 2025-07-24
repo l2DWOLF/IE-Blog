@@ -1,4 +1,5 @@
 .form-container {
+    max-width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -141,4 +142,54 @@
     font-style: italic;
     font-size: .9rem;
     text-align: center;
+}
+
+input,
+textarea,
+select {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    
+    .form-container{
+        width: 85%;
+    }
+
+    .login-section .form-container{
+        min-width: unset !important;
+        max-width: 80%  ;
+    }
+    .custom-form,
+    .register-section .custom-form {
+        width: unset;
+        grid-template-columns: 1fr !important;
+    }
+
+    .submit-btn {
+        grid-column: 1 / -1;
+        width: 75%;
+    }
+
+    .register-section form {
+        grid-template-columns: 1fr;
+    }
+
+    .input-field {
+        padding: 0.75em 1em;
+    }
+
+    .form-container {
+        padding: 2em 1.5em;
+    }
+
+    .form-textarea {
+        min-height: 120px;
+        font-size: 0.95rem;
+    }
+
+    .span-full, .select-input, .input-field{
+        grid-column: 1/-1 !important;
+    }
 }
