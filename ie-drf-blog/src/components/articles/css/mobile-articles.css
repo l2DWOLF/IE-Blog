@@ -1,4 +1,4 @@
-@media (max-width: 768px) {
+@media (max-width: 1125px) {
 
     .site-nav {
         display: none;
@@ -30,14 +30,16 @@
     .articles-section {
         min-width: 95%;
         padding: 1em 0em 1em 0em;
+        background-color: unset;
+        box-shadow: unset;
     }
 
     .article-card h3, .articles-section h3, .articles-container h3 {
         width: 100%;
         padding: unset;
         padding: 0em 4px;
-        margin-top: .25em;
-        font-size: 1.5rem;
+        margin-top: 1.2em;
+        font-size: 1.6rem;
     }
 
     .articles-container{
@@ -61,8 +63,21 @@
         flex-direction: column-reverse;
         align-items: center;
         justify-content: center;
+        gap: .5em;
     }
-
+    .text-size-btns button{
+        padding: 4px 8px;
+    }
+    .text-size-btns svg{
+        padding: unset;
+        margin: unset;
+        width: 15px;
+        height: 15px;
+        color: aqua;
+    }
+    .text-size-btns{
+        align-self: flex-end !important;
+    }
     .article-content{
         width: 97%;
         min-height: 200px;

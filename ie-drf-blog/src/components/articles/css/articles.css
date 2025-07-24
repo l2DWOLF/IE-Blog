@@ -52,7 +52,6 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    text-transform: capitalize;
     padding: 4.5em 0.5em 2em;
     gap: 1em;
     /* background-color: rgba(3, 63, 3, 0.118); */
@@ -126,8 +125,7 @@
 .article-engagement-container {
     width: 95%;
     display: flex;
-    flex-direction: column;
-    padding: 2.1em 1.5em 1em;
+    padding: 3em 1em 0em 1em;
     margin: 1em;
     border-radius: 12px;
     background: rgba(0, 0, 0, 0.3);
@@ -238,9 +236,6 @@
 .article-content:hover {
     box-shadow: 0 0 10px rgba(190, 255, 216, 0.2);
 }
-.article-content-wrapper:hover .article-content{
-    width:88.5%
-}
 
 .article-content.expanded {
     max-height: none;
@@ -279,27 +274,34 @@
     z-index: 5;
     width: fit-content;
     font-weight: 600;
-    color: #00ff66;
     border-radius: 6px;
     box-shadow: 0 0 8px rgba(0, 255, 102, 0.1);
     transition: all 0.3s ease;
     cursor:zoom-in;
 }
+.text-size-btns svg {
+    padding: unset;
+    margin: unset;
+    stroke-width: 3;
+    width: 20px;
+    height: 20px;
+    color: aqua;
+}
 
 .text-size-btns button {
-    font-size: 1rem;
     background: rgba(28, 48, 36, 0.38);
     color: #eee;
-    border: 1px solid rgba(0, 255, 102, 0.4);
-    padding: 0.2em .7em;
+    border: 1px solid rgb(1, 255, 102);
+    padding: 3px 8px;
     border-radius: 8px;
+    font-size: unset;
     font-weight: 500;
     cursor: zoom-in;
     transition: all 0.3s ease;
 }
 
-.text-size-btns button:hover {
-    background-color: #00ff66;
+.text-size-btns button:hover, .text-size-btns button:hover svg {
+    background-color: aqua;
     color: black;
     box-shadow: 0 0 8px rgba(0, 255, 102, 0.4);
 }
@@ -491,6 +493,7 @@
 }
 
 .load-more-btn{
-    font-size: 2rem;
+    background:#103110b7;
+    font-size: 1.5rem;
     padding: 5px 1.5em;
 }

@@ -53,7 +53,6 @@
     margin-bottom: 500px;
 }
 
-
 @keyframes slideUp {
     from {
         transform: translateY(50px);
@@ -111,4 +110,19 @@
 
 .modal-content .select-input {
     align-self: center;
+}
+
+/* Mobile Modal */
+
+@media (max-width: 768px) {
+    .modal-content, .modal-content:hover{
+        width: 85%;
+    }
+
+    .modal-content .input-field{
+        width: 100%;
+    }
+    .modal-content #status{
+        width: 80%;
+    }
 }

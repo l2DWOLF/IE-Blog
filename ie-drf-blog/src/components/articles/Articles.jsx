@@ -59,8 +59,9 @@ function Articles() {
     });
 
     useEffect(() => {
-    if (user  && !isLoading) {
+    if (user  && !isLoading && !didMountRef) {
         fetchData();
+        didMountRef(true);
     }
     }, [user]);
 
@@ -80,8 +81,8 @@ function Articles() {
                             className="article-motion-wrapper"
                             initial={{ opacity: 0, scale: 0.95, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.2, x: 450, y: 30 }}
-                            transition={{ duration: 0.5 }}
+                            exit={{ opacity: 0, x: -200, scale: 0.7 }}
+                            transition={{ duration: 0.7, east: "eastInOut" }}
                         >
 
                         <ArticleCard key={`${article.id}-${userLikesMap[article.id] || 'none'}`} 

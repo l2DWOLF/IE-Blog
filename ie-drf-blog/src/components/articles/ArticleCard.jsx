@@ -1,9 +1,9 @@
-import { User, ThumbsUp, ThumbsDown, Edit3, Trash2, MailPlus } from "lucide-react";
+import { User, ThumbsUp, ThumbsDown, Edit3, Trash2, MailPlus, ZoomIn, ZoomOut, RotateCcw } from "lucide-react";
 import Comment from "../comments/Comment";
 import CreateComment from "../comments/CreateComment";
 import ModalPortal from "../common/modal/ModalPortal";
 import { canEditDelete } from "../../auth/utils/permissions";
-import { motion, AnimatePresence } from 'motion/react'
+import { motion, AnimatePresence } from 'motion/react';
 import { infoMsg } from "../../utils/toastify/toast";
 
 function ArticleCard({
@@ -51,9 +51,9 @@ function ArticleCard({
                 <div className="article-content-wrapper">
                     <div className="sticky-title">
                         <div className="text-size-btns">
-                            <button onClick={() => setTextScale((prev) => Math.min(prev + 0.1, 2))}>text+</button>
-                            <button onClick={() => setTextScale((prev) => Math.max(prev - 0.1, 0.6))}>text-</button>
-                            <button onClick={() => setTextScale(1)}>reset</button>
+                            <button onClick={() => setTextScale((prev) => Math.min(prev + 0.1, 2))}><ZoomIn /></button>
+                            <button onClick={() => setTextScale((prev) => Math.max(prev - 0.1, 0.6))}><ZoomOut /></button>
+                            <button onClick={() => setTextScale(1)}> <RotateCcw /></button>
                         </div>
                         <div className="article-metadata">
                             <div className="author-info">

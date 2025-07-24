@@ -2,6 +2,7 @@
     .comments-div{
         width: 100%;
         padding: unset;
+        
     }
 
     .comments-container{
@@ -11,12 +12,14 @@
 
     .article-engagement-container{
         padding: 3em 1em 0em 1em;
+        flex-direction: column-reverse;
     }
 
     .add-comment-btn{
         width: 100px;
         position: fixed; 
         top: 7px; 
+        right: unset;
         align-self: center;
         margin: 0px 0px 0px 0px;
     }
