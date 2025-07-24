@@ -167,10 +167,10 @@ option:hover {
     background-position: bottom bottom;
   }
 
-    input,
-    textarea,
-    select {
-      font-size: 16px !important; 
-    }
+  input,
+  textarea,
+  select {
+    font-size: 16px !important; 
+  }
 
 }

@@ -26,7 +26,6 @@
     margin: .6em 0em .5em;
 }
 
-/* Nav buttons (Home, Logout, etc.) */
 .profile-nav-buttons {
     display: flex;
     gap: 1em;
@@ -36,6 +35,7 @@
 }
 
 .profile-nav-buttons button {
+    min-width: 115px;
     background: rgba(0, 0, 0, 0.3);
     border: 1px solid #00ff66;
     color: white;
@@ -54,7 +54,6 @@
     color: black;
 }
 
-/* Main profile section container */
 .profile-section {
     width: 70%;
     background: rgba(0, 255, 242, 0.1);
@@ -80,7 +79,6 @@
     justify-content: center;
 }
 
-/* Profile Card */
 .profile-card {
     width: 90%;
     background: #00a2ff1c;
@@ -106,7 +104,6 @@
     background: rgba(0, 0, 0, 0.381);
 }
 
-/* Avatar */
 .profile-avatar-wrapper {
     width: 225px;
     height: 150px;
@@ -123,7 +120,6 @@
     object-fit: cover;
 }
 
-/* Info Sections */
 .profile-info-container,
 .profile-details-container {
     width: 75%;
@@ -214,12 +210,11 @@
     font-size: 1.2rem;
 }
 
-
-/* Action Buttons */
 .profile-card-btns {
     display: flex;
     gap: 1em;
     margin-top: 1em;
+    justify-content: center;
     flex-wrap: wrap;
 }
 
@@ -246,7 +241,6 @@
     border: 1px solid rgb(0, 58, 0);
 }
 
-/* Timestamps */
 .profile-timestamps {
     margin-top: 1em;
     color: #ccc;
@@ -265,21 +259,18 @@
 
 }
 
-/* Role Badge */
 .role-badge {
     width: fit-content;
     padding: 0.4em 1em;
     border-radius: 20px;
-    background: rgba(0, 255, 102, 0.15);
+    background: transparent;
     border: 1px solid #00ff66;
-    font-weight: bold;
-    color: #00ff66;
     margin-top: 0.5em;
     cursor: pointer;
 }
 
 .role-badge:hover {
-    background: #03cc53;
+    background: aqua;
     border: 1px solid rgb(0, 0, 0);
     color: #000000;
     cursor: pointer;
@@ -287,7 +278,9 @@
 
 .badges-container p {
     width: unset;
-    font-size: 1rem;
+    color: greenyellow;
+    font-weight: bold;
+    font-size: 1.1rem;
     text-align: center;
 }
 
@@ -297,4 +290,17 @@
 .edit-profile-form .custom-form{
     width: 90%;
     grid-template-columns: 1fr 1fr;
+}
+
+.close-btn{
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 25px;
+    
+}
+.close-btn:hover{
+    color: aqua;
+    border: 1px solid aqua;
 }

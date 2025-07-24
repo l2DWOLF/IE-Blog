@@ -1,0 +1,70 @@
+
+@media (max-width: 1125px){
+
+    .profile-wrapper{
+        gap: 3.5em;
+    }
+    .profile-title-bar{
+        margin-top: 1em;
+        width: 100%;
+        border-radius: 0;
+    }
+    .profile-title-bar h1{
+        font-size: 3rem;
+    }
+    .profile-nav-buttons{
+        width: 95%;
+        padding: 0 2.4em;
+    }
+    
+
+    .profile-section{
+        width: 90%;
+        padding: 0px;
+    }
+    .profile-section h2{
+        font-size: 1.75rem;
+    }
+
+    .profile-container{
+        width: 100%;
+        padding-bottom: 0;
+    }
+    .profile-card{
+        width:100%;
+        padding: 2em 0;
+        gap: 2em;
+    }
+    .profile-avatar-wrapper{
+        width: 150px;
+        height: 110px
+    }
+    .profile-card-btns{
+        
+        width: 100%;
+        padding: 0 .5em;
+    }
+    .profile-info-container, .profile-details-container{
+        width: 95%;
+    }
+    .account-info, .profile-info, .bio-field{
+        width:100%;
+    }
+
+    .edit-profile-form{
+        width: 90%;
+    }
+    .edit-profile-form .custom-form{
+        width:unset;
+        padding: 0;
+    }
+
+    .edit-profile-form .input-field{
+        max-width: 100%;
+        padding: 5px 10px;
+    }
+    .edit-profile-form .input-field input{
+        max-width: 100%;
+    }
+    
+}

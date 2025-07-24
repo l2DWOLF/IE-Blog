@@ -189,7 +189,7 @@ select {
         font-size: 0.95rem;
     }
 
-    .span-full, .select-input, .input-field{
+    .span-full, .select-input, .input-field, .submit-btn{
         grid-column: 1/-1 !important;
     }
 }
