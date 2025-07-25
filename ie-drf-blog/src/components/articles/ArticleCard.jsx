@@ -51,9 +51,9 @@ function ArticleCard({
                 <div className="article-content-wrapper">
                     <div className="sticky-title">
                         <div className="text-size-btns">
-                            <button onClick={() => setTextScale((prev) => Math.min(prev + 0.1, 2))}><ZoomIn /></button>
-                            <button onClick={() => setTextScale((prev) => Math.max(prev - 0.1, 0.6))}><ZoomOut /></button>
-                            <button onClick={() => setTextScale(1)}> <RotateCcw /></button>
+                            <button title="Enlarge text" onClick={() => setTextScale((prev) => Math.min(prev + 0.1, 2))}><ZoomIn /></button>
+                            <button title="Shrink text" onClick={() => setTextScale((prev) => Math.max(prev - 0.1, 0.6))}><ZoomOut /></button>
+                            <button title="Reset text" onClick={() => setTextScale(1)}> <RotateCcw /></button>
                         </div>
                         <div className="article-metadata">
                             <div className="author-info">

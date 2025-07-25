@@ -1,4 +1,4 @@
-.articles-section {
+.article-feed-section {
     width: 80%;
     background-color: rgba(0, 255, 242, 0.16);
     min-height: 350px;
@@ -14,16 +14,24 @@
     scroll-padding: 20px;
 }
 
-.articles-section:hover {
+.article-feed-wrapper{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.article-feed-section:hover {
     width: 80.5%;
 }
 
-.articles-section h2 {
+.article-feed-section h2 {
     text-align: center;
     font-size: 2.5rem;
 }
 
-.articles-section h3 {
+.article-feed-section h3 {
     font-size: 2rem;
 }
 

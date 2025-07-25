@@ -35,6 +35,7 @@
   text-shadow: 0 0 4px rgba(0, 255, 102, 0.3);
 }
 .mirror-wrapper h1{
+  
   font-size: 4.5rem;
   margin: 0 0 !important;
   padding: .3em 0em;
@@ -75,8 +76,12 @@
     filter: blur(2px);
   }
 }
+p{
+  font-family: 'NewsReader' !important;
+}
 
 h1{
+  font-family: 'ChonBuri';
   width:100%;
   color: #00ff66;
   text-align: center;
@@ -94,6 +99,7 @@ h1{
 }
 
 h2 {
+  font-family: "LimeLight";
   width: 100%;
   color: #b2f5ea;
   text-align: center;

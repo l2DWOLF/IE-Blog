@@ -14,11 +14,25 @@
     from {
         opacity: 1;
         transform: translateY(0) scale(1);
+        border-radius: 50%;
+        box-shadow: 0px 15px 15px 1px rgba(136, 255, 0, 0.75);
     }
 
     to {
         opacity: 0;
         transform: translateY(-90vh) scale(0.9);
+        border-radius: 50%;
+        box-shadow: 0px 15px 15px 1px rgba(0, 255, 255, 0.95);
+    }
+}
+
+@keyframes pulseBorder{
+    0%, 100% {
+        border-radius: 50%;
+    } 50% {
+        border-radius: 20px;
+        border-top: 2px solid rgb(0, 255, 21);
+        border-bottom: 2px solid rgb(0, 255, 21);
     }
 }
 
@@ -29,34 +43,34 @@
     z-index: 999;
     animation-fill-mode: forwards;
     opacity: 0.7 !important;
+
 }
 
 .scroll-up-inner-btn {
     padding: 13px;
-    border: none;
-    border-radius: 50%;
     background-color: black;
     color: aqua;
     cursor: pointer;
-    border: 1px solid white;
+    border: 1px solid aqua;
     display: flex;
     justify-content: center;
     align-items: center;
     transform: rotate(-46deg);
     transition: background-color 0.3s ease, transform 0.3s ease;
+    animation: pulseBorder 2.5s ease-in-out infinite;
 }
 
 .scroll-up-inner-btn:hover {
     background: unset;
     background-color: black;
-    color: rgb(252, 0, 105);
-    border: 1px solid aqua;
-    transform: rotate(-46deg) scale(1.05);
+    color: aqua;
+    border: 1px solid snow;
+    transform: rotate(-53deg) scale(1.05);
 }
 
 .scroll-up-btn svg {
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     stroke-width: 2;
 }
 
@@ -65,7 +79,7 @@
 }
 
 .scroll-up-exit {
-    animation: elevateUp 0.7s ease forwards;
+    animation: elevateUp 1s forwards;
 }
 
 @media (max-width: 1125px) {
