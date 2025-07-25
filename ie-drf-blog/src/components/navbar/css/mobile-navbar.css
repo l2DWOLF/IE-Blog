@@ -33,6 +33,7 @@
     .menu-x svg, .menu-x{
         width: 80px;
         height: 40px;
+        margin-top: 2em;
         stroke-width: 3;
         color: #00ff2a;
         border: 1px solid rgba(0, 255, 255, 0.774);
@@ -47,7 +48,7 @@
                 opacity: 0;
         }
         to{
-            transform: translate(-105%, 80px) rotate(180deg);
+            transform: translate(-60%, 80px) rotate(180deg);
                 opacity: 1;
         }
     }
@@ -122,13 +123,14 @@
     .mobile-menu{
         display:flex;
         position: fixed;
-        top: 80px;
-        right: 10px;
+        top: 83px;
+        right: 15px;
         width: 75%;
         height: fit-content;
         border-radius: 8px;
         border-left: 1px solid aqua;
         border-bottom: 1px solid #a6ff00;
+        border-right: 1px solid #00ff2a;
         border-top-left-radius: 18px;
         border-bottom-left-radius: 18px;
         box-shadow: -4px 0 10px 1px rgba(0, 255, 136, 0.55);
@@ -215,24 +217,23 @@
         text-shadow: none;
     }
 
-
-        .mobile-menu-wrapper {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 75%;
-            z-index: 1000;
-        }
+    .mobile-menu-wrapper {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 75%;
+        z-index: 1000;
+    }
     
     .menu-wires {
         position: absolute;
-        top: 47px;
+        overflow: hidden;
+        top: 65px;
         right: 33px;
-        width: 50px;
+        width: 65px;
         height: 60px;
         display: flex;
         justify-content: center;
-        gap: 1px;
         pointer-events: none;
         z-index: 1001;
         opacity: 0;
@@ -249,9 +250,7 @@
     }
 
     .wire {
-        width: 1.5px;
-        height: 47px;
-        border-radius: 1px;
+        width: 5px;
         box-shadow:
                 0 0 2px rgba(0, 255, 255, 0.5),
                 0 0 5px rgba(0, 255, 255, 0.3),
@@ -270,16 +269,12 @@
 
     .wire::before,
     .wire::after {
-        box-shadow:
-                0 0 2px rgba(102, 255, 0, 0.5),
-                0 0 5px rgba(102, 255, 34, 0.3),
-                0 0 8px rgba(102, 255, 136, 0.2);
         content: '';
+        width: 3px;
+        
         position: absolute;
         top: 0;
-        width: 1.5px;
         left: 8px;
-        height: 45px;
         background-image: url('/bg7.jpg');
         background-size: cover;
         background-repeat: no-repeat;
@@ -288,55 +283,55 @@
         opacity: 1;
     }
     .wire, .wire::before, .wire::after{
-        animation: wirePulse 2s infinite ease-in-out alternate,
-                pulseStretch 4s infinite ease-in-out alternate;
+        animation: wirePulse 2s infinite ease-in-out alternate;
+        border-left: 1px solid black;
+        border-right: 1px solid black;
+
+        box-shadow: 0px -1px 1px 1px #fffb0281;
     }
     
 
     .wire-left {
+        height: 23px;
+        background: aqua;
         position: absolute;
         left: 15%;
         animation-delay: 0s;
     }
     .wire-left::after, .wire-left::before{
-        height: 50px;
+        background: aqua;
+        height: 23px;
     }
     .wire-center::before, .wire-center::after{
-        height: 43px;
+        background: aqua;
+        height: 23px;
     }
 
     .wire-center {
-        height: 45px;
+        background: aqua;
+        height: 23px;
         position: absolute;
-        left: 50%;
         animation-delay: 0.6s;
     }
 
     .wire-right {
+        background: aqua;
         right: 15%;
-        height: 50px;
+        height: 23px;
         position: absolute;
         animation-delay: 1s;
     }
     .wire-right::before, .wire-right::after{
-        height:46px
+        background: aqua;
+        height:23px;
     }
 
     @keyframes wirePulse {
         from {
-            opacity: 0.4;
+            opacity: 0.6;
         }
         to {
-            opacity: 0.8;
-        }
-    }
-    @keyframes pulseStretch {
-        0%,
-        100% {
-            transform:  scaleY(1);
-        }
-        50% {
-            transform: scaleY(1.03);
+            opacity: 1;
         }
     }
     @keyframes fadeInGrow {

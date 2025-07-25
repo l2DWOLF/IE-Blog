@@ -96,8 +96,10 @@ header::before {
     font-family: 'Space Grotesk';
 }
 .logo a:hover{
-    background:#00ff229f;
-    color:white;
+    background: unset;
+    border: 1px solid rgba(0, 255, 255, 0.74);
+    text-shadow: unset;
+    color: #00ff88;
     padding: 0 10px;
 }
 

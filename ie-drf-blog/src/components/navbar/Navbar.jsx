@@ -1,6 +1,6 @@
 import "./css/navbar.css"
 import "./css/mobile-navbar.css"
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { X, Menu, Search } from "lucide-react";
 import {NavLink} from 'react-router-dom'
 import useAuth from '../../auth/hooks/useAuth';
@@ -9,7 +9,6 @@ import { logoutHandler } from "../../auth/services/authService";
 import { isUserAccess, modArticlesAccess } from "../../auth/utils/permissions";
 import { useArticleSearch } from "../articles/hooks/useArticleSearch";
 import { useArticleContext } from "../../contexts/ArticleContext";
-import { useDebounce } from "../../hooks/useDebounce";
 import { motion, AnimatePresence } from 'motion/react'
 
 function Navbar() {
@@ -26,13 +25,19 @@ const [isClosing, setIsClosing] = useState(false);
         setTimeout(() => {
             setIsMobileMenuOpen(false);
             setIsClosing(false);
-        }, 100); // matches fadeOutShrink duration
+        }, 100);
     };
+
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
     return(
     <header>
         <div className="navbar">
             <div className="logo">
-                    <NavLink to="/" className="mirrored" data-text="IE Blog">IE Blog</NavLink>
+                    <NavLink to="/" className="mirrored" 
+                    data-text="IE Blog" onClick={scrollToTop}>IE Blog</NavLink>
             </div>
 
             {shouldEnableSearch && (
@@ -54,7 +59,7 @@ const [isClosing, setIsClosing] = useState(false);
                 <div className="site-nav">
                     <ul>
                         <li>
-                            <NavLink to="/">Home</NavLink>
+                                <NavLink to="/" onClick={scrollToTop}>Home</NavLink>
                         </li>
                         <li>
                             <NavLink to="/about">About</NavLink>
@@ -163,7 +168,9 @@ const [isClosing, setIsClosing] = useState(false);
                     transition={{ type: 'tween', ease: 'easeIn', duration: 0.5 }}
                 >
                     <ul className="mobile-links">
-                        <li><NavLink to="/" onClick={() => setIsMobileMenuOpen(false)}>Home</NavLink></li>
+                        <li><NavLink to="/" onClick={() => {
+                            scrollToTop(); setIsMobileMenuOpen(false)
+                        }}>Home</NavLink></li>
                         <li><NavLink to="/about" onClick={() => setIsMobileMenuOpen(false)}>About</NavLink></li>
                         {isUserAccess(user) && <li><NavLink to="/liked-articles" onClick={() => setIsMobileMenuOpen(false)}>Liked Articles</NavLink></li>}
                         {modArticlesAccess(user) && <li><NavLink to="/my-articles" onClick={() => setIsMobileMenuOpen(false)}>My Articles</NavLink></li>}

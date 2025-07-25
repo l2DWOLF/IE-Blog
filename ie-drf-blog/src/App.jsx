@@ -18,6 +18,7 @@ import EditArticle from './components/articles/EditArticle'
 import MyArticles from './components/articles/MyArticles'
 import { ArticleProvider } from './contexts/ArticleContext'
 import ProfilePage from './components/user/profile/ProfilePage'
+import ScrollToTopButton from './components/common/scroll-btn/ScrollToTopButton'
 
 
 function App() {
@@ -85,8 +86,10 @@ function App() {
 
           <Route path="*" element={<NotFound />} />
         </Routes>
+        
       </ArticleProvider>
     </Router>
+    <ScrollToTopButton />
   </div>)
 }
 export default App
