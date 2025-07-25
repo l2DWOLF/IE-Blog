@@ -18,7 +18,16 @@ const {user, isLoggedIn} = useAuth();
 const {handleSearch} = useArticleContext();
 const {shouldEnableSearch, inputValue, onSearchChange, clearSearch} = useArticleSearch(handleSearch);
 const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+const [isClosing, setIsClosing] = useState(false);
 
+    const closeMenu = () => {
+        setIsClosing(true);
+        
+        setTimeout(() => {
+            setIsMobileMenuOpen(false);
+            setIsClosing(false);
+        }, 100); // matches fadeOutShrink duration
+    };
     return(
     <header>
         <div className="navbar">
@@ -117,7 +126,14 @@ const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
             </div>
             
             {/* Mobile Menu */}
-            <button className="mobile-menu-toggle" onClick={() => setIsMobileMenuOpen(flipCurrentState => !flipCurrentState)}>
+                <button className="mobile-menu-toggle" 
+                onClick={() => {
+                    if (isMobileMenuOpen) {
+                        closeMenu();
+                    } else {
+                        setIsMobileMenuOpen(true);
+                    }
+                }}>
                 {isMobileMenuOpen ? <X size={35} className="menu-icon menu-x"/> : <Menu size={35} className="menu-icon menu-burger"/>}
             </button>
 
@@ -132,6 +148,14 @@ const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
                     transition={{ duration: 0.3 }}
                     onClick={() => setIsMobileMenuOpen(false)}
                 />
+
+                <div className="mobile-menu-wrapper">
+                    <div className={`menu-wires ${isMobileMenuOpen ? 'menu-open' : ''} ${isClosing ? 'menu-closing' : ''}`}>
+
+                        <div className="wire wire-left" />
+                        <div className="wire wire-center" />
+                        <div className="wire wire-right" />
+                    </div>
                 <motion.div className="mobile-menu"
                     initial={{ x: '100%' }}
                     animate={{ x: 0 }}
@@ -153,6 +177,7 @@ const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
                         </>)}
                     </ul>
                 </motion.div>
+                </div>
                 </>)}
             </AnimatePresence>
         </div>

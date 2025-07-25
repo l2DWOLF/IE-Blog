@@ -37,6 +37,8 @@
         color: #00ff2a;
         border: 1px solid rgba(0, 255, 255, 0.774);
         border-radius: 10px;
+        background: rgba(0, 0, 0, 0.685);
+        z-index: 10002;
     }
 
     @keyframes spinSlideDown{
@@ -107,11 +109,21 @@
         margin: 0;
     }
 
+    .mobile-menu-overlay {
+        position: fixed;
+        top: 65px;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0);
+        z-index: 999;
+    }
+
     .mobile-menu{
         display:flex;
         position: fixed;
-        top: 65px;
-        right: 0;
+        top: 80px;
+        right: 10px;
         width: 75%;
         height: fit-content;
         border-radius: 8px;
@@ -143,16 +155,6 @@
             }
         }
 
-    .mobile-menu-overlay{
-        position: fixed;
-        top: 65px;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        background-color: rgba(0, 0, 0, 0);
-        z-index: 999;
-    }
-
     .mobile-links{
         background: rgba(0, 195, 255, 0.178);
         list-style: none;
@@ -170,6 +172,7 @@
     }
     .mobile-links li{
         width: 90%;
+        max-width: 400px;
         text-align: center;
         padding-bottom: 0.5rem;
         border-radius: 8px;
@@ -210,5 +213,151 @@
         background: black;
         border: 1px solid #00ff2a;
         text-shadow: none;
+    }
+
+
+        .mobile-menu-wrapper {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 75%;
+            z-index: 1000;
+        }
+    
+    .menu-wires {
+        position: absolute;
+        top: 47px;
+        right: 33px;
+        width: 50px;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        gap: 1px;
+        pointer-events: none;
+        z-index: 1001;
+        opacity: 0;
+        transform: translateY(10px) scaleY(0.5);
+        transform-origin: top;
+        transition: opacity 0.5s ease;
+    }
+    .menu-wires.menu-open {
+        animation: fadeInGrow 1s ease-out forwards;
+        animation-delay: .5s;
+    }
+    .menu-wires.menu-closing {
+        animation: fadeOutShrink 0.1s ease-in forwards;
+    }
+
+    .wire {
+        width: 1.5px;
+        height: 47px;
+        border-radius: 1px;
+        box-shadow:
+                0 0 2px rgba(0, 255, 255, 0.5),
+                0 0 5px rgba(0, 255, 255, 0.3),
+                0 0 8px rgba(0, 255, 255, 0.2);
+        transform: translateY(-5px);
+
+        background-image:
+                linear-gradient(to top, rgba(0, 255, 255, 0.1), rgba(0, 255, 136, 0.2)),
+                url('/bg3.jpg');
+            background-size: cover;
+            background-color: unset;
+            background-repeat: no-repeat;
+            background-position: bottom;
+        animation-delay: 0s;
+    }
+
+    .wire::before,
+    .wire::after {
+        box-shadow:
+                0 0 2px rgba(102, 255, 0, 0.5),
+                0 0 5px rgba(102, 255, 34, 0.3),
+                0 0 8px rgba(102, 255, 136, 0.2);
+        content: '';
+        position: absolute;
+        top: 0;
+        width: 1.5px;
+        left: 8px;
+        height: 45px;
+        background-image: url('/bg7.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        animation-delay: 4s;
+        opacity: 1;
+    }
+    .wire, .wire::before, .wire::after{
+        animation: wirePulse 2s infinite ease-in-out alternate,
+                pulseStretch 4s infinite ease-in-out alternate;
+    }
+    
+
+    .wire-left {
+        position: absolute;
+        left: 15%;
+        animation-delay: 0s;
+    }
+    .wire-left::after, .wire-left::before{
+        height: 50px;
+    }
+    .wire-center::before, .wire-center::after{
+        height: 43px;
+    }
+
+    .wire-center {
+        height: 45px;
+        position: absolute;
+        left: 50%;
+        animation-delay: 0.6s;
+    }
+
+    .wire-right {
+        right: 15%;
+        height: 50px;
+        position: absolute;
+        animation-delay: 1s;
+    }
+    .wire-right::before, .wire-right::after{
+        height:46px
+    }
+
+    @keyframes wirePulse {
+        from {
+            opacity: 0.4;
+        }
+        to {
+            opacity: 0.8;
+        }
+    }
+    @keyframes pulseStretch {
+        0%,
+        100% {
+            transform:  scaleY(1);
+        }
+        50% {
+            transform: scaleY(1.03);
+        }
+    }
+    @keyframes fadeInGrow {
+        from {
+            opacity: 0;
+            transform: scaleY(0);
+        }
+        to {
+            opacity: .8;
+            transform:  scaleY(1);
+        }
+    }
+    @keyframes fadeOutShrink {
+        from {
+            opacity: 1;
+            transform: translateY(-5px) scaleY(1);
+        }
+
+        to {
+            opacity: 0;
+            transform: translateY(10px) scaleY(0.5);
+        }
     }
 }
