@@ -27,14 +27,14 @@
         justify-content: stretch;
     }
 
-    .articles-section {
-        min-width: 95%;
+    .article-feed-section {
+        min-width: 90%;
         padding: 1em 0em 1em 0em;
         background-color: unset;
         box-shadow: unset;
     }
 
-    .article-card h3, .articles-section h3, .articles-container h3 {
+    .article-card h3, .article-feed-section h3, .articles-container h3 {
         width: 100%;
         padding: unset;
         padding: 0em 4px;

@@ -1,9 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
-
-@import url('https://fonts.googleapis.com/css2?family=Chonburi&family=Limelight&&family=Newsreaderdisplay=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Space+Grotesk:wght@400;600;700&family=DM+Sans:wght@400;700&family=JetBrains+Mono:wght@400;700&family=Chonburi&family=Limelight&family=Newsreader&family=Taviraj&display=swap');
 
 :root {
   line-height: 1.5;
@@ -19,6 +14,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.author-name{
+  font-family: 'Poppins';
+}
 
 a {
   font-weight: 500;
@@ -40,7 +38,6 @@ body {
   margin-top: 65px;
   overflow-x: hidden;
 }
-
 body::before {
   content: '';
   position: fixed;
@@ -52,12 +49,19 @@ body::before {
   z-index: -1;
 }
 
+.article-tag, button{
+  -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 button {
-  background-color: #003300b7;
+    background-color: #003300b7;
     padding: .2em 0em 0em;
     color: #00ff15;
     font-size: 0.85rem;
-    font-weight: 500;
+    font-weight: 600;
     border: 1px solid #00ff66;
     box-shadow: 0 0 4px rgba(0, 255, 102, 0.15);
     border-radius: 20px;
@@ -65,7 +69,7 @@ button {
     transition: transform 0.2s ease, background-color 0.3s ease;
 }
 button:hover {
-  background: linear-gradient(to right, #003300d2, #00662294);
+  background-color: linear-gradient(to right, #003300d2, #00662294);
   color: white;
   border:1px solid #05ff58;
   transform: scale(1.05);

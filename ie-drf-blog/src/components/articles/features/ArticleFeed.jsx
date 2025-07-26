@@ -22,6 +22,7 @@ function ArticleFeed({
     const { user } = useAuth();
     const contentRefs = useRef({});
     const [textScale, setTextScale] = useState(1);
+    const didMountRef = useRef(false);
 
     const {
         articles,
@@ -65,7 +66,7 @@ function ArticleFeed({
     });
 
     useEffect(() => {
-        if (user?.id) fetchData();
+        fetchData();
     }, [user?.id]);
 
     return (
