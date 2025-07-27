@@ -23,8 +23,8 @@
     backdrop-filter: blur(10px)
 }
 
-.modal-overlay .form-container,
-.modal-overlay .form-container {
+.modal-overlay .form-container{
+    min-width: 100%;
     background-color: rgba(3, 230, 255, 0.4);
     padding: 5px;
     margin: 0;
@@ -105,9 +105,6 @@
     text-align: center;
 }
 
-.modal-content .select-input {
-    align-self: center;
-}
 
 /* Mobile Modal */
 
@@ -120,7 +117,7 @@
         align-self: center;
     }
     .modal-content .form-container {
-        width: 100%;
+        min-width: 100%;
         padding: 2em 0em .5em;
     }
     .modal-content .custom-form{
@@ -130,9 +127,13 @@
     .modal-content .input-field{
         width: 100%;
     }
+    .modal-content .select-input{
+        margin-bottom: 1em;
+    }
     .modal-content #status{
         width: 80%;
     }
+
 
     .modal-content .submit-btn{
         width: 60% !important;

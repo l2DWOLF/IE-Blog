@@ -16,7 +16,7 @@ const titleField = yup.string().required().min(5, "Title must contain 5 or more 
 
 const contentField = yup.string().required().min(15, "must contain 15 or more characters").max(4096, "must contain less than 4096 characters")
 
-const commentContentField = yup.string().required().min(2, "must contain 15 or more characters").max(1028, "must contain less than 4096 characters")
+const commentContentField = yup.string().required().min(2, "must contain 15 or more characters").max(1028, "must contain less than 1028 characters")
 
 const bioField = yup.string().min(3, "Biography must contain 5 or more characters.").max(500, "Biography must contain less than 500 characters")
 

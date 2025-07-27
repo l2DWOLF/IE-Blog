@@ -39,7 +39,7 @@ function Comment({ comment, depth = 0, onReplyClick, onCommentAdded }) {
         const isModalOpen = document.querySelector('.modal-overlay');
         
         if(!user.id){
-            infoMsg("Please login or register to add comments and replies.")
+            infoMsg("Please login or register to add replies.")
         } 
         else if(isModalOpen){
             infoMsg("Comment editor modal is already open.")

@@ -1,4 +1,5 @@
 import { User, ThumbsUp, ThumbsDown, Edit3, Trash2, MailPlus, ZoomIn, ZoomOut, RotateCcw } from "lucide-react";
+import { NavLink } from 'react-router-dom';
 import Comment from "../comments/Comment";
 import CreateComment from "../comments/CreateComment";
 import ModalPortal from "../common/modal/ModalPortal";
@@ -59,7 +60,12 @@ function ArticleCard({
                             <div className="author-info">
                                 <User size={18} className="author-icon" />
                                 <span className="author-label">Author:</span>
-                                <h4 className="author-name">{article.author_name}</h4>
+                                
+                                <NavLink to={`/profile/${article.author_id}`}
+                                    title="View Author Profile"
+                                >
+                                    <h4 className="author-name">{article.author_name}</h4>
+                                </NavLink>
                             </div>
                         </div>
                     </div>

@@ -284,11 +284,16 @@
     text-align: center;
 }
 
+.profile-card .form-container{
+    min-width: 75% !important;
+    max-width: 75% !important;
+}
+
 .edit-profile-form{
-    width: 75%;
+    width: 100%;
 }
 .edit-profile-form .custom-form{
-    width: 90%;
+    width: 100%;
     grid-template-columns: 1fr 1fr;
 }
 

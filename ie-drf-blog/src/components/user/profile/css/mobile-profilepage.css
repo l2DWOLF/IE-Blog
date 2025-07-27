@@ -51,20 +51,23 @@
         width:100%;
     }
 
-    .edit-profile-form{
-        width: 90%;
+    .profile-card .form-container{
+        min-width: 75% !important;
+        max-width: 90% !important;
     }
     .edit-profile-form .custom-form{
-        width:unset;
+        min-width: 65%;
+        max-width: 95%;
         padding: 0;
     }
 
     .edit-profile-form .input-field{
         max-width: 100%;
-        padding: 5px 10px;
+       padding: .5em 0;
     }
     .edit-profile-form .input-field input{
         max-width: 100%;
+        padding: 12px 0px;
     }
     
 }

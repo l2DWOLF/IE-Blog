@@ -1,5 +1,6 @@
 .form-container {
-    max-width: 100%;
+    min-width: 25%;
+    max-width: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -15,15 +16,19 @@
     transition: .3s;
 }
 
+.form-container h3{
+    font-size: 1.75rem;
+}
+
 .form-container:hover,
 .form-container:focus-within {
     background-color: rgba(3, 230, 255, 0.2);
 }
 .form-container:hover .input-field, 
 .form-container:focus-within .input-field{
-    background-color: transparent !important;
-    background: rgba(95, 21, 91, 0.205) !important;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: transparent !important;
+    /* background: rgba(95, 21, 91, 0.205) !important; */
+    /* border: 1px solid rgba(255, 255, 255, 0.15); */
 }
 
 .custom-form {
@@ -49,52 +54,69 @@
     column-gap: 1em;
     align-items: center;
     padding: .5em 1.5em;
-    border: 1px solid rgba(255, 255, 255, 0.09);
     border-radius: 10px;
-    
+    position:relative;
 }
 
 .input-field label {
     width: unset;
-    font-size: 1.1rem;
-    font-weight: 900;
-    letter-spacing: .9px;
+    position:absolute;
+    top: -5px;
+    left: 12px;
+    padding: 0px 10px;
+    border-radius: 15px;
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: 1px;
     text-align: center;
-    color: rgb(0, 247, 255);
+    color: rgb(0, 255, 242);
     font-style: italic;
-    text-decoration: underline;
     text-underline-offset: 2px;
+
     text-decoration-color: rgba(1, 255, 251, 0.659);
+
+    background: linear-gradient(to bottom,
+                rgba(0, 0, 0, 0) 0%,
+                rgba(0,0,0, 0) 0%,
+                rgba(0, 0, 0, 1) 0%,
+                rgba(0, 0, 0, 0) 50%);
 
 }
 
 .input-field input {
-    color: rgb(255, 255, 255);
-    font-size: .9rem;
+    color: rgb(209, 225, 255);
+    font-size: 1.25rem;
     font-weight: 600;
-    padding: 3px 5px;
-    border-radius: 10px;
-    background-color: rgba(0, 0, 0, 0.626);
-    border: none;
+    padding: 12px 5px;
+    border-radius: 2px;
+    text-align: left !important;
+    
+    background: linear-gradient(to bottom,
+                rgba(3, 230, 255, 0.2) 0%,
+                rgba(3, 230, 255, 0.2) 20%,
+                rgba(0, 0, 0, 0.626) 20%,
+                rgba(0, 0, 0, 0.626) 100%);
+    border: 1px solid black;
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.241);
 }
 
 .input-field input::placeholder {
     color: turquoise;
     font-style: italic;
-    font-size: .9rem;
-    text-align: center;
+    font-size: 1rem;
 }
 
 .input-error-msg {
-    width: 100%;
+    max-width: 100% !important;
     text-align: center !important;
-    color: orange;
+    color: rgb(255, 196, 0);
     font-weight: 600;
-    font-size: .9rem;
+    font-size: 1.1rem;
     text-align: center;
-    margin: 2px;
-    padding: 2px;
-    border-radius: 15px;
+    margin: 6px 0px 0px 0px !important;
+    padding: 2px 15px;
+    border-radius: 5px;
+    border-bottom: 1px solid rgb(255, 52, 2);
     background: rgba(0, 0, 0, 0.442);
 }
 
@@ -120,17 +142,19 @@
 .form-textarea {
     width: 100%;
     min-height: 150px;
-    
+    background: rgba(0, 0, 0, 0.626);
     color: rgb(255, 255, 255);
-    font-size: 1rem;
+    font-size: 16px;
     font-weight: 500;
     padding: 0.5em;
-    border-radius: 10px;
-    background-color: rgba(95, 160, 127, 0.404);
+    border-radius: 5px;
     border: none;
     resize: vertical;
     white-space: pre-wrap;
-    font-family: Georgia, 'Times New Roman', serif;
+    font-family: 'Chonburi';
+}
+#bio{
+    padding-top: 15px;
 }
 
 .input-field #content{
@@ -150,20 +174,42 @@ select {
     max-width: 100%;
     box-sizing: border-box;
 }
+.select-input, .form-container:hover .select-input,
+.form-container:focus-within .select-input{
+    width: 70%;
+    max-width: 300px;
+    justify-self: center;
+    background: rgb(0, 0, 0, 0.2) !important;
+    padding: 10px;
+}
+.select-input label{
+    position: unset;
+    margin-bottom: 5px;
+    padding: 0px 25px;
+    align-self: center;
+    background: transparent;
+}
 
-@media (max-width: 768px) {
+@media (max-width: 888px) {
     
     .form-container{
-        width: 85%;
+        padding: 2em 0em !important;
+        max-width:85%;
     }
 
-    .login-section .form-container{
-        min-width: unset !important;
-        max-width: 80%  ;
+    .login-section .form-container, .register-section .form-container{
+        min-width: 85% !important;
+        max-width: 85% !important;
     }
+
+    .profile-container .custom-form{
+        min-width: 100%;
+    }
+
     .custom-form,
-    .register-section .custom-form {
-        width: unset;
+    .register-section .custom-form, .login-section .custom-form {
+        width: 100%;
+        padding: 0em !important;
         grid-template-columns: 1fr !important;
     }
 
@@ -177,7 +223,13 @@ select {
     }
 
     .input-field {
-        padding: 0.75em 1em;
+
+    }
+    .input-field input{
+
+    }
+    .select-input select{ 
+        width: 80%;
     }
 
     .form-container {

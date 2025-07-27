@@ -3,15 +3,19 @@
     flex-direction: column;
     align-items: center;
 }
+
+.register-section .form-container{
+    max-width: 557px;
+}
+
 .register-section h1{
     margin: 1em 0em 1.5em;
 }
 .register-section form{
-    grid-template-columns: 200px 200px;
+    grid-template-columns: 1fr 1fr;
 }
 .register-section .input-field{
     grid-template-columns: 1fr;
-    gap: 5px; 
 }
 .submit-btn{
     width: 100%;
