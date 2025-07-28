@@ -190,6 +190,19 @@ select {
     background: transparent;
 }
 
+
+.input-field:has(input:not(:placeholder-shown)):not(:has(.input-error-msg)) input {
+    border-left: 1px solid limegreen !important;
+    border-bottom: 1px solid limegreen !important;
+    border-right: 1px solid limegreen !important;
+}
+
+.input-field:has(.input-error-msg) input {
+    border-left: 1px solid rgb(255, 115, 0) !important;
+    border-bottom: 1px solid rgb(255, 115, 0) !important;
+    border-right: 1px solid rgb(255, 115, 0) !important;
+}
+
 @media (max-width: 888px) {
     
     .form-container{

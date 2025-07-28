@@ -11,7 +11,7 @@ import { infoMsg, successMsg } from '../../utils/toastify/toast';
 import { User } from 'lucide-react';
 import { deleteComment } from '../../services/commentServices';
 import { handleException } from '../../utils/errors/handleException';
-
+import { NavLink } from 'react-router-dom';
 
 function Comment({ comment, depth = 0, onReplyClick, onCommentAdded }) {
     const {user} = useAuth();
@@ -98,8 +98,12 @@ function Comment({ comment, depth = 0, onReplyClick, onCommentAdded }) {
                 <div className="comment">
                     <div className="comment-header">
                         <div className="user-meta">
-                            
-                                <h5 className="comment-author"> <User size={18} /> {comment?.author_name}</h5>
+                                
+                                <NavLink to={`/profile/${comment?.author_id}`}
+                                    title="View Author Profile"
+                                >
+                                    <h5 className="comment-author"> <User size={18} /> {comment?.author_name}</h5>
+                                </NavLink>
                                 <span className="comment-date">{comment?.published_at}</span>
                         </div>
                     </div>

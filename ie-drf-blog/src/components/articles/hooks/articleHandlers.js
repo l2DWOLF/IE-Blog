@@ -1,8 +1,9 @@
-import { useState } from "react";
+/*import { useState } from "react";
 import { articleLike, deleteArticle, getArticles } from "../../../services/articleServices";
 import { getArticleComments } from "../../../services/commentServices";
 import { handleException } from "../../../utils/errors/handleException";
 import { infoMsg, successMsg } from "../../../utils/toastify/toast";
+
 
 export function useArticleHandlers(user, options = {}) {
     const [isLoading, setIsLoading] = useState(true);
@@ -43,6 +44,14 @@ export function useArticleHandlers(user, options = {}) {
                 ));
             };
 
+            if (!user?.username) {
+                results = results.map(article => ({
+                    ...article,
+                    likes: [], // remove reaction info
+                }));
+            }
+
+
             const likesMap = {};
             if (user?.username) {
                 results.forEach(article => {
@@ -66,6 +75,8 @@ export function useArticleHandlers(user, options = {}) {
             setArticles(prev => offsetValue === 0 ? results : [...prev, ...results]);
             setArticlesComments(prev => ({ ...prev, ...commentsMap }));
             setUserLikesMap(prev => offsetValue === 0 ? likesMap : { ...prev, ...likesMap });
+
+
 
             if (filterOwn || filterByLiked) {
                 setHasMore(false);
@@ -232,4 +243,4 @@ export function useArticleHandlers(user, options = {}) {
         handleSearch,
         resetArticles,
     };
-};
+}

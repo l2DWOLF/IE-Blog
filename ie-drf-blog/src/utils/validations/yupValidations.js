@@ -1,6 +1,8 @@
 import * as yup from "yup";
 
-const emailField = yup.string().email().min(8, "Email Must contain 8 or more characters")
+const emailField = yup.string().required().email().min(8, "Email Must contain 8 or more characters")
+
+const updateEmailField = yup.string().email().min(8, "Email Must contain 8 or more characters")
 
 const pwField = yup.string().required().min(9, "Password Must contain 9 - 30 characters").max(30, "Password must contain less than 30 characters").matches(/^(?=.*[a-z])(?=.*[A-Z])(?=(.*\d){4,})(?=.*[!@#$%^&*-])[A-Za-z\d!@#$%^&*-]{9,30}$/, "Must contain: [1 uppercaseletter, 1 lowercase letter, 4 digits, 1 of the following symbols (!@#$%^&*-)]")
 
@@ -22,7 +24,7 @@ const bioField = yup.string().min(3, "Biography must contain 5 or more character
 
 const dateField = yup.date().nullable().max(new Date(), "Birth date canno't be in the future")
 
-export {emailField, pwField, confirmPwField, updatePwField, 
+export {emailField, updateEmailField, pwField, confirmPwField, updatePwField, 
         usernameField, nameField, bioField, dateField,
         titleField, contentField, commentContentField
 }

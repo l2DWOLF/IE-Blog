@@ -6,10 +6,10 @@ import ModalPortal from "../common/modal/ModalPortal";
 import { canEditDelete } from "../../auth/utils/permissions";
 import { motion, AnimatePresence } from 'motion/react';
 import { infoMsg } from "../../utils/toastify/toast";
+import useAuth from "../../auth/hooks/useAuth";
 
 function ArticleCard({
     article,
-    user,
     comments = [],
     isExpanded,
     contentRef,
@@ -27,6 +27,7 @@ function ArticleCard({
     currentStatus,
 }) {
     const maxContent = article.content.length > 512;
+    const {user} = useAuth();
 
     const handleToggle = () => {
         if (isExpanded && contentRef?.current) {

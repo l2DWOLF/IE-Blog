@@ -1,14 +1,15 @@
 import '../css/articles.css';
-import '../css/mobile-articles.css'
-import '../../common/design/design-tools.css';
+import '../css/mobile-articles.css';
+
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import LoadingScreen from '../../common/loadscreen/LoadingScreen';
 import useAuth from '../../../auth/hooks/useAuth';
 import ArticleCard from '../ArticleCard';
-import { useArticleHandlers } from '../hooks/articleHandlers';
 import { useArticleCardProps } from '../hooks/useArticleCardProps';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useArticleContext } from '../../../contexts/ArticleContext';
+
 
 function ArticleFeed({
     title = "Articles",
@@ -22,14 +23,15 @@ function ArticleFeed({
     const { user } = useAuth();
     const contentRefs = useRef({});
     const [textScale, setTextScale] = useState(1);
-    const didMountRef = useRef(false);
 
     const {
         articles,
+        setArticles,
         articlesComments,
         userLikesMap,
         expandedArticles,
         isLoading,
+        setIsLoading,
         isLoadingMore,
         hasMore,
         fetchData,
@@ -41,8 +43,11 @@ function ArticleFeed({
         requireAuthReaction,
         refreshArticleComments,
         handleLoadMore,
-        toggleExpanded
-    } = useArticleHandlers(user, { limit, filterOwn, filterByLiked });
+        toggleExpanded,
+        setViewMode,
+        viewMode,
+        setLimit,
+    } = useArticleContext();
 
     const getCardProps = useArticleCardProps({
         user,
@@ -66,8 +71,15 @@ function ArticleFeed({
     });
 
     useEffect(() => {
-        fetchData();
-    }, [user?.id]);
+        const newMode = filterByLiked ? "liked" : filterOwn ? "own" : "all";
+
+        if (viewMode !== newMode) {
+            setIsLoading(true);
+            setViewMode(newMode);
+            setArticles([]);
+        }
+        if (limit !== undefined) setLimit(limit);
+    }, [filterByLiked, filterOwn, limit]);
 
     return (
         <div className={`article-feed-wrapper ${customClass}`}>
@@ -85,28 +97,28 @@ function ArticleFeed({
                 {isLoading && articles.length === 0 ? (
                     <LoadingScreen message="Loading Articles..." />
                 ) : (
-                    <div className="articles-container">
-                        <AnimatePresence>
-                            {articles.length > 0 ? articles.map(article => (
-                                <motion.div
-                                    key={article.id}
-                                    className="article-motion-wrapper"
-                                    initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                                    exit={{ opacity: 0, x: -200, scale: 0.7 }}
-                                    transition={{ duration: 0.5 }}
-                                >
-                                    <ArticleCard {...getCardProps(article)} />
-                                </motion.div>
-                            )) : <p className="no-content-msg">No Articles Loaded..</p>}
-                        </AnimatePresence>
+                <div className="articles-container">
+                    <AnimatePresence>
+                        {articles.length > 0 ? articles.map(article => (
+                            <motion.div
+                                key={article.id}
+                                className="article-motion-wrapper"
+                                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                                animate={{ opacity: 1, scale: 1, y: 0 }}
+                                exit={{ opacity: 0, x: -200, scale: 0.7 }}
+                                transition={{ duration: 0.5 }}
+                            >
+                                <ArticleCard {...getCardProps(article)} />
+                            </motion.div>
+                        )) : <p className="no-content-msg">No Articles Loaded..</p>}
+                    </AnimatePresence>
 
-                        {hasMore && (
-                            <button className="load-more-btn" onClick={handleLoadMore} disabled={isLoadingMore}>
-                                {isLoadingMore ? <LoadingScreen inline size="medium" /> : "Load More"}
-                            </button>
-                        )}
-                    </div>
+                    {hasMore && (
+                        <button className="load-more-btn" onClick={handleLoadMore} disabled={isLoadingMore}>
+                            {isLoadingMore ? <LoadingScreen inline size="medium" /> : "Load More"}
+                        </button>
+                    )}
+                </div>
                 )}
             </section>
         </div>

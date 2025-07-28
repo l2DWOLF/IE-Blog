@@ -8,7 +8,7 @@ import FormWrapper from "../../common/forms/FormWrapper";
 import { FormInput } from "../../common/forms/formInput";
 import { handleException } from '../../../utils/errors/handleException';
 import useAuth from '../../../auth/hooks/useAuth';
-import { bioField, dateField, emailField, nameField, updatePwField } from '../../../utils/validations/yupValidations';
+import { bioField, dateField, nameField, updateEmailField, updatePwField } from '../../../utils/validations/yupValidations';
 import { updateUserProfile } from '../../../services/userServices';
 
 
@@ -63,7 +63,7 @@ function EditProfileForm( {profileObj, refetch, onCancel} ) {
             bio: "",
         },
         validationSchema: yup.object({
-            email: emailField,
+            email: updateEmailField,
             password: updatePwField,
             first_name: nameField,
             last_name: nameField,
