@@ -108,7 +108,7 @@ function EditArticle() {
                     />
 
                     <button
-                        className="submit-btn" type="submit"
+                        className="submit-btn" type="submit" title="Submit updated article"
                         disabled={!formik.dirty || !formik.isValid}
                     >
                         Submit Edited Article

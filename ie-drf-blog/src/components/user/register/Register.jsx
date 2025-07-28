@@ -133,7 +133,7 @@ function Register() {
                     />
 
                     <button
-                        className="submit-btn" type="submit"
+                        className="submit-btn" type="submit" title="Register"
                         disabled={!formik.dirty || !formik.isValid || formik.values.password !== formik.values.confirmPassword}
                     >
                         Register

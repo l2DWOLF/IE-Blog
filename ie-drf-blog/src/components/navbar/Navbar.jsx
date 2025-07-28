@@ -33,7 +33,7 @@ const [isClosing, setIsClosing] = useState(false);
     };
 
     return(
-    <header>
+    <header className="navbar-header">
         <div className="navbar">
             <div className="logo">
                     <NavLink to="/" className="mirrored" 
@@ -45,11 +45,11 @@ const [isClosing, setIsClosing] = useState(false);
                     <input type="text" placeholder="Search Articles.." onChange={onSearchChange} value={inputValue} />
                     {inputValue ? (
                         <button onClick={clearSearch} className="search-icon-btn" title="Clear Search">
-                            <X size={18} />
+                            <X size={19} />
                         </button>
                     ) : (
                         <span className="search-icon">
-                            <Search size={18} />
+                            <Search size={19} />
                         </span>
                     )}
                 </div>
@@ -113,7 +113,7 @@ const [isClosing, setIsClosing] = useState(false);
                             <NavLink to="/Profile">Profile</NavLink>
                         </li>
                         <li>
-                            <button className="nav-logout-btn" onClick={() => {
+                            <button className="nav-logout-btn" title="Logout" onClick={() => {
                                         logoutHandler(dispatch); 
                             }}>Logout</button>
                         </li>
@@ -131,7 +131,7 @@ const [isClosing, setIsClosing] = useState(false);
             </div>
             
             {/* Mobile Menu */}
-                <button className="mobile-menu-toggle" 
+                <button className="mobile-menu-toggle" title="Mobile menu"
                 onClick={() => {
                     if (isMobileMenuOpen) {
                         closeMenu();
@@ -177,7 +177,7 @@ const [isClosing, setIsClosing] = useState(false);
                         {modArticlesAccess(user) && <li><NavLink to="/add-article" onClick={() => setIsMobileMenuOpen(false)}>Add Article</NavLink></li>}
                         {isLoggedIn ? (<>
                             <li><NavLink to="/Profile" onClick={() => setIsMobileMenuOpen(false)}>Profile</NavLink></li>
-                            <li><button onClick={() => { logoutHandler(dispatch); setIsMobileMenuOpen(false); }}>Logout</button></li>
+                            <li><button title="Logout" onClick={() => { logoutHandler(dispatch); setIsMobileMenuOpen(false); }}>Logout</button></li>
                         </>) : (<>
                             <li><NavLink to="/login" onClick={() => setIsMobileMenuOpen(false)}>Login</NavLink></li>
                             <li><NavLink to="/register" onClick={() => setIsMobileMenuOpen(false)}>Register</NavLink></li>

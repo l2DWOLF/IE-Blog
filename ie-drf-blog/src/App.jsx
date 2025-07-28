@@ -19,6 +19,7 @@ import MyArticles from './components/articles/MyArticles'
 import { ArticleProvider } from './contexts/ArticleContext'
 import ProfilePage from './components/user/profile/ProfilePage'
 import ScrollToTopButton from './components/common/scroll-btn/ScrollToTopButton'
+import Footer from './components/footer/Footer'
 
 
 function App() {
@@ -86,7 +87,8 @@ function App() {
 
           <Route path="*" element={<NotFound />} />
         </Routes>
-        
+      
+      <Footer />
       </ArticleProvider>
     </Router>
     <ScrollToTopButton />

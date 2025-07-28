@@ -115,16 +115,16 @@ function Comment({ comment, depth = 0, onReplyClick, onCommentAdded }) {
                     </div>
                 </div>
                     <div className="comment-btns">
-                        <button className="reply-button" onClick={() => handleReplyClick("create")}>
+                        <button className="reply-button" title="Add comment / reply" onClick={() => handleReplyClick("create")}>
                             Reply to {depth === 0 ? 'Comment' : 'Reply'}
                         </button>
 
                         {(user?.username === comment?.author_name || user?.is_admin || user?.is_staff) && (
-                            <button className="edit-reply-btn" onClick={() => handleReplyClick("edit")}>Edit</button>
+                            <button className="edit-reply-btn" title="Edit comment / reply" onClick={() => handleReplyClick("edit")}>Edit</button>
                         )}
 
                         {(user.username === comment.author_name || user.is_admin || user.is_staff || user.is_mod) && (
-                            <button onClick={() => handleDeleteComment(comment.id)}>Delete</button>
+                            <button title="delete comment / reply" onClick={() => handleDeleteComment(comment.id)}>Delete</button>
                         )}
                     </div>
             </div>

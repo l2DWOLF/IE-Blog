@@ -114,7 +114,7 @@ function ArticleFeed({
                     </AnimatePresence>
 
                     {hasMore && (
-                        <button className="load-more-btn" onClick={handleLoadMore} disabled={isLoadingMore}>
+                        <button className="load-more-btn" title="load more" onClick={handleLoadMore} disabled={isLoadingMore}>
                             {isLoadingMore ? <LoadingScreen inline size="medium" /> : "Load More"}
                         </button>
                     )}

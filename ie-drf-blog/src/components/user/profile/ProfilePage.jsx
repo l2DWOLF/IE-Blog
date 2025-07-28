@@ -90,16 +90,18 @@ function ProfilePage() {
         <div className="profile-title-bar">
             <h1 className="mirrored" data-text="Profile Page">Profile Page</h1>
             <div className="profile-nav-buttons">
-                <button onClick={() => navigate("/")}>
+                <button title="Home" onClick={() => navigate("/")}>
                     <Home className="card-icons" /> Home
                 </button>
-                <button onClick={() => navigate("/liked-articles")}>
+                <button title="Liked articles" onClick={() => navigate("/liked-articles")}>
                     <Star className="card-icons" /> Liked Articles
                 </button>
-                <button onClick={() => navigate("/my-articles")}>
-                    <FileEdit className="card-icons" /> My Articles
-                </button>
-                    <button onClick={() => {
+                {(user?.is_admin || user?.is_staff || user?.is_mod) && 
+                        <button title="My articles" onClick={() => navigate("/my-articles")}>
+                            <FileEdit className="card-icons" /> My Articles
+                        </button>
+                }
+                    <button title="Logout" onClick={() => {
                         logoutHandler(dispatch)
                     }}>
                     <LogOut className="card-icons" /> Logout
@@ -131,10 +133,10 @@ function ProfilePage() {
                             </div>
                             {(viewingOwnProfile || user?.is_admin || user?.is_staff) && ( 
                                 <div className="profile-card-btns">
-                                    <button onClick={() => setIsEditing(true)}>
+                                    <button title="Edit profile" onClick={() => setIsEditing(true)}>
                                         <FileEdit className="card-icons" /> Edit Profile
                                     </button>
-                                    <button onClick={handleDelete}>
+                                    <button title="Delete profile" onClick={handleDelete}>
                                         <Trash2 className="card-icons" /> Delete Account
                                     </button>
                                 </div>
@@ -196,7 +198,7 @@ function ProfilePage() {
         </section>) : (
             <div className="loading-wrapper">
                 <p>User doesn't exist...</p>
-                <button onClick={() => navigate("/")}>
+                <button title="Home" onClick={() => navigate("/")}>
                     <Home className="card-icons" /> Home
                 </button>
             </div>)

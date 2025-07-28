@@ -72,7 +72,7 @@ function ArticleCard({
                     </div>
 
                     <p
-                        style={{ fontSize: `${1.3 * textScale}rem` }}
+                        style={{ fontSize: `${1.15 * textScale}rem` }}
                         ref={contentRef}
                         className={`article-content ${isExpanded ? "expanded" : ""}`}
                     >
@@ -80,7 +80,7 @@ function ArticleCard({
                     </p>
 
                     {maxContent && (
-                        <button className="read-more-btn" onClick={handleToggle} aria-expanded={isExpanded}>
+                        <button title="read more" className="read-more-btn" onClick={handleToggle} aria-expanded={isExpanded}>
                             {isExpanded ? "Read Less.." : "Read More.."}
                         </button>
                     )}
@@ -128,7 +128,7 @@ function ArticleCard({
                             <MailPlus className="card-icons" />
                         </button>
                     </div>
-
+                    <button className="full-page-btn" onClick={handleFullpageView}>Full Page View</button>
                     <div className="tags-container">
                         <div className="tags-div">
                             <h5>Categories:</h5>
@@ -139,18 +139,21 @@ function ArticleCard({
                             ))}
                         </div>
                     </div>
-
-                    <button className="full-page-btn" onClick={handleFullpageView}>Full Page View</button>
-
+                    
                     <div className="timestamps">
-                        <p>Created at: {article.created_at}</p>
-                        <div className="article-stats">
-                            <br />
-                            likes: {article.likes.filter((l) => l.status === "like").length || 0} |
-                            dislikes: {article.likes.filter((l) => l.status === "dislike").length || 0} |
-                            comments: {comments.length || 0}
-                        </div>
-                        <p>last update: {article.updated_at}</p>
+                        <p className="article-stats">
+                            [Likes: <span>
+                                {article.likes.filter((l) => l.status === "like").length || 0} 
+                            </span>]
+                            [Dislikes: <span>
+                                {article.likes.filter((l) => l.status === "dislike").length || 0}
+                            </span>]
+                            [Comments: <span>
+                                {comments.length || 0}
+                            </span>]
+                        </p>
+                        <p>Created: {article.created_at}</p>
+                        <p>Updated: {article.updated_at}</p>
                     </div>
                 </div>
 

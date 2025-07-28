@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Space+Grotesk:wght@400;600;700&family=DM+Sans:wght@400;700&family=JetBrains+Mono:wght@400;700&family=Chonburi&family=Limelight&family=Newsreader&family=Taviraj&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&display=swap');
+
 :root {
   line-height: 1.5;
   font-weight: 400;
@@ -15,7 +17,7 @@
 }
 
 .author-name{
-  font-family: 'Poppins';
+  font-family: 'Space Grotesk';
 }
 
 a {
@@ -37,6 +39,8 @@ body {
   max-width: 100%;
   margin-top: 65px;
   overflow-x: hidden;
+
+  padding-bottom: 5em;
 }
 body::before {
   content: '';
@@ -57,7 +61,7 @@ body::before {
     user-select: none;
 }
 button {
-    background-color: #003300b7;
+    background-color: #0033003b;
     padding: .2em 0em 0em;
     color: #00ff15;
     font-size: 0.85rem;
@@ -69,18 +73,14 @@ button {
     transition: transform 0.2s ease, background-color 0.3s ease;
 }
 button:hover {
-  background-color: linear-gradient(to right, #003300d2, #00662294);
-  color: white;
+  background-color: rgba(0, 255, 255, 0.486);
   border:1px solid #05ff58;
   transform: scale(1.05);
   user-select: none;
 }
 button:disabled {
   cursor:not-allowed;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  background: rgba(128, 128, 128, 0.288);
 }
 
 input{
@@ -131,18 +131,6 @@ option:hover {
   color: #222;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
 .bgImage {
   position: fixed;
   top: 0;

@@ -32,7 +32,7 @@ const ScrollToTopButton = () => {
             className={`scroll-up-btn ${isAnimatingOut ? 'scroll-up-exit' : 'scroll-up-enter'}`}
             onClick={scrollToTop}
         >
-            <button className="scroll-up-inner-btn" title="Up">
+            <button className="scroll-up-inner-btn" title="scroll-top">
                 <Rocket />
             </button>
         </div>

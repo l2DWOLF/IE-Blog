@@ -158,6 +158,12 @@
     color: #06eeff;
     text-decoration: underline;
 }
+.comment-author:hover{
+    color: #00ffdd !important;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    text-decoration-color: #00ff66;
+}
 
 .root-comment {
     color: #e0e0e0;
@@ -241,9 +247,10 @@
 .reply .comment-header h5 {
     font-size: .95rem;
     font-weight: 600;
-    color: #20b698;
+    color: #31e984;
     text-decoration: underline;
 }
+
 
 /* Reply content */
 .reply p {

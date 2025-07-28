@@ -1,5 +1,4 @@
-.navbar-header{
-    background-image: url('/bg3.jpg');
+.footer-wrapper{
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -8,12 +7,52 @@
     width: 100%;
     max-width: 100%;
     position: fixed;
-    height:65px;
-    top: 0;
+    max-height:35px;
+    bottom: 0;
     z-index: 1000;
 
-    border-bottom: 2px solid green;
-    box-shadow: 0px 0px 25px 1px rgba(0, 255, 38, 0.325);
+    border-top: 1px solid cyan;
+    box-shadow: 0px 0px 10px 1px rgba(0, 238, 255, 0.325);
+}
+
+@media (min-width: 769px) {
+    .footer-wrapper {
+        background-image: url('/bg10.jpg');
+        background-position: bottom bottom;
+        background-attachment: fixed;
+    } 
+}
+
+
+/* Mobile */
+@media (max-width: 768px) {
+    .footer-wrapper{
+        background-image: url('/bg10.jpg');
+        background-attachment: scroll;
+        background-position: bottom bottom;
+    }
+    .footer-logo{
+        min-width: 100px;
+        background: unset;
+    }
+    .footer .mirrored{
+        backdrop-filter: unset;
+    }
+    .footer-logo a{
+        font-size: 1.2rem !important;
+    }
+    .footer-nav-wrapper {
+    }
+    .hide-footer-li{
+        display:none;
+    }
+    .footer ul{
+        justify-content: center !important;
+        padding: unset;
+    }
+    .footer a{
+        padding: 0px 6px !important;
+    }
 }
 
 .navbar-header::before {
@@ -28,24 +67,26 @@
     z-index: -1; 
 }
 
-.nav-wrapper {
+.footer-nav-wrapper {
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
+    justify-content: flex-end;
     align-items: center;
     width: 100%;
 }
 
-.navbar{
+.footer{
     position:relative;
     display: flex;
+    flex-direction: row-reverse;
     align-items: center;
     padding-left: 15px;
     padding-right: 15px;
-    height: 65px;
+    height: 35px;
     gap: 1em;
     max-width: 100%;
 }
-.navbar ul {
+.footer ul {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -54,54 +95,48 @@
     min-width: 150px;
     list-style-type: none;
     border-radius: 12px;
-    border-left: 1px solid rgb(0, 255, 208);
-    border-right: 1px solid rgb(0, 148, 15);
 }
-.navbar li{
+.footer li{
     padding: 2px;
     transition: .3s;
 }
-.nav-logout-btn{
-    all: unset;
-}
 
-.navbar a, .nav-logout-btn {
-    font-size: 1.45rem;
-    padding: 4px 12px;
+.footer a {
+    font-size: 1.2rem;
+    padding: 2px 6px;
     color: #eaffea;
     border-radius: 12px;
     text-shadow: 0 0 3px #00ff88;
     cursor: pointer;
+    font-weight: 200 !important;
 }
 
-.navbar a:hover, .nav-logout-btn:hover {
-    color: #00ff88;
-    background: rgba(0, 255, 136, 0.182);
-    border: 1px solid rgba(0, 255, 255, 0.74);
+.footer a:hover {
+    color: #5eff00;
+    background: rgba(0, 255, 136, 0.01);
     text-shadow: unset;
 }
 
-.logo{
-    width: 170px !important;
+.footer-logo{
+    width: 165px;
     text-align: center;
     border-radius: 15px;
-    padding: 0px;
-    letter-spacing: 1.2px;
+    padding:0px 0px !important;
+    letter-spacing: 3px;
 }
 
-.logo a{
-    font-size: 2.4rem;
+.footer-logo a{
+    font-size: 1.5rem;
     padding: 0 10px;
-    color: #00ff88;
-    text-shadow:unset !important;
+    color: cyan;
     font-family: "Goldman";
 }
 
-.logo a:hover{
+.footer-logo a:hover{
     background: unset;
-    border: 1px solid rgba(0, 255, 255, 0.74);
+    border: 1px solid rgb(81, 255, 0);
     text-shadow: unset;
-    color: #00ff88;
+    color: cyan;
     padding: 0 10px;
 }
 
@@ -138,39 +173,5 @@
     box-shadow: 0 0 10px rgba(0, 255, 136, 0.2);
     backdrop-filter: blur(4px);
     width: 240px;
-    height: 38px;
-}
-
-.search-bar input {
-    all: unset;
-    width: 100%;
-    font-size: 1.3rem;
-    color: #e7fce4;
-    background: transparent;
-    padding: 2px 4px;
-    caret-color: #00ff88;
-}
-
-.search-bar input::placeholder {
-    color: #b3ffce;
-    opacity: 0.7;
-    font-style: italic;
-}
-
-.search-icon-btn,
-.search-icon {
-    all: unset;
-    cursor: pointer;
-    color: #00ff88;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.2s ease;
-}
-
-.search-icon-btn:hover {
-    transform: rotate(90deg) scale(1.1);
-    color: #00ffaa;
-    background: unset;
-    border: unset;
+    height: 35px;
 }

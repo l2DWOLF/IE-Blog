@@ -63,11 +63,11 @@
 
     .edit-profile-form .input-field{
         max-width: 100%;
-       padding: .5em 0;
+        padding: .5em 0;
     }
     .edit-profile-form .input-field input{
         max-width: 100%;
-        padding: 12px 0px;
+        padding: 12px 10px;
     }
     
 }

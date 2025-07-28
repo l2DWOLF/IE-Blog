@@ -124,7 +124,7 @@ function EditProfileForm( {profileObj, refetch, onCancel} ) {
                 <LoadingScreen />
             ) : (
                 <FormWrapper className="edit-profile-form" title="Edit Profile" onSubmit={formik.handleSubmit}>
-                    <button className="close-btn" type="button" onClick={onCancel}>X</button>
+                    <button className="close-btn" type="button" title="Close profile editor" onClick={onCancel}>X</button>
                     
                     {profileObj?.id === user?.id && <>
                         <FormInput label="Email" name="email" type="email"
@@ -157,7 +157,7 @@ function EditProfileForm( {profileObj, refetch, onCancel} ) {
                     />
 
                     <button
-                        className="submit-btn" type="submit"
+                        className="submit-btn" type="submit" title="Submit edited profile"
                         disabled={!formik.dirty || !formik.isValid}
                     >
                         Save Profile

@@ -73,7 +73,7 @@ function CreateArticle() {
                     />
 
                     <button
-                        className="submit-btn" type="submit"
+                        className="submit-btn" type="submit" title="submit new article"
                         disabled={!formik.dirty || !formik.isValid}
                     >
                         Submit Article

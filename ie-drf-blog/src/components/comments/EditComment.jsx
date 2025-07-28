@@ -62,7 +62,7 @@ function EditComment({comment, onClose, onCommentAdded}) {
                 <LoadingScreen />
             ) : (
                 <FormWrapper title="Edit Comment" onSubmit={formik.handleSubmit}>
-                    <button className="close-btn" type="button" onClick={onClose}>X</button>
+                    <button className="close-btn" title="close comment editor" type="button" onClick={onClose}>X</button>
 
                     <FormSelectInput
                         label="Status" name="status" className="status-input" multipleAllowed="false" options={["publish", "draft", "archived"]} formik={formik}
@@ -72,7 +72,7 @@ function EditComment({comment, onClose, onCommentAdded}) {
                     />
 
                     <button
-                        className="submit-btn" type="submit"
+                        className="submit-btn" type="submit" title="submit edited comment/reply"
                         disabled={!formik.dirty || !formik.isValid}
                     >
                         Submit Edited Comment

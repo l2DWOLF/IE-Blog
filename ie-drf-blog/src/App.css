@@ -44,36 +44,33 @@
 .mirrored::after {
   position: absolute;
   color: #00fffb;
-  top: 100%;
-  width:100%;
-  left: 10px;
+  top: 50%;
+  left: 0;
+  width: 100%;
   content: attr(data-text);
   display: block;
   transform: scaleY(-1);
-  opacity: 0.4;
+  opacity: .7;
   filter: blur(2px);
-  margin-top: -.8em;
-  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), transparent);
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 242, 255, 0.8)transparent);
-  animation: mirrorFade 3s ease-in-out infinite;
-}
-@keyframes mirrorFade {
-  0% {
-    opacity: 0.2;
-    transform: scaleY(-1) translateY(0px);
-    filter: blur(2px);
-  }
+  white-space: nowrap;
 
-  50% {
-    opacity: 0.4;
-    transform: scaleY(-1) translateY(2px) translateX(3px);
-    filter: blur(1.5px);
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), transparent);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 242, 255, 0.8), transparent);
+  animation: mirrorSlideFade 3.2s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+@keyframes mirrorSlideFade {
+  0% {
+    transform: scaleY(-1) translateX(0px);
+    opacity: .7;
+    filter: blur(2px);
   }
 
   100% {
-    opacity: 0.2;
-    transform: scaleY(-1) translateY(0px);
-    filter: blur(2px);
+    transform: scaleY(-1) translateX(30px);
+    opacity: 0;
+    filter: blur(3px);
   }
 }
 
@@ -86,7 +83,7 @@ h1{
   width:100%;
   color: #00ff66;
   text-align: center;
-  font-size: 3.2rem;
+  font-size: 3rem;
   font-weight: 700;
   letter-spacing: 1px;
   margin-bottom: 1rem;
