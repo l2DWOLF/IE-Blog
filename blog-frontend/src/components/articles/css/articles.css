@@ -551,7 +551,16 @@
 }
 
 .load-more-btn{
-    background:#103110b7;
-    font-size: 1.5rem;
-    padding: 5px 1.5em;
+    min-height: 40px;
+    background:rgba(0, 0, 0, 0.685);
+    border:unset;
+    font-size: 1.6rem;
+    padding: 3px 25px;
+}
+.load-more-btn:hover{
+    color: #00ff9d;
+    background:rgba(0, 0, 0, 0.685);
+    border: 1px solid cyan;
+    font-size: 1.6rem;
+    padding: 3px 25px;
 }

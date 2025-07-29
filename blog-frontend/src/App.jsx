@@ -38,7 +38,6 @@ function App() {
     <div className="bgImage"></div>
     <Router>
       <ArticleProvider>
-
         <Navbar />
         <div className="toast-wrapper">
           <ToastContainer className="toast-container"
@@ -69,7 +68,6 @@ function App() {
           <Route path="/edit-article/:id" element={<RoleRoute roles={["mod", "admin"]}> 
             <EditArticle />  
           </RoleRoute>} />
-
 
           <Route
             path="/login"

@@ -36,7 +36,7 @@
 }
 .mirror-wrapper h1{
   
-  font-size: 4.5rem;
+  font-size: 3.9rem;
   margin: 0 0 !important;
   padding: .3em 0em;
 }
@@ -149,6 +149,5 @@ h4{
 h1, h2, h3, h4, h5, h6, p{
   overflow-wrap: break-word;
   word-break: break-word;
-  hyphens: auto;
   white-space: normal;
 }

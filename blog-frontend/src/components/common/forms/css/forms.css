@@ -120,11 +120,8 @@
     background: rgba(0, 0, 0, 0.442);
 }
 
-.submit-btn:disabled {
-    color: grey;
-}
-
 .submit-btn {
+    font-size: 1.2rem !important;
     margin-top: 1em;
     width: 50% !important;
     justify-self: center;

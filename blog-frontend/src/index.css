@@ -67,10 +67,11 @@ button {
     font-size: 0.85rem;
     font-weight: 600;
     border: 1px solid #00ff66;
-    box-shadow: 0 0 4px rgba(0, 255, 102, 0.15);
+    box-shadow: 0 0 4px 1px rgba(0, 0, 0, 01.25);
     border-radius: 20px;
     cursor: pointer;
     transition: transform 0.2s ease, background-color 0.3s ease;
+
 }
 button:hover {
   background-color: rgba(0, 255, 255, 0.486);
@@ -80,7 +81,9 @@ button:hover {
 }
 button:disabled {
   cursor:not-allowed;
-  background: rgba(128, 128, 128, 0.288);
+  color: rgb(124, 124, 124);
+  background: rgba(0, 225, 255, 0.327);
+  border: 1px solid rgb(145, 145, 145);
 }
 
 input{
@@ -164,5 +167,4 @@ option:hover {
   select {
     font-size: 16px !important; 
   }
-
 }
