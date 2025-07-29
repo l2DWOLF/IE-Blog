@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { successMsg, warningMsg } from "../../../utils/toastify/toast";
 import LoadingScreen from "../../common/loadscreen/LoadingScreen";
 import FormWrapper from "../../common/forms/FormWrapper";
-import { FormInput } from "../../common/forms/formInput";
+import { FormInput } from "../../common/forms/FormInput";
 import { handleException } from '../../../utils/errors/handleException';
 import useAuth from '../../../auth/hooks/useAuth';
 import { bioField, dateField, nameField, updateEmailField, updatePwField } from '../../../utils/validations/yupValidations';
