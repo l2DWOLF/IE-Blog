@@ -3,6 +3,7 @@ import './css/mobile-comments.css';
 import '../common/design/design-tools.css';
 import CreateComment from './CreateComment';
 import EditComment from './EditComment';
+import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ModalPortal from '../common/modal/ModalPortal';
@@ -11,7 +12,7 @@ import { infoMsg, successMsg } from '../../utils/toastify/toast';
 import { User } from 'lucide-react';
 import { deleteComment } from '../../services/commentServices';
 import { handleException } from '../../utils/errors/handleException';
-import { NavLink } from 'react-router-dom';
+
 
 function Comment({ comment, depth = 0, onReplyClick, onCommentAdded }) {
     const {user} = useAuth();

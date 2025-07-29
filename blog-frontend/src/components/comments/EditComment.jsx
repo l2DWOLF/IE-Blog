@@ -7,7 +7,7 @@ import { commentContentField } from "../../utils/validations/yupValidations";
 import { successMsg } from "../../utils/toastify/toast";
 import LoadingScreen from "../common/loadscreen/LoadingScreen";
 import FormWrapper from "../common/forms/FormWrapper";
-import { FormInput, FormSelectInput } from "../common/forms/formInput";
+import { FormInput, FormSelectInput } from "../common/forms/FormInput";
 import { handleException } from '../../utils/errors/handleException';
 import { motion } from 'framer-motion';
 import { updateComment } from '../../services/commentServices';
