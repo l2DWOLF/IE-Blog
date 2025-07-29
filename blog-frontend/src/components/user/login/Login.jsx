@@ -9,7 +9,7 @@ import { loginHandler } from "../../../auth/services/authService";
 import { successMsg } from "../../../utils/toastify/toast";
 import LoadingScreen from "../../common/loadscreen/LoadingScreen";
 import FormWrapper from "../../common/forms/FormWrapper";
-import { FormInput } from "../../common/forms/formInput";
+import { FormInput } from "../../common/forms/FormInput";
 import { handleException } from "../../../utils/errors/handleException";
 
 function Login() {
