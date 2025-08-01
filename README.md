@@ -1,7 +1,8 @@
-# IE Blog Frontend (React)
+# 📝 IE Blog Frontend (React)
 
 A responsive, full-featured frontend for a full-stack blogging platform, built with **React** and integrated with a **Django REST API** backend. This frontend supports article creation, editing, nested comments, user roles, search, and more.
 
+## 🌐 Live Deployment
 > Live Site: [https://ie-blog.onrender.com/](https://ie-blog.onrender.com/)\
 > Backend Repo: [https://github.com/l2DWOLF/Django-Blog](https://github.com/l2DWOLF/Django-Blog)
 
@@ -46,7 +47,7 @@ A responsive, full-featured frontend for a full-stack blogging platform, built w
 
 ---
 
-## 📁 Folder Structure
+## 📁 Project Structure Highlights
 
 ```
 /src
