@@ -54,7 +54,7 @@ function Home() {
                 }}>
                     <LogOut className="card-icons" /> Logout
                 </button>
-            </div>
+                </div>
         </div>}
 
         {!user?.id &&

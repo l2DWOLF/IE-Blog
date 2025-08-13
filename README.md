@@ -22,6 +22,7 @@ A responsive, full-featured frontend for a full-stack blogging platform, built w
 - **Like/Dislike Reactions** on articles
 - **Dynamic Search with Debounce**
 - **Formik + Yup** custom reusable form components ("Form Factory")
+- **Modal Dialogs** for comments create/edit, profile editing
 - **Animated UI** using Framer Motion
 - **Responsive Design** with animated mobile menu
 - **Toastify Alerts** for feedback

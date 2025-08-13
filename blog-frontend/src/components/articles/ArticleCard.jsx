@@ -58,16 +58,15 @@ function ArticleCard({
                             <button title="Reset text" onClick={() => setTextScale(1)}> <RotateCcw /></button>
                         </div>
                         <div className="article-metadata">
+                                <NavLink to={`/profile/${article.author_id}`}
+                                    title="View Author Profile"
+                                >   
                             <div className="author-info">
                                 <User size={18} className="author-icon" />
                                 <span className="author-label">Author:</span>
-                                
-                                <NavLink to={`/profile/${article.author_id}`}
-                                    title="View Author Profile"
-                                >
-                                    <h4 className="author-name">{article.author_name}</h4>
-                                </NavLink>
+                                <h4 className="author-name">{article.author_name}</h4>
                             </div>
+                            </NavLink>
                         </div>
                     </div>
 

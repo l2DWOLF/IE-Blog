@@ -7,7 +7,7 @@ import useAuth from '../../../auth/hooks/useAuth';
 import LoadingScreen from '../../common/loadscreen/LoadingScreen';
 import { deleteUser, getPublicProfile, getUserInfo, getUserProfile } from '../../../services/userServices';
 import { handleException } from '../../../utils/errors/handleException';
-import { LogOut, Home, UserCircle, FileEdit, Trash2, Star } from 'lucide-react';
+import { LogOut, HomeIcon, CircleUserRound, FileEdit, Trash2, Star } from 'lucide-react';
 import EditProfileForm from './EditProfileForm';
 import { logoutHandler } from '../../../auth/services/authService';
 import { useDispatch } from 'react-redux';
@@ -89,24 +89,48 @@ function ProfilePage() {
     <div className="profile-wrapper">
         <div className="profile-title-bar">
             <h1 className="mirrored" data-text="Profile Page">Profile Page</h1>
-            <div className="profile-nav-buttons">
-                <button title="Home" onClick={() => navigate("/")}>
-                    <Home className="card-icons" /> Home
-                </button>
-                <button title="Liked articles" onClick={() => navigate("/liked-articles")}>
-                    <Star className="card-icons" /> Liked Articles
-                </button>
-                {(user?.is_admin || user?.is_staff || user?.is_mod) && 
-                        <button title="My articles" onClick={() => navigate("/my-articles")}>
-                            <FileEdit className="card-icons" /> My Articles
+                {user?.id &&
+                    <div className="greeting">
+                        <div className="profile-nav-buttons">
+                            <span className="greeting-msg-span">Welcome Back !</span>
+                            <button title="Home" onClick={() => navigate("/")}>
+                                <HomeIcon className="card-icons" /> Home
+                            </button>
+                            <button title="Liked articles" onClick={() => navigate("/liked-articles")}>
+                                <Star className="card-icons" /> Liked Articles
+                            </button>
+                            {(user?.is_admin || user?.is_staff || user?.is_mod) &&
+                                <button title="My articles" onClick={() => navigate("/my-articles")}>
+                                    <FileEdit className="card-icons" /> My Articles
+                                </button>
+                            }
+                            <button title="Profile" onClick={() => navigate("/profile")}>
+                                <CircleUserRound className="card-icons" /> Profile
+                            </button>
+                            <button title="Logout" onClick={() => {
+                                logoutHandler(dispatch)
+                            }}>
+                                <LogOut className="card-icons" /> Logout
+                            </button>
+                        </div>
+                    </div>}
+
+                {!user?.id &&
+                <div className="greeting">
+                    <div className="profile-nav-buttons">
+                        <span className="greeting-msg-span">Register or Login to like articles and add comments.</span>
+                        <button title="Home" onClick={() => navigate("/")}>
+                            <HomeIcon className="card-icons" /> Home
                         </button>
-                }
-                    <button title="Logout" onClick={() => {
-                        logoutHandler(dispatch)
-                    }}>
-                    <LogOut className="card-icons" /> Logout
-                </button>
-            </div>
+                        <button title="Register" onClick={() => navigate("/register")}>
+                            <Star className="card-icons" /> Register
+                        </button>
+
+                        <button title="Login" onClick={() => navigate("/login")}>
+                            <FileEdit className="card-icons" /> Login
+                        </button>
+                    </div>
+                </div>}
         </div>
 
         {isLoading ? (
@@ -199,7 +223,7 @@ function ProfilePage() {
             <div className="loading-wrapper">
                 <p>User doesn't exist...</p>
                 <button title="Home" onClick={() => navigate("/")}>
-                    <Home className="card-icons" /> Home
+                    <HomeIcon className="card-icons" /> Home
                 </button>
             </div>)
         )}
